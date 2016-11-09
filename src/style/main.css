@@ -1,0 +1,31 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*h1.editor-title {
+    background: #393F4F;
+    color: white;
+    margin: 0;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: 'Hiragino Sans GB', 'Arial', 'Microsoft Yahei';
+    font-weight: normal;
+    padding: 0 20px;
+}
+
+div.minder-editor-container {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}*/
+
+div.minder-editor-container{
+    top: 0!important;
+}

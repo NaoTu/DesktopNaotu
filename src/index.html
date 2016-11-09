@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>桌面版脑图</title>
+
+    <!-- bower:css -->
+    <!-- endbower -->
+    <link rel="stylesheet" href="style/main.css">
+</head>
+
+<body ng-app="kityminderDemo" ng-controller="MainController">
+    <kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
+</body>
+
+<!-- bower:js -->
+<!-- endbower -->
+
+<script src="js/common.js"></script>
+<script src="js/open-file.js"></script>
+<script src="js/menu-bar.js"></script>
+<script>
+    // fix:http://stackoverflow.com/questions/30271011/electron-jquery-errors
+    window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
+
+    angular.module('kityminderDemo', ['kityminderEditor']).config(function(configProvider) {
+            configProvider.set('imageUpload', '../server/imageUpload.php');
+        }
+    ).controller('MainController', function($scope) {
+        $scope.initEditor = function(editor, minder) {
+            window.editor = editor;
+            window.minder = minder;
+        };
+    });
+</script>
+
+
+</html>
