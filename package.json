@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "gulp default && electron main.js",
-    "web": "gulp webserver"
+    "packager": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out ../OutApp --icon=favicon.ico"
   },
   "repository": {
     "type": "git",
