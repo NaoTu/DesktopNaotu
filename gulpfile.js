@@ -29,17 +29,21 @@ gulp.task('bower', function () {
             goes: 'here'
         }))
         .pipe(gulp.dest('./dist/'))
+        .pipe(notify({ message: 'bower task complete' }));
 });
 
 gulp.task('copy-css', function () {
     return gulp.src('src/**/*.css')
         .pipe(minifycss())
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('dist/'))
+        .pipe(notify({ message: 'css task complete' }));
 });
 
 gulp.task('copy-js', function () {
     return gulp.src('src/**/*.js')
-        .pipe(gulp.dest('dist/'));
+        .pipe(concat('main.js'))
+        .pipe(gulp.dest('dist/'))
+        .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 gulp.task('webserver', function () {
@@ -61,24 +65,3 @@ gulp.task('watch', function () {
     // Watch any files in dist/, reload on change
     gulp.watch(['dist/**']).on('change', livereload.changed);
 });
-
-
-// gulp.task('bundle-desktop-all', function() {
-//     var platforms = [
-//         // { platform: 'darwin', slug: 'osx' },
-//         { platform: 'win32', slug: 'windows' }
-//         // , { platform: 'linux', slug: 'linux' }
-//     ];
-//     platforms.map(function(p) {
-//         buildApp(p.platform, p.slug);
-//     });
-// });
-
-// var buildApp = function(platform, slug) {
-//     gulp.src(['dist/**/*'])
-//         .pipe(electron({
-//             version: '1.4.3',
-//             platform: platform
-//         }))
-//         .pipe(symdest('dist/output/ng2-electron-' + slug));
-// };

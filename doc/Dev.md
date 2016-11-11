@@ -7,8 +7,10 @@ VSCode
 ## electron 用于对node程序进行打包。
 ```
 npm install electron --save-dev
-npm i electron-prebuilt --save-dev
+npm install electron-prebuilt --save-dev
+npm install grunt-electron-installer --save-dev
 ```
+- grunt-electron-installer 用于Windows平台的自动升级
 
 
 ## bower解决了前端库及其依赖安装的问题。
@@ -29,12 +31,12 @@ npm install --save-dev run-sequence
 npm install --save-dev gulp-connect
 --npm install --save-dev gulp-atom-electron
 --npm install --save-dev gulp-symdest
-
 ```
 - LiveReload 当文件修改时自动刷新页面
 - gulp.watch 监听文件的是否修改以便执行相应的任务
 - gulp-connect [web服务器](https://github.com/AveVlad/gulp-connect/)
 - gulp-atom-electron 
+
 
 ## 使用 wiredep 把依赖的文件引入到html文件中。[相关介绍](http://www.tuicool.com/articles/2qQbMnN)
 创建 .bowerrc 文件，并且修改 bower.json 中的 overrides 节点进行重新引用。
@@ -48,6 +50,7 @@ npm install wiredep --save-dev
 npm install -g jshint
 npm install --save-dev jshint
 ``` 
+
 
 
 ## 问题解决

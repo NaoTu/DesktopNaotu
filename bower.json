@@ -1,66 +1,70 @@
 {
-    "name": "desktopnaotu",
-    "description": "桌面版脑图",
-    "main": "main.js",
-    "authors": [
-        "'Jack' <'topcss@gmail.com'>"
-    ],
-    "license": "MIT",
-    "keywords": [
-        "mind",
-        "naotu"
-    ],
-    "homepage": "https://github.com/topcss/DesktopNaotu",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "devDependencies": {
-        "seajs": "^3.0.0"
+  "name": "desktopnaotu",
+  "description": "桌面版脑图",
+  "main": "main.js",
+  "authors": [
+    "'Jack' <'topcss@gmail.com'>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mind",
+    "naotu"
+  ],
+  "homepage": "https://github.com/topcss/DesktopNaotu",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "seajs": "^3.0.0"
+  },
+  "dependencies": {
+    "kityminder-editor": "^1.0.56"
+  },
+  "overrides": {
+    "jquery": {
+      "main": [
+        "dist/jquery.min.js"
+      ]
     },
-    "dependencies": {
-        "kityminder-editor": "^1.0.56"
+    "angular": {
+      "main": [
+        "angular.min.js"
+      ]
     },
-    "overrides": {
-        "jquery": {
-            "main": ["dist/jquery.min.js"]
-        },
-        "angular": {
-            "main": ["angular.min.js"]
-        },
-        "codemirror": {
-            "main": [
-                "lib/codemirror.js",
-                "lib/codemirror.css",
-                "mode/xml/xml.js",
-                "mode/javascript/javascript.js",
-                "mode/css/css.js",
-                "mode/htmlmixed/htmlmixed.js",
-                "mode/markdown/markdown.js",
-                "addon/mode/overlay.js",
-                "mode/gfm/gfm.js"
-            ]
-        },
-        "bootstrap": {
-            "main": [
-                "dist/css/bootstrap.css"
-            ]
-        },
-        "color-picker": {
-            "main": [
-                "dist/color-picker.css",
-                "dist/color-picker.js"
-            ]
-        },
-        "seajs": {
-            "main": []
-        }
+    "codemirror": {
+      "main": [
+        "lib/codemirror.js",
+        "lib/codemirror.css",
+        "mode/xml/xml.js",
+        "mode/javascript/javascript.js",
+        "mode/css/css.js",
+        "mode/htmlmixed/htmlmixed.js",
+        "mode/markdown/markdown.js",
+        "addon/mode/overlay.js",
+        "mode/gfm/gfm.js"
+      ]
     },
-    "resolutions": {
-        "angular": "~1.4.7"
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css"
+      ]
+    },
+    "color-picker": {
+      "main": [
+        "dist/color-picker.css",
+        "dist/color-picker.js"
+      ]
+    },
+    "seajs": {
+      "main": []
     }
+  },
+  "resolutions": {
+    "angular": "~1.4.7"
+  }
 }

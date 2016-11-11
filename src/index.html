@@ -12,28 +12,12 @@
 
 <body ng-app="kityminderDemo" ng-controller="MainController">
     <kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
+    <a id="bb" ng-click="shortcut1()"></a>
 </body>
 
 <!-- bower:js -->
 <!-- endbower -->
 
-<script src="js/common.js"></script>
-<script src="js/open-file.js"></script>
-<script src="js/menu-bar.js"></script>
-<script>
-    // fix:http://stackoverflow.com/questions/30271011/electron-jquery-errors
-    window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
-
-    angular.module('kityminderDemo', ['kityminderEditor']).config(function(configProvider) {
-            configProvider.set('imageUpload', '../server/imageUpload.php');
-        }
-    ).controller('MainController', function($scope) {
-        $scope.initEditor = function(editor, minder) {
-            window.editor = editor;
-            window.minder = minder;
-        };
-    });
-</script>
-
+<script src="main.js"></script>
 
 </html>

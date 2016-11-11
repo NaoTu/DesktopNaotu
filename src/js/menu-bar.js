@@ -15,6 +15,11 @@ var template = [{
             accelerator: 'CmdOrCtrl+S',
             click: saveDialog
         },
+        {
+            label: '另存为(&A)...',
+            accelerator: 'CmdOrCtrl+Shift+S',
+            click: saveAsDialog
+        },
         { type: 'separator' },
         {
             label: '退出(&X)',
@@ -38,7 +43,13 @@ var template = [{
 }, {
     label: "帮助(&H)",
     submenu: [
-        { label: "查看许可证(&V)", click: license },
+        {
+            label: '快捷键(&H)...',
+            accelerator: 'CmdOrCtrl+/',
+            click: shortcut
+        },
+        { type: 'separator' },
+        { label: "查看帮助(&V)", click: license },
         { type: 'separator' },
         { label: "关于(&A)", click: about }
     ]
