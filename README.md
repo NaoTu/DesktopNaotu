@@ -14,6 +14,10 @@
 [桌面版脑图](http://pan.baidu.com/s/1jHNBL7C)
 
 
+## 截图
+![1](../../raw/master/screenshot/1.png)
+
+
 ## 联系我们
 问题和建议反馈：
 
