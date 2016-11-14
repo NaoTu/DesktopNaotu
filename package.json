@@ -1,6 +1,6 @@
 {
   "name": "desktopnaotu",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "桌面版脑图",
   "main": "main.js",
   "scripts": {
@@ -11,10 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/topcss/DesktopNaotu.git"
   },
-  "keywords": [
-    "mind",
-    "naotu"
-  ],
+  "keywords": ["mind", "naotu"],
   "author": "'Jack' <'topcss@gmail.com'>",
   "license": "MIT",
   "bugs": {
@@ -38,6 +35,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.1.1",
     "gulp-uglify": "^2.0.0",
+    "js-beautify": "^1.6.4",
     "run-sequence": "^1.2.2",
     "wiredep": "^4.0.0"
   }

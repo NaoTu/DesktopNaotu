@@ -11,7 +11,7 @@
 
 
 ## 下载
-[桌面版脑图](https://pan.baidu.com/s/1hst3Ihm) 密码: jack
+[桌面版脑图](http://pan.baidu.com/s/1jHNBL7C)
 
 
 ## 联系我们

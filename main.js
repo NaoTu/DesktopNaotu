@@ -10,7 +10,7 @@ function createWindow() {
         minHeight: 700,
         fullscreenable: true
     });
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     win.loadURL(`file://${__dirname}/dist/index.html`);
 

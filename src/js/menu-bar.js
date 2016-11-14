@@ -20,6 +20,11 @@ var template = [{
             accelerator: 'CmdOrCtrl+Shift+S',
             click: saveAsDialog
         },
+        {
+            label: '导出(&E)...',
+            accelerator: 'CmdOrCtrl+E',
+            click: exportDialog
+        },
         { type: 'separator' },
         {
             label: '退出(&X)',

@@ -29,8 +29,7 @@ npm install gulp --save-dev
 npm install gulp-ruby-sass gulp-autoprefixer gulp-clean-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
 npm install --save-dev run-sequence
 npm install --save-dev gulp-connect
---npm install --save-dev gulp-atom-electron
---npm install --save-dev gulp-symdest
+npm install --save-dev js-beautify
 ```
 - LiveReload 当文件修改时自动刷新页面
 - gulp.watch 监听文件的是否修改以便执行相应的任务

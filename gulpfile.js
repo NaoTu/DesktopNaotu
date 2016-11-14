@@ -12,11 +12,12 @@ const gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     del = require('del'),
 
+    fs = require('fs'),
+    path = require('path'),
+    beautify = require('js-beautify').js_beautify,
     run = require('run-sequence'),
     wiredep = require('wiredep').stream,
     connect = require('gulp-connect');
-// electron = require('gulp-atom-electron'),
-// symdest = require('gulp-symdest');;
 
 gulp.task('clean-dist', () => {
     return del(['dist/**/*'], { force: true });
@@ -56,6 +57,7 @@ gulp.task('default', function (done) {
         'copy-css',
         'copy-js',
         'bower',
+        'build-version',
         done);
 });
 
@@ -64,4 +66,24 @@ gulp.task('watch', function () {
     livereload.listen();
     // Watch any files in dist/, reload on change
     gulp.watch(['dist/**']).on('change', livereload.changed);
+});
+
+gulp.task('build-version', () => {
+    // build next version num.
+    let fn = path.join(__dirname, '', 'version.js');
+    let version = require('./version').version;
+    version[3]++;
+
+    console.log(`version -> ${version.join('.')}`);
+
+    let cnt = beautify(`exports.version = ${JSON.stringify(version)};`);
+    fs.writeFileSync(fn, cnt, 'utf-8');
+
+    // update package.json
+    fn = './package.json';
+    cnt = fs.readFileSync(fn);
+    let d = JSON.parse(cnt);
+    d.version = version.slice(0, 3).join('.');
+    cnt = beautify(JSON.stringify(d), { indent_size: 2 });
+    fs.writeFileSync(fn, cnt, 'utf-8');
 });

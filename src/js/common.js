@@ -1,8 +1,9 @@
 var defaultPath = null;
-var fs = require('fs');
-const {shell} = require('electron');
-const {dialog} = require('electron').remote;
-const {app} = require('electron').remote
+var fs = require('fs'),
+    {shell} = require('electron'),
+    {dialog} = require('electron').remote,
+    {app} = require('electron').remote,
+    ver = require('../version');
 
 function readFile(fileName) {
     if (!fileName) return;
@@ -23,18 +24,15 @@ function writeFile(fileName, content) {
             alert("An error ocurred creating the file " + err.message)
         }
 
-        alert("The file has been succesfully saved");
+        alert("文件保存成功！");
     });
 }
-
 
 function openDialog() {
     dialog.showOpenDialog(
         { filters: [{ name: 'KityMinder', extensions: ['km'] }] },
         (fileName) => {
-            if (!fileName) {
-                return;
-            }
+            if (!fileName) { return; }
 
             readFile(fileName[0]);
         }
@@ -58,16 +56,47 @@ function saveAsDialog() {
             filters: [{ name: 'KityMinder', extensions: ['km'] }]
         },
         (fileName) => {
-            if (!fileName) {
-                alert("You didn't save the file");
-                return;
-            }
+            if (!fileName) { return; }// cancel save
 
             defaultPath = fileName;
 
             var json = editor.minder.exportJson();
             var data = JSON.stringify(editor.minder.exportJson());
             writeFile(fileName, data);
+        }
+    );
+}
+
+function exportDialog() {
+    var filters = [];
+    var pool = kityminder.data.getRegisterProtocol();
+    for (var name in pool) {
+        if (pool.hasOwnProperty(name) && pool[name].encode) {
+            filters.push({ name: pool[name].fileDescription, extensions: [pool[name].fileExtension.replace('.', '')] });
+        }
+    }
+
+    dialog.showSaveDialog(
+        {
+            title: "导出 KityMinder 文件",
+            filters: filters
+        },
+        (fileName) => {
+            if (!fileName) { return; }// cancel export
+
+            var ext = fileName.toLowerCase().substring(fileName.lastIndexOf('.'));
+            var protocol = null;
+            var pool = kityminder.data.getRegisterProtocol();
+            for (var name in pool) {
+                if (pool.hasOwnProperty(name) && pool[name].encode) {
+                    if (pool[name].fileExtension === ext) {
+                        protocol = pool[name];
+                        break;
+                    }
+                }
+            }
+
+            exportFile(protocol, fileName)
         }
     );
 }
@@ -92,7 +121,7 @@ function about() {
     var text = `
 Copyright (c) 2016 Jack
 
-版本： v0.0.2
+版本： v${ver.version.join('.')}
 QQ 讨论群：330722928
 需要下载百度脑图文件，请点击：查看帮助
     `;
@@ -164,4 +193,29 @@ function shortcut() {
     }
 
     dialog.showMessageBox({ type: "none", title: "快捷键", message: text, buttons: ["OK"] });
+}
+
+function exportFile(protocol, filename) {
+    var options = {
+        download: true,
+        filename: filename
+    };
+
+    minder.exportData(protocol.name, options).then(function (data) {
+        switch (protocol.dataType) {
+            case 'text':
+                writeFile(filename, data);
+                break;
+            case 'base64':
+                var base64Data = data.replace(/^data:image\/\w+;base64,/, "");
+                var dataBuffer = new Buffer(base64Data, 'base64');
+
+                writeFile(filename, dataBuffer);
+                break;
+            case 'blob':
+                break;
+        }
+
+        return null;
+    });
 }
