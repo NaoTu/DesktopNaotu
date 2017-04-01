@@ -1,0 +1,21 @@
+<node CREATED="{$topic['meta']['timestamp']}" ID="ID_{$topic['meta']['id']}" MODIFIED="{$topic['meta']['timestamp']}" {if isset($topic['data']['text'])}TEXT="{$topic['data']['text']}"{/if} {if isset($topic['position'])}POSITION="{$topic['position']}"{/if}>
+{if isset($topic['children'])}
+    {foreach $topic['children'] as $t}
+        {include file="freemind/topic.xml" topic=$t}
+    {/foreach}
+{/if}
+{if isset($topic['data']['priority'])}
+    <icon BUILTIN="full-{$topic['data']['priority']}"/>
+{/if}
+{if isset($topic['data']['image'])}
+    <richcontent TYPE="NODE">
+        <html>
+            <head>
+            </head>
+            <body>
+                <img src="{$topic['data']['image']}" width="{$topic['data']['imageSize']['width']}" height="{$topic['data']['imageSize']['height']}"/>
+            </body>
+        </html>
+    </richcontent>
+{/if}
+</node>

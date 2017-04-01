@@ -1,4 +1,5 @@
 # DesktopNaotu
+[![Join the chat at https://gitter.im/DesktopNaotu/DesktopNaotu](https://badges.gitter.im/DesktopNaotu/DesktopNaotu.svg)](https://gitter.im/DesktopNaotu/DesktopNaotu)
 
 ## 简介
 
@@ -12,18 +13,21 @@
 
 ## 下载
 [桌面版脑图](http://pan.baidu.com/s/1jHNBL7C)
+- Windows 32位
+- Windows 64位
+- Mac OSX 64位
+- Linux 64位
 
 
 ## 截图
-![1](../../raw/master/screenshot/1.png)
+![1](screenshot/1.png)
 
 
 ## 联系我们
 问题和建议反馈：
 
-[Github issues](https://github.com/topcss/DesktopNaotu/issues)
-
-QQ 讨论群：330722928
+- [Github issues](https://github.com/topcss/DesktopNaotu/issues)
+- [加入讨论组](https://gitter.im/DesktopNaotu/DesktopNaotu)
 
 
 ## License
