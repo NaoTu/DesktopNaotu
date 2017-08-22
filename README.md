@@ -9,7 +9,7 @@
 - 包含百度脑图的基本功能
 - 本地km文件的操作
 - [提供百度脑图文件的下载脚本](doc/Help.md)
-
+- [查看历史版本](doc/History.md)
 
 ## 下载
 [桌面版脑图](http://pan.baidu.com/s/1jHNBL7C)
