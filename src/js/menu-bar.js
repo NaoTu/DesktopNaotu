@@ -5,7 +5,12 @@ var template = [{
     label: '文件(&F)',
     submenu: [
         {
-            label: '打开(&O)',
+            label: '新建文件(&N)',
+            accelerator: 'CmdOrCtrl+N',
+            click: newDialog
+        },
+        {
+            label: '打开文件(&O)',
             accelerator: 'CmdOrCtrl+O',
             click: openDialog
         },

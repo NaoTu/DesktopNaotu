@@ -1,8 +1,8 @@
 var defaultPath = null;
 var fs = require('fs'),
-    {shell} = require('electron'),
-    {dialog} = require('electron').remote,
-    {app} = require('electron').remote,
+    { shell } = require('electron'),
+    { dialog } = require('electron').remote,
+    { app } = require('electron').remote,
     ver = require('../version');
 
 function readFile(fileName) {
@@ -27,6 +27,30 @@ function writeFile(fileName, content) {
         alert("文件保存成功！");
     });
 }
+
+function newDialog() {
+    if (hasData()) {
+        if (confirm('新建文件会覆盖当前文件，是否继续？')) {
+            initRoot();
+        }
+    } else {
+        initRoot();
+    }
+}
+
+function hasData() {
+    var nodes = editor.minder.getAllNode().length;
+    var rootText = editor.minder.getRoot().data.text;
+
+    return nodes != 1 || rootText != '中心主题';
+}
+
+function initRoot() {
+    defaultPath = null;
+    editor.minder.importJson({ "root": { "data": { "text": "中心主题" } }, "template": "filetree", "theme": "fresh-blue" });
+    editor.minder.select(minder.getRoot(), true);
+}
+
 
 function openDialog() {
     dialog.showOpenDialog(
