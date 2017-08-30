@@ -31,5 +31,5 @@
 
 
 ## License
-Code released under the [MIT license](LICENSE).
+Code released under the [GPL-2.0 license](LICENSE).
 
