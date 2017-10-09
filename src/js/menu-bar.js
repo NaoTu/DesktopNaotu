@@ -60,6 +60,7 @@ var template = [{
         },
         { type: 'separator' },
         { label: "查看帮助(&V)", click: license },
+        { label: "检查更新...(&N)", click: checkVersion },
         { type: 'separator' },
         { label: "关于(&A)", click: about }
     ]

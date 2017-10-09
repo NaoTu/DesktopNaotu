@@ -3,7 +3,8 @@ var fs = require('fs'),
     { shell } = require('electron'),
     { dialog } = require('electron').remote,
     { app } = require('electron').remote,
-    ver = require('../version');
+    ver = require('../version'),
+    http = require('http');
 
 function readFile(fileName) {
     if (!fileName) return;
@@ -23,8 +24,6 @@ function writeFile(fileName, content) {
         if (err) {
             alert("An error ocurred creating the file " + err.message)
         }
-
-        alert("文件保存成功！");
     });
 }
 
@@ -141,9 +140,25 @@ function license() {
     shell.openExternal("https://github.com/topcss/DesktopNaotu")
 }
 
+function checkVersion() {
+    $.get('https://raw.githubusercontent.com/topcss/DesktopNaotu/master/version.js', function (data) {
+
+        var newVer = data.substring(19, data.length - 2);
+        var oldVer = ver.version.join(', ');
+
+        if (newVer != oldVer) {
+            alert('检测到新版本，请下载新版本。');
+            shell.openExternal("https://github.com/topcss/DesktopNaotu");
+        } else {
+            alert('当前没有可用的更新。');
+        }
+
+    });
+}
+
 function about() {
     var text = `
-Copyright (c) 2016 Jack
+Copyright (c) 2017 Jack
 
 版本： v${ver.version.join('.')}
 QQ 讨论群：330722928

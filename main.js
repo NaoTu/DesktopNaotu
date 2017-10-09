@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut } = require('electron');
+const { app, BrowserWindow, globalShortcut, dialog } = require('electron');
 
 let win;
 
@@ -37,3 +37,5 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+global.sharedObject = { prop1: process.argv };

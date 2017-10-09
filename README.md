@@ -5,11 +5,16 @@
 
 桌面版脑图是基于百度脑图的本地化版本，帮助你在没有互联网环境的情况下，依然可以使用脑图工具。
 
+
 ## 功能
 - 包含百度脑图的基本功能
 - 本地km文件的操作
+- 支持拖拽打开km文件
+- 支持关联打开km文件
+- 支持自动保存功能
 - [提供百度脑图文件的下载脚本](doc/Help.md)
 - [查看历史版本](doc/History.md)
+
 
 ## 下载
 [桌面版脑图](http://pan.baidu.com/s/1jHNBL7C)
@@ -31,5 +36,5 @@
 
 
 ## License
-Code released under the [GPL-2.0 license](LICENSE).
+Code released under the [GPL-2.0 License](LICENSE).
 
