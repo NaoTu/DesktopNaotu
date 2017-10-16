@@ -32,6 +32,13 @@ var template = [{
         },
         { type: 'separator' },
         {
+            label: '自动保存',
+            type: 'checkbox',
+            checked: true,
+            click: autoSave
+        },
+        { type: 'separator' },
+        {
             label: '退出(&X)',
             click: exitApp
         }

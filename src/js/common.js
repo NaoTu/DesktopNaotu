@@ -1,4 +1,4 @@
-var defaultPath = null;
+var defaultPath = null, isSutoSave = true;
 var fs = require('fs'),
     { shell } = require('electron'),
     { dialog } = require('electron').remote,
@@ -50,6 +50,9 @@ function initRoot() {
     editor.minder.select(minder.getRoot(), true);
 }
 
+function autoSave(obj) {
+    isSutoSave = obj.checked;
+}
 
 function openDialog() {
     dialog.showOpenDialog(

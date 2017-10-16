@@ -25,7 +25,9 @@ angular.module('kityminderDemo', ['kityminderEditor']).config(function (configPr
 window.$(function () {
     if (minder != null) {// auto saving
         minder.on('contentchange', function () {
-            saveDialog();
+            if (isSutoSave) {
+                saveDialog();
+            }
         });
     }
 });
