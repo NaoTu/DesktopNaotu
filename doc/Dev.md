@@ -20,6 +20,11 @@ bower init
 bower install kityminder-editor --save
 ```
 
+## bower 升级
+``` bower
+bower update kityminder-editor
+```
+
 
 ## gulp 是前端项目构建工具，用来压缩js和css代码，甚至压缩图片。[相关介绍](http://markpop.github.io/2014/09/17/Gulp入门教程)
 创建 gulpfile.js 文件
