@@ -55,6 +55,22 @@ var template = [{
             label: "恢复(&R)",
             accelerator: 'CmdOrCtrl+Y',
             click: redo
+        },
+        { type: 'separator' },
+        {
+            label: "剪切(&T)",
+            accelerator: 'CmdOrCtrl+X',
+            click: cut
+        },
+        {
+            label: "复制(&C)",
+            accelerator: 'CmdOrCtrl+C',
+            click: copy
+        },
+        {
+            label: "粘贴(&P)",
+            accelerator: 'CmdOrCtrl+V',
+            click: paste
         }
     ]
 }, {

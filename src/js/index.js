@@ -29,5 +29,15 @@ window.$(function () {
                 saveDialog();
             }
         });
+
+        minder.on('selectionchange', function () {
+            var node = minder.getSelectedNode();
+
+            // 对编辑菜单进行管理
+            menu.items[1].submenu.items[3].enabled = 
+            menu.items[1].submenu.items[4].enabled = 
+            menu.items[1].submenu.items[5].enabled = !!node;
+
+        });
     }
 });

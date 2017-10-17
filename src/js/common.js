@@ -139,6 +139,18 @@ function undo() {
     editor.history.undo();
 }
 
+function cut() {
+    minder.execCommand('Cut');
+}
+
+function copy() {
+    minder.execCommand('Copy');
+}
+
+function paste() {
+    minder.execCommand('Paste');
+}
+
 function license() {
     shell.openExternal("https://github.com/topcss/DesktopNaotu")
 }
