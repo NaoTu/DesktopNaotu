@@ -7,7 +7,7 @@
     "start": "gulp default && electron main.js",
     "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=favicon.ico --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune",
     "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=favicon.ico --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune",
-    "packosx": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune",
+    "packosx": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.4 --ignore=\"(.git|node_modules|electron-packager)\" --overwrite --prune",
     "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune"
   },
   "repository": {
