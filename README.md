@@ -1,5 +1,6 @@
 # DesktopNaotu
 [![Join the chat at https://gitter.im/DesktopNaotu/DesktopNaotu](https://badges.gitter.im/DesktopNaotu/DesktopNaotu.svg)](https://gitter.im/DesktopNaotu/DesktopNaotu)
+[![加入桌面版脑图QQ群：330722928](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=cbd6fbc32adbe20c99c005bc559ec45bf3c9bfe581f9226ed14bd0951ae95739)
 
 ## 简介
 
@@ -25,7 +26,13 @@
 
 
 ## 截图
-![1](screenshot/1.png)
+- Windows 截图
+
+![Windows](screenshot/Windows.png)
+
+- Mac OS X 截图
+
+![OS X](screenshot/OSX.png)
 
 
 ## 联系我们
@@ -33,7 +40,7 @@
 
 - [Github issues](https://github.com/topcss/DesktopNaotu/issues)
 - [加入讨论组](https://gitter.im/DesktopNaotu/DesktopNaotu)
-
+- QQ群：330722928
 
 ## License
 Code released under the [GPL-2.0 License](LICENSE).
