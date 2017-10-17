@@ -146,8 +146,8 @@ function license() {
 function checkVersion() {
     $.get('https://raw.githubusercontent.com/topcss/DesktopNaotu/master/version.js', function (data) {
 
-        var newVer = data.substring(19, data.length - 2);
-        var oldVer = ver.version.join(', ');
+        var newVer = data.substring(19, data.lastIndexOf(','));
+        var oldVer = ver.version.slice(0, 3).join(', ');
 
         if (newVer != oldVer) {
             alert('检测到新版本，请下载新版本。');
