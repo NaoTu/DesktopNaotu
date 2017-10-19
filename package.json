@@ -5,10 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "gulp default && electron main.js",
-    "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=favicon.ico --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune",
-    "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=favicon.ico --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune",
-    "packosx": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.4 --ignore=\"(.git|node_modules|electron-packager)\" --overwrite --prune",
-    "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.4 --ignore=\"(.git|node_modules)\" --overwrite --prune"
+    "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=favicon.ico --version=1.6.15 --ignore=\"(.git|node_modules|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
+    "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=favicon.ico --version=1.6.15 --ignore=\"(.git|node_modules|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
+    "packosx": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.15 --ignore=\"(.git|node_modules|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
+    "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=favicon.icns --version=1.6.15 --ignore=\"(.git|node_modules|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune"
   },
   "repository": {
     "type": "git",
@@ -31,9 +31,11 @@
     "gulp-clean-css": "^2.0.13",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^5.0.0",
+    "gulp-filter": "^5.0.1",
     "gulp-imagemin": "^3.1.1",
     "gulp-jshint": "^2.0.2",
     "gulp-livereload": "^3.8.1",
+    "gulp-main-bower-files": "^1.6.2",
     "gulp-minify-css": "^1.2.4",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",

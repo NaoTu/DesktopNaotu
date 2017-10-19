@@ -60,3 +60,7 @@ npm install --save-dev jshint
 ## 问题解决
 [解决 electron 与 jquery 的冲突](http://stackoverflow.com/questions/30271011/electron-jquery-errors)
 
+
+-- 安装编译工具
+cnpm install gulp-main-bower-files --save-dev
+cnpm install gulp-filter --save-dev

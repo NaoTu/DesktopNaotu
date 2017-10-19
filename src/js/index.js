@@ -1,4 +1,5 @@
-window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
+// window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
+window.$ = window.jQuery = require('./js/jquery.min.js');
 
 var remote = require('electron').remote,
     argv = remote.getGlobal('sharedObject').prop1;
@@ -34,9 +35,9 @@ window.$(function () {
             var node = minder.getSelectedNode();
 
             // 对编辑菜单进行管理
-            menu.items[1].submenu.items[3].enabled = 
-            menu.items[1].submenu.items[4].enabled = 
-            menu.items[1].submenu.items[5].enabled = !!node;
+            menu.items[1].submenu.items[3].enabled =
+                menu.items[1].submenu.items[4].enabled =
+                menu.items[1].submenu.items[5].enabled = !!node;
 
         });
     }
