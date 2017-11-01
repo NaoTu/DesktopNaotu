@@ -34,6 +34,9 @@
 
 ![OS X](screenshot/OSX.png)
 
+- Linux 截图
+
+![Linux](screenshot/Linux.png)
 
 ## 联系我们
 问题和建议反馈：
