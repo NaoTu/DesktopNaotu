@@ -3,6 +3,7 @@ var fs = require('fs'),
     { shell } = require('electron'),
     { dialog } = require('electron').remote,
     { app } = require('electron').remote,
+    { BrowserWindow } = require('electron').remote,
     ver = require('../version'),
     http = require('http');
 
@@ -149,6 +150,14 @@ function copy() {
 
 function paste() {
     minder.execCommand('Paste');
+}
+
+function maxwin() {
+    BrowserWindow.getAllWindows()[0].maximize();
+}
+
+function minwin() {
+    BrowserWindow.getAllWindows()[0].minimize();
 }
 
 function license() {

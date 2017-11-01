@@ -49,28 +49,45 @@ var template = [{
         {
             label: "撤销(&U)",
             accelerator: 'CmdOrCtrl+Z',
-            click: undo
+            click: undo,
+            selector: 'undo:'
         },
         {
             label: "恢复(&R)",
             accelerator: 'CmdOrCtrl+Y',
-            click: redo
+            click: redo,
+            selector: 'redo:'
         },
         { type: 'separator' },
         {
             label: "剪切(&T)",
             accelerator: 'CmdOrCtrl+X',
-            click: cut
+            click: cut,
+            selector: 'cut:'
         },
         {
             label: "复制(&C)",
             accelerator: 'CmdOrCtrl+C',
-            click: copy
+            click: copy,
+            selector: 'copy:'
         },
         {
             label: "粘贴(&P)",
             accelerator: 'CmdOrCtrl+V',
-            click: paste
+            click: paste,
+            selector: 'paste:'
+        }
+    ]
+}, {
+    label: "窗口(&W)",
+    submenu: [
+        {
+            label: '最大化(&X)',
+            click: maxwin
+        },
+        {
+            label: '最小化(&N)',
+            click: minwin
         }
     ]
 }, {

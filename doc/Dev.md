@@ -64,3 +64,12 @@ npm install --save-dev jshint
 -- 安装编译工具
 cnpm install gulp-main-bower-files --save-dev
 cnpm install gulp-filter --save-dev
+
+-- 自动更新
+安装electron-squirrel-startup：
+cnpm install electron-squirrel-startup
+
+安装grunt-electron-installer：
+cnpm install -g grunt-cli
+cnpm install grunt grunt-electron-installer --save-dev
+
