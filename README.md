@@ -12,7 +12,7 @@
 - 方法2：通过 [**Github 的 Releases 下载**](https://github.com/topcss/DesktopNaotu/releases)
 
 
-## 系统支持系统
+## 支持系统
 - Windows 32位
 - Windows 64位
 - Mac OSX 64位
