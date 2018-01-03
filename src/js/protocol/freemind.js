@@ -88,8 +88,42 @@ kityminder.data.registerProtocol('freemind', function (minder) {
 
         encode: function (json, km, options) {
             // var url = 'native-support/export.php';
-            var data = JSON.stringify(json);
-            return data;
+
+            return (
+              '<map version="1.0.1">\n' +
+                '<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->\n' +
+                genTopic(json.root) +
+              '</map>\n'
+            );
+
+            function genTopic (root) {
+              var data = root.data;
+              var attrs = [
+                ['CREATED', data.created],
+                ['ID', data.id],
+                ['MODIFIED', data.created],
+                ['MODIFIED', data.created],
+                ['TEXT', data.text],
+                ['POSITION', data.position]
+              ];
+              return (
+                '<node' + genAttrs(attrs) + '>\n' +
+                  (root.children ? root.children.map(genTopic).join('\n') : '') +
+                  (data.priority ? ('<icon BUILTIN="full-' + data.priority +'"/>\n') : '') +
+                  (data.image ? (
+                    '<richcontent TYPE="NODE"><html><head></head><body>\n' +
+                      '<img' + genAttrs([['src', data.image], ['width', data.imageSize.width], ['height', data.imageSize.height]]) + '/>\n' +
+                    '</body></html></richcontent>\n'
+                  ) : '') +
+                '</node>\n'
+              );
+            }
+
+            function genAttrs (pairs) {
+              return pairs.map(function (x) {
+                return x[1] ? (' ' + x[0] + '="' + x[1] + '"') : ''
+              }).join('');
+            }
 
             // function fetch() {
             //     return new Promise(function(resolve, reject) {
