@@ -1,4 +1,4 @@
-var defaultPath = null, isSutoSave = true;
+var defaultPath = null, isSutoSave = false;
 var fs = require('fs'),
     { shell } = require('electron'),
     { dialog } = require('electron').remote,

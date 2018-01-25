@@ -34,7 +34,7 @@ var template = [{
         {
             label: '自动保存',
             type: 'checkbox',
-            checked: true,
+            checked: false,
             click: autoSave
         },
         { type: 'separator' },
