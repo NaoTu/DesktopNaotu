@@ -23,7 +23,7 @@
     "seajs": "^3.0.0"
   },
   "dependencies": {
-    "kityminder-editor": "^1.0.56"
+    "kityminder-editor": "git://github.com/topcss/kityminder-editor#master"
   },
   "overrides": {
     "jquery": {

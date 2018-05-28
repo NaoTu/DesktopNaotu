@@ -73,3 +73,9 @@ cnpm install electron-squirrel-startup
 cnpm install -g grunt-cli
 cnpm install grunt grunt-electron-installer --save-dev
 
+-- 文件夹创建
+https://nodejs.org/api/fs.html#fs_fs_exists_path_callback
+
+-- electron 有专门的userData
+https://segmentfault.com/q/1010000006187286?_ea=1042220
+

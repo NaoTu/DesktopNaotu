@@ -1,11 +1,12 @@
-var defaultPath = null, isSutoSave = false;
+var defaultPath = null, isSutoSave = true;
 var fs = require('fs'),
     { shell } = require('electron'),
     { dialog } = require('electron').remote,
     { app } = require('electron').remote,
     { BrowserWindow } = require('electron').remote,
     ver = require('../version'),
-    http = require('http');
+    http = require('http'),
+    path = require('path');
 
 function readFile(fileName) {
     if (!fileName) return;
@@ -15,6 +16,8 @@ function readFile(fileName) {
     fs.readFile(fileName, 'utf8', function (err, data) {
         var json = JSON.parse(data);
         editor.minder.importJson(json);
+
+        showFileName(fileName);
     });
 }
 
@@ -24,6 +27,8 @@ function writeFile(fileName, content) {
     fs.writeFile(fileName, content, function (err) {
         if (err) {
             alert("An error ocurred creating the file " + err.message)
+        } else {
+            showFileName(fileName);
         }
     });
 }
@@ -67,12 +72,13 @@ function openDialog() {
 }
 
 function saveDialog() {
-    if (defaultPath) {
-        var json = editor.minder.exportJson();
-        var data = JSON.stringify(editor.minder.exportJson());
-        writeFile(defaultPath, data);
+    if (!defaultPath) {
+        defaultPath = getDefaultPath();
+    }
 
-    } else { saveAsDialog(); }
+    var json = editor.minder.exportJson();
+    var data = JSON.stringify(editor.minder.exportJson());
+    writeFile(defaultPath, data);
 }
 
 function saveAsDialog() {
@@ -153,11 +159,11 @@ function paste() {
 }
 
 function maxwin() {
-    BrowserWindow.getAllWindows()[0].maximize();
+    getAppInstance().maximize();
 }
 
 function minwin() {
-    BrowserWindow.getAllWindows()[0].minimize();
+    getAppInstance().minimize();
 }
 
 function license() {
@@ -182,7 +188,7 @@ function checkVersion() {
 
 function about() {
     var text = `
-Copyright (c) 2017 Jack
+Copyright (c) 2018 Jack
 
 版本： v${ver.version.join('.')}
 QQ 讨论群：330722928
@@ -281,4 +287,40 @@ function exportFile(protocol, filename) {
 
         return null;
     });
+}
+
+function getDefaultPath() {
+    try {
+        var time = new Date().format("yyyy-MM-dd_hhmmss");
+
+        fs.exists(getUserDataDir(), (exists) => {
+            if (!exists) {
+                fs.mkdir(getUserDataDir())
+            }
+            // console.log(exists ? 'it\'s there' : 'no passwd!');
+        });
+
+        var filePath = path.join(getUserDataDir(), '/' + time + '.km')
+        console.log(filePath);
+
+        return filePath;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function getUserDataDir() {
+    return (app || remote.app).getPath('userData');
+}
+
+function showFileName(fileName) {
+    if (fileName != undefined) {
+        var title = fileName.substring(fileName.lastIndexOf('\\') + 1) + ' - 桌面版脑图';
+
+        getAppInstance().setTitle(title);
+    }
+}
+
+function getAppInstance() {
+    return BrowserWindow.getAllWindows()[0];
 }
