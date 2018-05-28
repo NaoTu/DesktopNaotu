@@ -1,1 +1,1 @@
-exports.version = [0, 1, 7, 261];
+exports.version = [0, 1, 7, 266];
