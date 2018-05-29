@@ -79,3 +79,5 @@ https://nodejs.org/api/fs.html#fs_fs_exists_path_callback
 -- electron 有专门的userData
 https://segmentfault.com/q/1010000006187286?_ea=1042220
 
+mac 编译
+/Users/apple/.npm-global/lib/node_modules/electron-packager/cli.js ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --app-version=1.6.15 --ignore="(.git|node_modules|screenshot|doc|src|bower_components|electron-packager)" --overwrite --prune
