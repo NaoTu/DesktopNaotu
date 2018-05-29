@@ -1,6 +1,6 @@
 # 项目介绍
 
-[**桌面版脑图**](https://github.com/topcss/DesktopNaotu) 是百度脑图的离线版，帮助你在没有互联网环境的情况下，依然可以使用脑图工具。
+[**桌面版脑图**](https://github.com/NaoTu/DesktopNaotu) 是百度脑图的离线版，帮助你在没有互联网环境的情况下，依然可以使用脑图工具。
 
 ## 更新记录
 

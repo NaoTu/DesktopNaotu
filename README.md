@@ -9,7 +9,7 @@
 
 ## 如何下载
 - 方法1：通过 [**百度云下载**](http://pan.baidu.com/s/1jHNBL7C)
-- 方法2：通过 [**Github 的 Releases 下载**](https://github.com/topcss/DesktopNaotu/releases)
+- 方法2：通过 [**Github 的 Releases 下载**](https://github.com/NaoTu/DesktopNaotu/releases)
 
 
 ## 支持系统
@@ -47,7 +47,7 @@
 ## 联系我们
 问题和建议反馈：
 
-- [Github issues](https://github.com/topcss/DesktopNaotu/issues)
+- [Github issues](https://github.com/NaoTu/DesktopNaotu/issues)
 - [加入讨论组](https://gitter.im/DesktopNaotu/DesktopNaotu)
 - QQ群：330722928
 

@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/topcss/DesktopNaotu.git"
+    "url": "git+https://github.com/NaoTu/DesktopNaotu.git"
   },
   "keywords": ["mind", "naotu"],
   "author": "'Jack' <'topcss@gmail.com'>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/topcss/DesktopNaotu/issues"
+    "url": "https://github.com/NaoTu/DesktopNaotu/issues"
   },
-  "homepage": "https://github.com/topcss/DesktopNaotu#readme",
+  "homepage": "https://github.com/NaoTu/DesktopNaotu#readme",
   "devDependencies": {
     "del": "^2.2.2",
     "electron": "^1.4.5",
@@ -41,7 +41,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
-    "guNlp-ruby-sass": "^2.1.1",
+    "gulp-ruby-sass": "^2.1.1",
     "gulp-uglify": "^2.0.0",
     "js-beautify": "^1.6.4",
     "run-sequence": "^1.2.2",

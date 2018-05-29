@@ -7,7 +7,7 @@ grunt.config.init({
         x64: {
             version: '0.1.5',
             authors: "'Jack' <'topcss@gmail.com'>",
-            projectUrl: "https://github.com/topcss/DesktopNaotu",
+            projectUrl: "https://github.com/NaoTu/DesktopNaotu",
             appDirectory: '../OutApp/DesktopNaotu-win32-ia32',// 要打包的输入目录
             outputDirectory: '../OutPut',// grunt打包后的输出目录
             exe: 'DesktopNaotu.exe',

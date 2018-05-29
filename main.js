@@ -131,8 +131,8 @@ function updateHandle() {
         };
         const os = require('os');
         const { dialog } = require('electron');
-        //https://github.com/topcss/DesktopNaotu/releases/download/v0.1.5/DesktopNaotu-v0.1.5-darwin-x64.zip
-        autoUpdater.setFeedURL('https://github.com/topcss/DesktopNaotu/releases/download/');
+        //https://github.com/NaoTu/DesktopNaotu/releases/download/v0.1.5/DesktopNaotu-v0.1.5-darwin-x64.zip
+        autoUpdater.setFeedURL('https://github.com/NaoTu/DesktopNaotu/releases/download/');
         autoUpdater.on('error', function (error) {
             return dialog.showMessageBox(mainWindow, {
                 type: 'info',

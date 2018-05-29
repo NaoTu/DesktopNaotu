@@ -167,18 +167,18 @@ function minwin() {
 }
 
 function license() {
-    shell.openExternal("https://github.com/topcss/DesktopNaotu")
+    shell.openExternal("https://github.com/NaoTu/DesktopNaotu")
 }
 
 function checkVersion() {
-    $.get('https://raw.githubusercontent.com/topcss/DesktopNaotu/master/version.js', function (data) {
+    $.get('https://raw.githubusercontent.com/NaoTu/DesktopNaotu/master/version.js', function (data) {
 
         var newVer = data.substring(19, data.lastIndexOf(','));
         var oldVer = ver.version.slice(0, 3).join(', ');
 
         if (newVer != oldVer) {
             alert('检测到新版本，请下载新版本。');
-            shell.openExternal("https://github.com/topcss/DesktopNaotu");
+            shell.openExternal("https://github.com/NaoTu/DesktopNaotu");
         } else {
             alert('当前没有可用的更新。');
         }
