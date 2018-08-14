@@ -18,7 +18,9 @@ const gulp = require('gulp'),
     run = require('run-sequence'),
     wiredep = require('wiredep').stream,
     connect = require('gulp-connect'),
-    mainBowerFiles = require('gulp-main-bower-files');
+    mainBowerFiles = require('gulp-main-bower-files'),
+    babel = require('gulp-babel'),
+    gutil = require('gulp-util');
 
 gulp.task('clean-dist', () => {
     return del(['dist/**/*'], { force: true });
@@ -67,7 +69,9 @@ gulp.task('copy-js-vendor', function () {
         .pipe(gulp.dest('dist/js'));
 
     return gulp.src([
-        // "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/bootstrap/dist/js/bootstrap.min.js",
+        "bower_components/bootbox.js/bootbox.js",
         "bower_components/angular/angular.min.js",
         "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         "bower_components/codemirror/lib/codemirror.js",

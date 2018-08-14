@@ -20,11 +20,13 @@
     "tests"
   ],
   "devDependencies": {
-    "seajs": "^3.0.0"
+    "seajs": "^3.0.0",
+    "bootbox.js": "bootbox#^4.4.0"
   },
   "dependencies": {
     "kityminder-editor": "git://github.com/NaoTu/kityminder-editor#master",
-    "kityminder-core": "^1.4.45"
+    "kityminder-core": "^1.4.45",
+    "bootbox.js": "bootbox#^4.4.0"
   },
   "overrides": {
     "jquery": {

@@ -1,12 +1,16 @@
 var defaultPath = null, isSutoSave = true;
 var fs = require('fs'),
     { shell } = require('electron'),
-    { dialog } = require('electron').remote,
+    { dialog, Menu } = require('electron').remote,
     { app } = require('electron').remote,
-    { BrowserWindow } = require('electron').remote,
+    { BrowserWindow, Menu, MenuItem } = require('electron').remote,
     ver = require('../version'),
     http = require('http'),
     path = require('path');
+
+$(function () {
+    bootbox.setLocale("zh_CN");
+});
 
 function readFile(fileName) {
     if (!fileName) return;
@@ -19,6 +23,8 @@ function readFile(fileName) {
 
         showFileName(fileName);
     });
+
+    saveRecords(defaultPath);
 }
 
 function writeFile(fileName, content) {
@@ -26,18 +32,25 @@ function writeFile(fileName, content) {
 
     fs.writeFile(fileName, content, function (err) {
         if (err) {
-            alert("An error ocurred creating the file " + err.message)
+            bootbox.alert("An error ocurred creating the file " + err.message)
         } else {
             showFileName(fileName);
         }
     });
+
+    saveRecords(fileName);
 }
 
 function newDialog() {
     if (hasData()) {
-        if (confirm('新建文件会覆盖当前文件，是否继续？')) {
-            initRoot();
-        }
+        bootbox.confirm({
+            message: '新建文件会覆盖当前文件，是否继续？',
+            callback: function (result) {
+                if (result) {
+                    initRoot();
+                }
+            }
+        });
     } else {
         initRoot();
     }
@@ -52,6 +65,7 @@ function hasData() {
 
 function initRoot() {
     defaultPath = null;
+    getAppInstance().setTitle('桌面版脑图');
     editor.minder.importJson({ "root": { "data": { "text": "中心主题" } }, "template": "filetree", "theme": "fresh-blue" });
     editor.minder.select(minder.getRoot(), true);
 }
@@ -69,6 +83,14 @@ function openDialog() {
             readFile(fileName[0]);
         }
     );
+}
+
+function openFileInFolder() {
+    if (defaultPath != null) {
+        shell.showItemInFolder(defaultPath);
+    } else {
+        bootbox.alert("您当前还未打开任何文件。");
+    }
 }
 
 function saveDialog() {
@@ -177,10 +199,10 @@ function checkVersion() {
         var oldVer = ver.version.slice(0, 3).join(', ');
 
         if (newVer != oldVer) {
-            alert('检测到新版本，请下载新版本。');
+            bootbox.alert('检测到新版本，请下载新版本。');
             shell.openExternal("https://github.com/NaoTu/DesktopNaotu");
         } else {
-            alert('当前没有可用的更新。');
+            bootbox.alert('当前没有可用的更新。');
         }
 
     });
@@ -315,7 +337,8 @@ function getUserDataDir() {
 
 function showFileName(fileName) {
     if (fileName != undefined) {
-        var title = fileName.substring(fileName.lastIndexOf('\\') + 1) + ' - 桌面版脑图';
+        var index = fileName.lastIndexOf('\\') > -1 ? fileName.lastIndexOf('\\') : fileName.lastIndexOf('/');
+        var title = fileName.substring(index + 1) + ' - 桌面版脑图';
 
         getAppInstance().setTitle(title);
     }
@@ -323,4 +346,95 @@ function showFileName(fileName) {
 
 function getAppInstance() {
     return BrowserWindow.getAllWindows()[0];
+}
+
+function clearRecently() {
+    var recentlyPath = path.join(getUserDataDir(), '/recently.json');
+    fs.writeFileSync(recentlyPath, JSON.stringify([]));
+
+    // 更新菜单
+    updateMenus();
+}
+
+function saveRecords(filePath) {
+    var recentlyPath = path.join(getUserDataDir(), '/recently.json');
+    var time = new Date().format("yyyy-MM-dd hh:mm:ss");
+
+    fs.exists(recentlyPath, function (result) {
+        if (!result) {// 不存在，则创建
+            fs.writeFileSync(recentlyPath, JSON.stringify([{ 'time': time, 'path': filePath }]));
+        } else {// 存在，则读取
+            var list = JSON.parse(fs.readFileSync(recentlyPath));
+
+            // 查重
+            var items = [], selected = null;
+            for (var i = 0; i < list.length; i++) {
+                var item = list[i];
+                if (item.path == filePath) {
+                    selected = item;
+                } else {
+                    items.push(item);
+                }
+            }
+
+            if (selected == null) {
+                items.splice(0, 0, { 'time': time, 'path': filePath });
+            } else {// 在原来的清单中，则更新
+                selected.time = time;
+                items.splice(0, 0, selected);
+            }
+
+            // 更新列表
+            fs.writeFileSync(recentlyPath, JSON.stringify(items));
+        }
+    });
+
+    // 更新菜单
+    updateMenus();
+}
+
+function updateMenus() {
+
+    var recentlyPath = path.join(getUserDataDir(), '/recently.json');
+
+    fs.exists(recentlyPath, function (result) {
+        if (result) {// 存在，则读取
+
+            // 深度复制
+            var menus = $.extend(true, [], template);
+
+            var list = JSON.parse(fs.readFileSync(recentlyPath));
+
+            for (var i = 0; i < Math.min(list.length, 5); i++) {// 只显示最近5次
+                var item = list[i];
+
+                // 追加到菜单
+                menus[0].submenu[4].submenu.splice(menus[0].submenu[4].submenu.length - 2, 0, {
+                    label: item.path,
+                    click: openRecently
+                });
+            }
+
+            // 更新菜单
+            var menu = Menu.buildFromTemplate(menus);
+            Menu.setApplicationMenu(menu);
+
+        } else {
+            var menu = Menu.buildFromTemplate(template);
+            Menu.setApplicationMenu(menu);
+        }
+    });
+}
+
+function openRecently(item) {
+    var path = item.label;
+    if (path) {
+        fs.exists(path, function (result) {
+            if (result) {// 存在，则读取
+                readFile(path);
+            } else {
+                bootbox.alert("文件路径不存在");
+            }
+        });
+    }
 }

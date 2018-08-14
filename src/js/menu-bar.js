@@ -16,6 +16,23 @@ var template = [{
         },
         { type: 'separator' },
         {
+            label: '在文件夹中打开文件(&L)',
+            accelerator: 'CmdOrCtrl+Shift+O',
+            click: openFileInFolder
+        },
+        {
+            label: '打开最近的文件(&R)',
+            submenu: [
+                { type: 'separator' },
+                {
+                    id: 1,
+                    label: '清除最近打开记录',
+                    click: clearRecently
+                }
+            ]
+        },
+        { type: 'separator' },
+        {
             label: '保存(&S)',
             accelerator: 'CmdOrCtrl+S',
             click: saveDialog
