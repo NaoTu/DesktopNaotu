@@ -84,3 +84,7 @@ mac 编译
 
 ## 加入msg插件
 bower install bootbox --save
+
+添加本地 git tag v1.0.1
+查看 git tag
+推送到远程 git push origin --tags
