@@ -77,9 +77,22 @@ try {
         }
     }
 
-    var data = getKmByProcesson(definition);
-    var fileName = data.root.data.text + '.km';
-    saveKm(fileName, JSON.stringify(data));
+    $.ajax({
+        url : "/diagraming/getdef?tempId=" + tempId,
+        type : 'get',
+        data : { id: chartId },
+        success : function(c){
+            var definition = JSON.parse(c.def);
+
+            var data = getKmByProcesson(definition);
+            var fileName = data.root.data.text + '.km';
+            saveKm(fileName, JSON.stringify(data));
+        },
+        fail:function(ex){
+          alert(ex);
+        }
+    });
+
 } catch (e) {
     alert(e);
 }
