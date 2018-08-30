@@ -1,6 +1,6 @@
 {
   "name": "desktopnaotu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "桌面版脑图",
   "main": "main.js",
   "scripts": {
@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "jshint": "^2.9.5",
+    "kityminder-core": "^1.4.50",
     "npm": "^6.1.0"
   }
 }

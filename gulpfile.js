@@ -87,7 +87,7 @@ gulp.task('copy-js-vendor', function () {
         "bower_components/kity/dist/kity.min.js",
         "bower_components/hotbox/hotbox.js",
         "bower_components/json-diff/json-diff.js",
-        "bower_components/kityminder-core/dist/kityminder.core.min.js",
+        "node_modules/kityminder-core/dist/kityminder.core.min.js",
         "bower_components/color-picker/dist/color-picker.js",
         "bower_components/kityminder-editor/dist/kityminder.editor.js"
     ])
@@ -102,7 +102,7 @@ gulp.task('copy-css-vendor', function () {
         "bower_components/bootstrap/dist/css/bootstrap.css",
         "bower_components/codemirror/lib/codemirror.css",
         "bower_components/hotbox/hotbox.css",
-        "bower_components/kityminder-core/dist/kityminder.core.css",
+        "node_modules/kityminder-core/dist/kityminder.core.css",
         "bower_components/color-picker/dist/color-picker.css",
         "bower_components/kityminder-editor/dist/kityminder.editor.css"
     ])

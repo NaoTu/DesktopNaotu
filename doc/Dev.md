@@ -9,6 +9,7 @@ VSCode
 npm install electron --save-dev
 npm install electron-prebuilt --save-dev
 npm install grunt-electron-installer --save-dev
+npm install kityminder-core --save
 ```
 - grunt-electron-installer 用于Windows平台的自动升级
 
@@ -23,6 +24,7 @@ bower install kityminder-editor --save
 ## bower 升级
 ``` bower
 bower update kityminder-editor
+bower update kityminder-core
 ```
 
 

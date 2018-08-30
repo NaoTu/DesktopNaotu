@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "kityminder-editor": "git://github.com/NaoTu/kityminder-editor#master",
-    "kityminder-core": "^1.4.45",
     "bootbox.js": "bootbox#^4.4.0"
   },
   "overrides": {
