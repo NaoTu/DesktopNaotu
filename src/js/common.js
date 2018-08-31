@@ -27,7 +27,7 @@ function readFile(fileName) {
     saveRecords(defaultPath);
 }
 
-function writeFile(fileName, content) {
+function writeFile(fileName, content, isExport) {
     if (!fileName) return;
 
     fs.writeFile(fileName, content, function (err) {
@@ -38,13 +38,15 @@ function writeFile(fileName, content) {
         }
     });
 
-    saveRecords(fileName);
+    if(!isExport){
+        saveRecords(fileName);
+    }
 }
 
 function newDialog() {
     if (hasData()) {
         bootbox.confirm({
-            message: '新建文件会覆盖当前文件，是否继续？',
+            message: '新建文件会关闭当前文件，是否继续？',
             callback: function (result) {
                 if (result) {
                     initRoot();
@@ -104,10 +106,12 @@ function saveDialog() {
 }
 
 function saveAsDialog() {
+    var newPath = path.join(getUserDataDir(), '/' + minder.getRoot().data.text + '.km');
+
     dialog.showSaveDialog(
         {
             title: "保存 KityMinder 文件",
-            defaultPath: defaultPath,
+            defaultPath: newPath,
             filters: [{ name: 'KityMinder', extensions: ['km'] }]
         },
         (fileName) => {
@@ -123,6 +127,8 @@ function saveAsDialog() {
 }
 
 function exportDialog() {
+    var newPath = path.join(getUserDataDir(), '/' + minder.getRoot().data.text);
+
     var filters = [];
     var pool = kityminder.data.getRegisterProtocol();
     for (var name in pool) {
@@ -134,6 +140,7 @@ function exportDialog() {
     dialog.showSaveDialog(
         {
             title: "导出 KityMinder 文件",
+            defaultPath: newPath,
             filters: filters
         },
         (fileName) => {
@@ -295,13 +302,13 @@ function exportFile(protocol, filename) {
     minder.exportData(protocol.name, options).then(function (data) {
         switch (protocol.dataType) {
             case 'text':
-                writeFile(filename, data);
+                writeFile(filename, data, true);
                 break;
             case 'base64':
                 var base64Data = data.replace(/^data:image\/\w+;base64,/, "");
                 var dataBuffer = new Buffer(base64Data, 'base64');
 
-                writeFile(filename, dataBuffer);
+                writeFile(filename, dataBuffer, true);
                 break;
             case 'blob':
                 break;
