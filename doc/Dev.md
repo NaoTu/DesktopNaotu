@@ -75,6 +75,9 @@ cnpm install electron-squirrel-startup
 cnpm install -g grunt-cli
 cnpm install grunt grunt-electron-installer --save-dev
 
+升级
+npm install -g npm
+
 -- 文件夹创建
 https://nodejs.org/api/fs.html#fs_fs_exists_path_callback
 
@@ -94,3 +97,6 @@ bower install bootbox --save
 修改远程仓库的地址
 git remote rm origin
 git remote add origin https://github.com/NaoTu/DesktopNaotu.git
+
+新的版本号规则：
+Major_Version_Number.Minor_Version_Number.Year.Build_Number
