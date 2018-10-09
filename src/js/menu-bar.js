@@ -79,20 +79,20 @@ var template = [{
         {
             label: "剪切(&T)",
             accelerator: 'CmdOrCtrl+X',
-            click: cut,
-            selector: 'cut:'
+            selector: 'cut:',
+            role: 'cut'
         },
         {
             label: "复制(&C)",
             accelerator: 'CmdOrCtrl+C',
-            click: copy,
-            selector: 'copy:'
+            selector: 'copy:',
+            role: 'copy'
         },
         {
             label: "粘贴(&P)",
             accelerator: 'CmdOrCtrl+V',
-            click: paste,
-            selector: 'paste:'
+            selector: 'paste:',
+            role: 'paste'
         }
     ]
 }, {
