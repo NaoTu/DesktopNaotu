@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "del": "^3.0.0",
-    "electron": "^3.0.x",
+    "electron": "^3.0.3",
     "electron-packager": "^12.2.0",
     "electron-prebuilt": "^1.4.13",
     "grunt": "^1.0.3",

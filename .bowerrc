@@ -1,4 +1,5 @@
 {
     "directory": "bower_components",
-    "allow_root": true
+    "allow_root": true,
+    "presets": ["env"]
 }
