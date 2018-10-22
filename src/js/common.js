@@ -8,16 +8,74 @@ var fs = require('fs'),
     http = require('http'),
     path = require('path');
 
+const log4js = require('log4js');
+log4js.configure({
+    appenders: {
+        everything: { type: 'dateFile', filename:  __dirname + '/logs/naotu', pattern: '.yyyy-MM-dd-hh.log', compress: true ,alwaysIncludePattern:true}
+    },
+    categories: {
+    default: { appenders: [ 'everything' ], level: 'debug'}
+    }
+});
+const logger = log4js.getLogger('everything');
+var confPath = path.join(getUserDataDir(), '/naotu.config.json');
+
 $(function () {
     bootbox.setLocale("zh_CN");
+
+    // 欢迎语
+    logger.info('Jack welcomes you!');
+
+    try {
+        // 若没有用户文件夹，则创建
+        var defFolder = path.join(getUserDataDir(), '/');
+        if (!fs.existsSync(defFolder)) {
+            fs.mkdirSync(defFolder);
+        }
+
+        // 检查或创建配置文件
+        fs.exists(confPath, function (exists) {
+            if(!exists){
+                fs.writeFileSync(confPath, JSON.stringify(getDefConf()));
+            }
+        });
+    } catch (ex) {
+        logger.error(ex);
+    }
 });
+
+// 重选自动保存的目录
+function setSavePath() {
+    try {
+        
+        var defPath = getUserDataDir();
+        var confObj = JSON.parse(fs.readFileSync(confPath));
+        defPath = confObj.defSavePath;
+
+        dialog.showOpenDialog({properties: ['openDirectory'], defaultPath : defPath}, function (filenames) {
+            if (filenames && filenames.length > 0) { 
+                confObj.defSavePath = filenames[0];
+
+                fs.writeFileSync(confPath, JSON.stringify(confObj));
+            }
+        });
+
+    } catch (ex) {
+        logger.error(ex);
+    }
+}
 
 function readFile(fileName) {
     if (!fileName) return;
 
+    logger.info('打开文件 路径是：' + fileName);
+
     defaultPath = fileName;
 
     fs.readFile(fileName, 'utf8', function (err, data) {
+        
+        logger.info('打开文件 内容是：' + data);
+
         var json = JSON.parse(data);
         editor.minder.importJson(json);
 
@@ -30,9 +88,12 @@ function readFile(fileName) {
 function writeFile(fileName, content, isExport) {
     if (!fileName) return;
 
+    logger.info('保存文件 路径为：' + fileName);
+    logger.info('保存文件 内容是：' + content);
+
     fs.writeFile(fileName, content, function (err) {
         if (err) {
-            bootbox.alert("An error ocurred creating the file " + err.message)
+            logger.error("An error ocurred creating the file " + err.message)
         } else {
             showFileName(fileName);
         }
@@ -44,6 +105,8 @@ function writeFile(fileName, content, isExport) {
 }
 
 function newDialog() {
+    logger.info('新建文件');
+
     if (hasData()) {
         bootbox.confirm({
             message: '新建文件会关闭当前文件，是否继续？',
@@ -164,6 +227,8 @@ function exportDialog() {
 }
 
 function exitApp() {
+    logger.info('exit successfully!');
+
     app.quit();
 }
 
@@ -200,6 +265,8 @@ function license() {
 }
 
 function checkVersion() {
+    logger.info('检查是否有新版本发布');
+
     $.get('https://raw.githubusercontent.com/NaoTu/DesktopNaotu/master/version.js', function (data) {
 
         var newVer = data.substring(19, data.lastIndexOf(','));
@@ -322,19 +389,22 @@ function getDefaultPath() {
     try {
         var time = new Date().format("yyyy-MM-dd_hhmmss");
 
-        fs.exists(getUserDataDir(), (exists) => {
+        var confObj = JSON.parse(fs.readFileSync(confPath));
+        var defPath = confObj.defSavePath || getUserDataDir();
+        
+        // 若没有用户文件夹，则创建
+        fs.exists(defPath, (exists) => {
             if (!exists) {
-                fs.mkdir(getUserDataDir())
+                fs.mkdir(defPath)
             }
-            // console.log(exists ? 'it\'s there' : 'no passwd!');
         });
 
-        var filePath = path.join(getUserDataDir(), '/' + time + '.km')
-        console.log(filePath);
+        var filePath = path.join(defPath, '/' + time + '.km');
+        logger.info('getDefaultPath ' + filePath);
 
         return filePath;
-    } catch (error) {
-        console.log(error);
+    } catch (ex) {
+        logger.error(ex);
     }
 }
 
@@ -355,23 +425,46 @@ function getAppInstance() {
     return BrowserWindow.getAllWindows()[0];
 }
 
-function clearRecently() {
-    var recentlyPath = path.join(getUserDataDir(), '/recently.json');
-    fs.writeFileSync(recentlyPath, JSON.stringify([]));
-
-    // 更新菜单
-    updateMenus();
+function getDefConf(){
+    return {
+        'defSavePath': getUserDataDir(),
+        'recently': []
+    };
 }
 
+function clearRecently() {
+    try {
+        // 读取配置文件
+        var confObj = JSON.parse(fs.readFileSync(confPath));
+        if(confObj != null){
+            // 清空历史记录的列表
+            confObj.recently = [];
+
+            fs.writeFileSync(confPath, JSON.stringify(confObj));
+        } else {
+            // 读失败了，则创建一个默认的配置文件
+            fs.writeFileSync(confPath, JSON.stringify(getDefConf()));
+        }
+
+        // 更新菜单
+        updateMenus();
+    } catch (ex) {
+        logger.error(ex);
+    }
+};
+
 function saveRecords(filePath) {
-    var recentlyPath = path.join(getUserDataDir(), '/recently.json');
     var time = new Date().format("yyyy-MM-dd hh:mm:ss");
 
-    fs.exists(recentlyPath, function (result) {
-        if (!result) {// 不存在，则创建
-            fs.writeFileSync(recentlyPath, JSON.stringify([{ 'time': time, 'path': filePath }]));
+    fs.exists(confPath, function (exists) {
+        if (!exists) {// 不存在，则创建
+            var confObj = getDefConf();
+            confObj.recently.push({ 'time': time, 'path': filePath });
+
+            fs.writeFileSync(confPath, JSON.stringify(confObj));
         } else {// 存在，则读取
-            var list = JSON.parse(fs.readFileSync(recentlyPath));
+            var confObj = JSON.parse(fs.readFileSync(confPath));
+            var list = confObj.recently;
 
             // 查重
             var items = [], selected = null;
@@ -391,8 +484,10 @@ function saveRecords(filePath) {
                 items.splice(0, 0, selected);
             }
 
+            confObj.recently = items;
+
             // 更新列表
-            fs.writeFileSync(recentlyPath, JSON.stringify(items));
+            fs.writeFileSync(confPath, JSON.stringify(confObj));
         }
     });
 
@@ -401,16 +496,14 @@ function saveRecords(filePath) {
 }
 
 function updateMenus() {
-
-    var recentlyPath = path.join(getUserDataDir(), '/recently.json');
-
-    fs.exists(recentlyPath, function (result) {
-        if (result) {// 存在，则读取
+    fs.exists(confPath, function (exists) {
+        if (exists) {// 存在，则读取
 
             // 深度复制
             var menus = $.extend(true, [], template);
 
-            var list = JSON.parse(fs.readFileSync(recentlyPath));
+            var confObj = JSON.parse(fs.readFileSync(confPath));
+            var list = confObj.recently;
 
             for (var i = 0; i < Math.min(list.length, 5); i++) {// 只显示最近5次
                 var item = list[i];

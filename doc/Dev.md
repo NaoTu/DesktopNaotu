@@ -88,6 +88,7 @@ mac 编译
 /Users/apple/.npm-global/lib/node_modules/electron-packager/cli.js ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --app-version=1.6.15 --ignore="(.git|node_modules|screenshot|doc|src|bower_components|electron-packager)" --overwrite --prune
 
 ## 加入msg插件
+
 bower install bootbox --save
 
 添加本地 git tag v1.0.1
@@ -100,3 +101,59 @@ git remote add origin https://github.com/NaoTu/DesktopNaotu.git
 
 新的版本号规则：
 Major_Version_Number.Minor_Version_Number.Year.Build_Number
+
+## 重新梳理依赖关系
+
+npm uninstall jshint --save
+npm uninstall kityminder-core --save
+npm uninstall npm --save
+
+npm install jshint --save-dev
+npm install kityminder-core --save-dev
+npm install log4js --save-dev
+
+npm install gulp-babel --save-dev
+npm install @babel/core --save-dev
+
+### 新增日志的依赖包
+
+npm install log4js --save
+~~npm uninstall debug --save~~
+
+### 依赖检查
+
+npm install dependency-check -g
+
+删除了多余的代码
+
+### 发布文件 app 目录需要压缩为 app.asar 不应该出现代码文件
+
+安装 asar
+
+npm install -g asar
+
+解压缩
+在asar文件所在的根目录执行asar extract app.asar ./指令
+
+打包项目
+asar pack app/ app.asar
+
+``` text
+// OS X
+electron/Electron.app/Contents/Resources/
+└── app.asar
+
+// Windows & Linux
+electron/resources/
+└── app.asar
+```
+
+### 遇到问题 加入 log4js 之后，报错找不到 debug 的模块
+
+经过调试发现，debug 模块的查找路径有问题。
+
+从 `.\resources\app\node_modules\log4js\node_modules\debug\dist\debug.js` 移动到 `.\resources\app\node_modules\debug.js` 即可。
+
+另外，依赖 log4js 后，需要用到 node_modules ，所以要把 node_modules 从排除文件列表中移除
+
+python 处理文件移动和打包

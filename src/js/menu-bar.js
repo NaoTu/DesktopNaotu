@@ -54,6 +54,11 @@ var template = [{
             checked: true,
             click: autoSave
         },
+        {
+            label: '重选自动保存的目录(&R)',
+            accelerator: 'CmdOrCtrl+R',
+            click: setSavePath
+        },
         { type: 'separator' },
         {
             label: '退出(&X)',

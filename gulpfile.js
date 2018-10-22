@@ -89,7 +89,7 @@ gulp.task('copy-js-vendor', function () {
         "bower_components/json-diff/json-diff.js",
         "node_modules/kityminder-core/dist/kityminder.core.min.js",
         "bower_components/color-picker/dist/color-picker.js",
-        "bower_components/kityminder-editor/dist/kityminder.editor.js"
+        "bower_components/kityminder-editor/dist/kityminder.editor.js",
     ])
         .pipe(concat('vendor.js'))
         .pipe(uglify())
