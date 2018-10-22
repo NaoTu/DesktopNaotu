@@ -11,7 +11,7 @@ var fs = require('fs'),
 const log4js = require('log4js');
 log4js.configure({
     appenders: {
-        everything: { type: 'dateFile', filename:  __dirname + '/logs/naotu', pattern: '.yyyy-MM-dd-hh.log', compress: true ,alwaysIncludePattern:true}
+        everything: { type: 'dateFile', filename:  getUserDataDir() + '/logs/naotu', pattern: '.yyyy-MM-dd-hh.log', compress: true ,alwaysIncludePattern:true}
     },
     categories: {
     default: { appenders: [ 'everything' ], level: 'debug'}
