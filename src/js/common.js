@@ -1,30 +1,31 @@
 var defaultPath = null, isSutoSave = true;
 var fs = require('fs'),
-    { shell } = require('electron'),
-    { dialog, Menu } = require('electron').remote,
-    { app } = require('electron').remote,
+    { remote, globalShortcut, shell } = require('electron'),
+    { dialog, Menu, app } = require('electron').remote,
     { BrowserWindow, Menu, MenuItem } = require('electron').remote,
     ver = require('../version'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    hotkeys = require('hotkeys-js'),
+    log4js = require('log4js');
 
-const log4js = require('log4js');
 log4js.configure({
     appenders: {
-        everything: { type: 'dateFile', filename:  getUserDataDir() + '/logs/naotu', pattern: '.yyyy-MM-dd-hh.log', compress: true ,alwaysIncludePattern:true}
+        NaoTuApp: { type: 'dateFile', filename:  getUserDataDir() + '/logs/naotu', pattern: '.yyyy-MM-dd-hh.log', compress: true ,alwaysIncludePattern:true}
     },
     categories: {
-    default: { appenders: [ 'everything' ], level: 'debug'}
+    default: { appenders: [ 'NaoTuApp' ], level: 'debug'}
     }
 });
-const logger = log4js.getLogger('everything');
+
+const logger = log4js.getLogger('NaoTuApp');
 var confPath = path.join(getUserDataDir(), '/naotu.config.json');
 
 $(function () {
     bootbox.setLocale("zh_CN");
 
     // 欢迎语
-    logger.info('Jack welcomes you!');
+    logger.info('Jack welcomes you! v' + ver.version.slice(0, 3).join('.'));
 
     try {
         // 若没有用户文件夹，则创建
@@ -42,6 +43,7 @@ $(function () {
     } catch (ex) {
         logger.error(ex);
     }
+ 
 });
 
 // 重选自动保存的目录
@@ -261,20 +263,20 @@ function minwin() {
 }
 
 function license() {
-    shell.openExternal("https://github.com/NaoTu/DesktopNaotu")
+    shell.openExternal("https://github.com/NaoTu/NaotuApp")
 }
 
 function checkVersion() {
     logger.info('检查是否有新版本发布');
 
-    $.get('https://raw.githubusercontent.com/NaoTu/DesktopNaotu/master/version.js', function (data) {
+    $.get('https://raw.githubusercontent.com/NaoTu/NaotuApp/master/version.js', function (data) {
 
         var newVer = data.substring(19, data.lastIndexOf(','));
         var oldVer = ver.version.slice(0, 3).join(', ');
 
         if (newVer != oldVer) {
             bootbox.alert('检测到新版本，请下载新版本。');
-            shell.openExternal("https://github.com/NaoTu/DesktopNaotu");
+            shell.openExternal("https://github.com/NaoTu/NaotuApp");
         } else {
             bootbox.alert('当前没有可用的更新。');
         }
@@ -538,3 +540,4 @@ function openRecently(item) {
         });
     }
 }
+

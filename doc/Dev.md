@@ -157,3 +157,7 @@ electron/resources/
 另外，依赖 log4js 后，需要用到 node_modules ，所以要把 node_modules 从排除文件列表中移除
 
 python 处理文件移动和打包
+
+## 安装自定义的包
+
+bower install git://github.com/NaoTu/kityminder-core.git#dev --save
