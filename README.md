@@ -16,7 +16,7 @@
 
 | 操作系统  | 位数    |  对应文件 |  大小  | 支持情况 |
 | --------  | -----: | -----: | :----  | -- |
-| Mac OSX | 64位 | DesktopNaotu-macOS-x64 | < 50M | 支持全部功能 |
+| MacOS | 64位 | DesktopNaotu-macOS-x64 | < 50M | 支持全部功能 |
 | Linux | 64位 | DesktopNaotu-linux-x64 | < 50M | 支持全部功能 |
 | Windows 7/10 | 64位 | DesktopNaotu-win32-x64 | < 50M | 支持全部功能 |
 | Windows 7/10 | 32位 | DesktopNaotu-win32-ia32 | < 50M | 支持全部功能 |
