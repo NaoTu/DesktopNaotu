@@ -12,12 +12,15 @@
 - 方法1：通过 [**百度云下载**](http://pan.baidu.com/s/1jHNBL7C)
 - 方法2：通过 [**Github 的 Releases 下载**](https://github.com/NaoTu/DesktopNaotu/releases)
 
-## 支持系统
+## 各版本对应的系统
 
-- Windows 32位
-- Windows 64位
-- Mac OSX 64位
-- Linux 64位
+| 操作系统  | 位数    |  对应文件 |  大小  | 支持情况 |
+| --------  | -----: | -----: | :----  | -- |
+| Mac OSX | 64位 | DesktopNaotu-macOS-x64 | < 50M | 支持全部功能 |
+| Linux | 64位 | DesktopNaotu-linux-x64 | < 50M | 支持全部功能 |
+| Windows 7/10 | 64位 | DesktopNaotu-win32-x64 | < 50M | 支持全部功能 |
+| Windows 7/10 | 32位 | DesktopNaotu-win32-ia32 | < 50M | 支持全部功能 |
+| Windows XP  | 32位 | DesktopNaotu-Windows-mini | < 8M | 不支持调试 |
 
 ## 功能特征
 
@@ -26,8 +29,8 @@
 - 支持拖拽打开km文件
 - 支持关联打开km文件
 - 支持自动保存功能
-- [提供 **百度脑图** 文件的下载脚本](doc/Help.md)
-- [提供 **ProcessOn** 思维导图的下载脚本](doc/Help.md)
+- [提供 **百度脑图** 文件的下载方式](doc/Help.md)
+- [提供 **ProcessOn** 思维导图的下载方式](doc/Help.md)
 - [查看历史版本](doc/History.md)
 
 ## 软件截图
