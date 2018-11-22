@@ -121,7 +121,7 @@ var template = [{
             click: shortcut
         },
         { type: 'separator' },
-        { label: "查看帮助(&V)", click: license },
+        { label: "备份百度脑图到本地(&V)", click: license },
         { label: "检查更新...(&N)", click: checkVersion },
         { type: 'separator' },
         { label: "关于(&A)", click: about }
