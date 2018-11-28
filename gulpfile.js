@@ -64,6 +64,9 @@ gulp.task('bower', function () {
 // });
 
 gulp.task('copy-js-vendor', function () {
+    // i18n
+    gulp.src(["locale/*.json"]).pipe(gulp.dest('dist/locale'));
+
     // 解决需要引入的问题，单独处理
     gulp.src(["bower_components/jquery/dist/jquery.min.js"])
         .pipe(gulp.dest('dist/js'));

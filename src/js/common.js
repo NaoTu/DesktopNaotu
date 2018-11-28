@@ -1,7 +1,7 @@
 var defaultPath = null,
   isSutoSave = true,
   fs = require("fs"),
-  { remote, globalShortcut, shell } = require("electron"),
+  { remote, globalShortcut, shell, electron } = require("electron"),
   { dialog, Menu, app } = require("electron").remote,
   { BrowserWindow, Menu, MenuItem } = require("electron").remote,
   ver = require("../version"),
@@ -28,7 +28,9 @@ log4js.configure({
 const logger = log4js.getLogger("NaoTuApp");
 var confPath = path.join(getUserDataDir(), "/naotu.config.json");
 
+// init
 $(function() {
+  getAppInstance().setTitle(i18n.__("sAppName"));
   bootbox.setLocale("zh_CN");
 
   // 欢迎语
@@ -117,7 +119,7 @@ function newDialog() {
 
   if (hasData()) {
     bootbox.confirm({
-      message: "新建文件会关闭当前文件，是否继续？",
+      message: i18n.__("sNewKm"),
       callback: function(result) {
         if (result) {
           initRoot();
@@ -133,14 +135,14 @@ function hasData() {
   var nodes = editor.minder.getAllNode().length;
   var rootText = editor.minder.getRoot().data.text;
 
-  return nodes != 1 || rootText != "中心主题";
+  return nodes != 1 || rootText != i18n.__("sMainTopic");
 }
 
 function initRoot() {
   defaultPath = null;
-  getAppInstance().setTitle("桌面版脑图");
+  getAppInstance().setTitle(i18n.__("sAppName"));
   editor.minder.importJson({
-    root: { data: { text: "中心主题" } },
+    root: { data: { text: i18n.__("sMainTopic") } },
     template: "filetree",
     theme: "fresh-blue"
   });
@@ -168,7 +170,7 @@ function openFileInFolder() {
   if (defaultPath != null) {
     shell.showItemInFolder(defaultPath);
   } else {
-    bootbox.alert("您当前还未打开任何文件。");
+    bootbox.alert(i18n.__("sNoOpenFile"));
   }
 }
 
@@ -190,7 +192,7 @@ function saveAsDialog() {
 
   dialog.showSaveDialog(
     {
-      title: "保存 KityMinder 文件",
+      title: i18n.__("sSaveKm"),
       defaultPath: newPath,
       filters: [{ name: "KityMinder", extensions: ["km"] }]
     },
@@ -224,7 +226,7 @@ function exportDialog() {
 
   dialog.showSaveDialog(
     {
-      title: "导出 KityMinder 文件",
+      title: i18n.__("sExportKm"),
       defaultPath: newPath,
       filters: filters
     },
@@ -285,7 +287,9 @@ function minwin() {
 }
 
 function license() {
-  shell.openExternal("https://github.com/NaoTu/DesktopNaotu/blob/master/doc/Help.md");
+  shell.openExternal(
+    "https://github.com/NaoTu/DesktopNaotu/blob/master/doc/Help.md"
+  );
 }
 
 function checkVersion() {
@@ -298,10 +302,10 @@ function checkVersion() {
       var oldVer = ver.version.slice(0, 3).join(", ");
 
       if (newVer != oldVer) {
-        bootbox.alert("检测到新版本，请下载新版本。");
+        bootbox.alert(i18n.__("sUpdateMessage"));
         shell.openExternal("https://github.com/NaoTu/DesktopNaotu/releases");
       } else {
-        bootbox.alert("当前没有可用的更新。");
+        bootbox.alert(i18n.__("sNoUpdatesAvailable"));
       }
     }
   );
@@ -313,85 +317,10 @@ Copyright (c) 2018 Jack
 
 版本： v${ver.version.join(".")}
 QQ 讨论群：330722928
-需要下载百度脑图文件，请点击：查看帮助
     `;
   dialog.showMessageBox({
     type: "info",
-    title: "桌面版脑图",
-    message: text,
-    buttons: ["OK"]
-  });
-}
-
-function shortcut() {
-  var shortcutKeys = [
-    {
-      groupName: "节点操作",
-      groupItem: [
-        { key: "Enter", desc: " 插入兄弟节点" },
-        { key: "Tab, Insert", desc: " 插入子节点" },
-        { key: "Shift + Tab", desc: " 插入父节点" },
-        { key: "Delete", desc: " 删除节点" },
-        { key: "Up, Down, Left, Right", desc: " 节点导航" },
-        { key: "Alt + Up, Down", desc: " 向上/向下调整顺序" },
-        { key: "/", desc: " 展开/收起节点" },
-        { key: "F2", desc: " 编辑节点" },
-        { key: "Shift + Enter", desc: " 文本换行" },
-        { key: "Ctrl + A", desc: " 全选节点" },
-        { key: "Ctrl + C", desc: " 复制节点" },
-        { key: "Ctrl + X", desc: " 剪切节点" },
-        { key: "Ctrl + V", desc: " 粘贴节点" },
-        { key: "Ctrl + B", desc: " 加粗" },
-        { key: "Ctrl + I", desc: " 斜体" },
-        { key: "Ctrl + F", desc: " 查找节点" }
-      ]
-    },
-    {
-      groupName: "视野控制",
-      groupItem: [
-        //{ key:"Ctrl + ESC",desc:" 全屏切换"},
-        { key: "Alt + 拖动, 右键拖动", desc: " 拖动视野" },
-        { key: "滚轮, 触摸板", desc: " 移动视野" },
-        //{ key:"Ctrl + Up, Down, Left, Right",desc:" 视野导航"},
-        { key: "空白处双击, Ctrl + Enter", desc: " 居中根节点" },
-        { key: "Ctrl + +, -", desc: " 放大/缩小视野" }
-      ]
-    },
-    {
-      groupName: "文件操作",
-      groupItem: [
-        { key: "Ctrl + O", desc: " 打开" },
-        { key: "Ctrl + S", desc: " 保存" },
-        { key: "Ctrl + Shift + S", desc: " 另存为" }
-        // { key: "Ctrl + Alt + S", desc: " 分享" }
-      ]
-    },
-    {
-      groupName: "布局",
-      groupItem: [{ key: "Ctrl + Shift + L", desc: " 整理布局" }]
-    },
-    {
-      groupName: "后悔药",
-      groupItem: [
-        { key: "Ctrl + Z", desc: " 撤销" },
-        { key: "Ctrl + Y", desc: " 重做" }
-      ]
-    }
-  ];
-
-  var text = "";
-  for (var i = 0; i < shortcutKeys.length; i++) {
-    var group = shortcutKeys[i];
-    text += `\n` + group.groupName + `\n`;
-    for (var j = 0; j < group.groupItem.length; j++) {
-      var item = group.groupItem[j];
-      text += `       ` + item.desc + `   ` + item.key + `\n`;
-    }
-  }
-
-  dialog.showMessageBox({
-    type: "none",
-    title: "快捷键",
+    title: i18n.__("sAppName"),
     message: text,
     buttons: ["OK"]
   });
@@ -455,7 +384,7 @@ function showFileName(fileName) {
       fileName.lastIndexOf("\\") > -1
         ? fileName.lastIndexOf("\\")
         : fileName.lastIndexOf("/");
-    var title = fileName.substring(index + 1) + " - 桌面版脑图";
+    var title = fileName.substring(index + 1) + " - " + i18n.__("sAppName");
 
     getAppInstance().setTitle(title);
   }
@@ -463,128 +392,4 @@ function showFileName(fileName) {
 
 function getAppInstance() {
   return BrowserWindow.getAllWindows()[0];
-}
-
-function getDefConf() {
-  return {
-    defSavePath: getUserDataDir(),
-    recently: []
-  };
-}
-
-function clearRecently() {
-  try {
-    // 读取配置文件
-    var confObj = JSON.parse(fs.readFileSync(confPath));
-    if (confObj != null) {
-      // 清空历史记录的列表
-      confObj.recently = [];
-
-      fs.writeFileSync(confPath, JSON.stringify(confObj));
-    } else {
-      // 读失败了，则创建一个默认的配置文件
-      fs.writeFileSync(confPath, JSON.stringify(getDefConf()));
-    }
-
-    // 更新菜单
-    updateMenus();
-  } catch (ex) {
-    logger.error(ex);
-  }
-}
-
-function saveRecords(filePath) {
-  var time = new Date().format("yyyy-MM-dd hh:mm:ss");
-
-  fs.exists(confPath, function(exists) {
-    if (!exists) {
-      // 不存在，则创建
-      var confObj = getDefConf();
-      confObj.recently.push({ time: time, path: filePath });
-
-      fs.writeFileSync(confPath, JSON.stringify(confObj));
-    } else {
-      // 存在，则读取
-      var confObj = JSON.parse(fs.readFileSync(confPath));
-      var list = confObj.recently;
-
-      // 查重
-      var items = [],
-        selected = null;
-      for (var i = 0; i < list.length; i++) {
-        var item = list[i];
-        if (item.path == filePath) {
-          selected = item;
-        } else {
-          items.push(item);
-        }
-      }
-
-      if (selected == null) {
-        items.splice(0, 0, { time: time, path: filePath });
-      } else {
-        // 在原来的清单中，则更新
-        selected.time = time;
-        items.splice(0, 0, selected);
-      }
-
-      confObj.recently = items;
-
-      // 更新列表
-      fs.writeFileSync(confPath, JSON.stringify(confObj));
-    }
-  });
-
-  // 更新菜单
-  updateMenus();
-}
-
-function updateMenus() {
-  fs.exists(confPath, function(exists) {
-    if (exists) {
-      // 存在，则读取
-
-      // 深度复制
-      var menus = $.extend(true, [], template);
-
-      var confObj = JSON.parse(fs.readFileSync(confPath));
-      var list = confObj.recently;
-
-      for (var i = 0; i < Math.min(list.length, 5); i++) {
-        // 只显示最近5次
-        var item = list[i];
-
-        // 追加到菜单
-        menus[0].submenu[4].submenu.splice(
-          menus[0].submenu[4].submenu.length - 2,
-          0,
-          {
-            label: item.path,
-            click: openRecently
-          }
-        );
-      }
-
-      // 更新菜单
-      var menu = Menu.buildFromTemplate(menus);
-      Menu.setApplicationMenu(menu);
-    } else {
-      var menu = Menu.buildFromTemplate(template);
-      Menu.setApplicationMenu(menu);
-    }
-  });
-}
-
-function openRecently(item) {
-  var path = item.label;
-  if (path) {
-    fs.exists(path, function(result) {
-      if (result) {
-        // 存在，则读取
-        readFile(path);
-      } else {
-        bootbox.alert("文件路径不存在");
-      }
-    });
-  }
 }

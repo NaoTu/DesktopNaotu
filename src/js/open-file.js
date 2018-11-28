@@ -5,7 +5,7 @@ body.ondrop = function (e) {
     e.preventDefault();
     var file = e.dataTransfer.files[0];
     if (!file.name.toLowerCase().endsWith(".km")) {
-        bootbox.alert("加载文件失败！只允许打开.km格式的文件！")
+        bootbox.alert(i18n.__("sLoadedError"))
         return false;
     }
 
