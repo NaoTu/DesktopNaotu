@@ -1,14 +1,11 @@
 // i18n https://www.christianengvall.se/electron-localization/
-let loadedLanguage;
+var loadedLanguage;
 var i18n = {
   lang: function() {
     var lang = "en";
 
     try {
-      var confObj = JSON.parse(fs.readFileSync(confPath));
-      if (confObj == null) {
-        confObj = getDefConf();
-      }
+      var confObj = getConf();
 
       lang = confObj.locale.replace("-", "_");
     } catch (error) {}
@@ -33,7 +30,7 @@ var i18n = {
       }
     }
 
-    let translation = loadedLanguage[phrase];
+    var translation = loadedLanguage[phrase];
     if (translation === undefined) {
       translation = phrase;
     }

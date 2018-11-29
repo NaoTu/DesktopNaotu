@@ -1,9 +1,15 @@
 var defaultPath = null,
   isSutoSave = true,
   fs = require("fs"),
-  { remote, globalShortcut, shell, electron } = require("electron"),
-  { dialog, Menu, app } = require("electron").remote,
-  { BrowserWindow, Menu, MenuItem } = require("electron").remote,
+  remote = require("electron").remote,
+  electron = require("electron").electron,
+  shell = require("electron").shell,
+  globalShortcut = require("electron").globalShortcut,
+  dialog = remote.dialog,
+  app = remote.app,
+  Menu = remote.Menu,
+  MenuItem = remote.MenuItem,
+  BrowserWindow = remote.BrowserWindow,
   ver = require("../version"),
   http = require("http"),
   path = require("path"),
@@ -25,7 +31,7 @@ log4js.configure({
   }
 });
 
-const logger = log4js.getLogger("NaoTuApp");
+var logger = log4js.getLogger("NaoTuApp");
 var confPath = path.join(getUserDataDir(), "/naotu.config.json");
 
 // init
@@ -312,16 +318,16 @@ function checkVersion() {
 }
 
 function about() {
-  var text = `
-Copyright (c) 2018 Jack
+  var text = [
+    "Copyright (c) 2018 Jack",
+    "版本： v" + ver.version.join("."),
+    "QQ 讨论群：330722928"
+  ];
 
-版本： v${ver.version.join(".")}
-QQ 讨论群：330722928
-    `;
   dialog.showMessageBox({
     type: "info",
     title: i18n.__("sAppName"),
-    message: text,
+    message: text.join('\r'),
     buttons: ["OK"]
   });
 }
@@ -380,10 +386,9 @@ function getUserDataDir() {
 
 function showFileName(fileName) {
   if (fileName != undefined) {
-    var index =
-      fileName.lastIndexOf("\\") > -1
-        ? fileName.lastIndexOf("\\")
-        : fileName.lastIndexOf("/");
+    var index = fileName.lastIndexOf("/");
+
+    if (fileName.lastIndexOf("\\") > -1) index = fileName.lastIndexOf("\\");
     var title = fileName.substring(index + 1) + " - " + i18n.__("sAppName");
 
     getAppInstance().setTitle(title);

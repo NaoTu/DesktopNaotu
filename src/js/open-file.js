@@ -5,7 +5,7 @@ body.ondrop = function (e) {
     e.preventDefault();
     var file = e.dataTransfer.files[0];
     if (!file.name.toLowerCase().endsWith(".km")) {
-        bootbox.alert(i18n.__("sLoadedError"))
+        bootbox.alert(i18n.__("sLoadedError"));
         return false;
     }
 

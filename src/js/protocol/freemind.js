@@ -121,7 +121,7 @@ kityminder.data.registerProtocol('freemind', function (minder) {
 
             function genAttrs (pairs) {
               return pairs.map(function (x) {
-                return x[1] ? (' ' + x[0] + '="' + x[1] + '"') : ''
+                return x[1] ? (' ' + x[0] + '="' + x[1] + '"') : '';
               }).join('');
             }
 

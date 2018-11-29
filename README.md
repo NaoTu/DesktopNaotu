@@ -1,9 +1,6 @@
-# 桌面版脑图(DesktopNaotu)
+# 桌面版脑图(DesktopNaotu) [![Join the chat at https://gitter.im/DesktopNaotu/DesktopNaotu](https://badges.gitter.im/DesktopNaotu/DesktopNaotu.svg)](https://gitter.im/DesktopNaotu/DesktopNaotu) [![加入桌面版脑图QQ群：330722928](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=cbd6fbc32adbe20c99c005bc559ec45bf3c9bfe581f9226ed14bd0951ae95739)
 
-[![Join the chat at https://gitter.im/DesktopNaotu/DesktopNaotu](https://badges.gitter.im/DesktopNaotu/DesktopNaotu.svg)](https://gitter.im/DesktopNaotu/DesktopNaotu)
-[![加入桌面版脑图QQ群：330722928](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=cbd6fbc32adbe20c99c005bc559ec45bf3c9bfe581f9226ed14bd0951ae95739)
-
-## 软件介绍
+## 软件介绍 [English introduction](doc/README-en.md)
 
 桌面版脑图是基于百度脑图的本地化版本，帮助你在没有互联网环境的情况下，依然可以使用脑图工具。
 

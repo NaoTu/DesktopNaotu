@@ -1,5 +1,6 @@
-var remote = require("electron").remote;
-var Menu = remote.Menu;
+// /*jshint esversion: 6 */
+// var remote = require("electron").remote;
+// var Menu = remote.Menu;
 
 var template = [
   {

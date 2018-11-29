@@ -1,8 +1,9 @@
 // window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');
 window.$ = window.jQuery = require("./js/jquery.min.js");
 
-var remote = require("electron").remote,
-  argv = remote.getGlobal("sharedObject").prop1;
+// /*jshint esversion: 6 */
+// var remote = require("electron").remote,
+//   argv = remote.getGlobal("sharedObject").prop1;
 
 angular
   .module("kityminderDemo", ["kityminderEditor"])
