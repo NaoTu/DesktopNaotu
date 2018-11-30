@@ -135,6 +135,7 @@ gulp.task("copy-images-vendor", function() {
 
 gulp.task("copy-html-vendor", function() {
   gulp.src("./src/index.html").pipe(gulp.dest("dist"));
+  gulp.src("./src/favicon.*").pipe(gulp.dest("dist"));
 });
 
 gulp.task("copy-css", function() {

@@ -2,15 +2,7 @@
 var loadedLanguage;
 var i18n = {
   lang: function() {
-    var lang = "en";
-
-    try {
-      var confObj = getConf();
-
-      lang = confObj.locale.replace("-", "_");
-    } catch (error) {}
-
-    return lang;
+    return getConf().locale.replace("-", "_") || "en";
   },
   __: function(phrase) {
     if (loadedLanguage == undefined) {

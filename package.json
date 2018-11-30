@@ -1,14 +1,14 @@
 {
   "name": "desktopnaotu",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "桌面版脑图",
   "main": "main.js",
   "scripts": {
     "start": "gulp default && electron main.js",
-    "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=favicon.ico --electron-version=3.0.10 --app-version=3.0.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
-    "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=favicon.ico --electron-version=3.0.10 --app-version=3.0.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
-    "packmacos": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=favicon.icns --electron-version=3.0.10 --app-version=3.0.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
-    "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=favicon.png --electron-version=3.0.10 --app-version=3.0.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune"
+    "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=src/favicon.ico --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
+    "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=src/favicon.ico --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
+    "packmacos": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=src/favicon.icns --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
+    "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=src/favicon.png --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune"
   },
   "repository": {
     "type": "git",

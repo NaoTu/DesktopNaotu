@@ -7,15 +7,13 @@ function getDefConf() {
 }
 
 function getConf() {
-  var confObj = JSON.parse(fs.readFileSync(confPath));
-  if (confObj == null) {
-    confObj = getDefConf();
+  if (fs.existsSync(confPath)) {
+    return JSON.parse(fs.readFileSync(confPath));
+  } else {
+    fs.writeFileSync(confPath, JSON.stringify(getDefConf()));
 
-    // 创建文件
-    fs.writeFileSync(confPath, JSON.stringify(confObj));
+    return getDefConf();
   }
-
-  return confObj;
 }
 
 function clearRecently() {
@@ -82,14 +80,11 @@ function updateMenus() {
     var item = list[i];
 
     // 追加到菜单
-    menus[0].submenu[4].submenu.splice(
-      menus[0].submenu[4].submenu.length - 2,
-      0,
-      {
-        label: item.path,
-        click: openRecently
-      }
-    );
+    var recentFiles = menus[0].submenu[5].submenu;
+    recentFiles.splice(recentFiles.length - 2, 0, {
+      label: item.path,
+      click: openRecently
+    });
   }
 
   // 更新菜单

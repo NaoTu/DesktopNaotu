@@ -22,7 +22,7 @@ function createWindow() {
 
         'fullscreenable': true,
         'show': false,
-        'icon': `${__dirname}/favicon.ico`,
+        'icon': `${__dirname}/dist/favicon.ico`,
         'backgroundColor': '#fbfbfb'
     });
 

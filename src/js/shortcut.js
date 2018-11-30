@@ -57,10 +57,10 @@ function shortcut() {
   var text = "";
   for (var i = 0; i < shortcutKeys.length; i++) {
     var group = shortcutKeys[i];
-    text += '\n' + group.groupName + '\n';
+    text += "\n" + group.groupName + "\n";
     for (var j = 0; j < group.groupItem.length; j++) {
       var item = group.groupItem[j];
-      text += '       ' + item.desc + '   ' + item.key + '\n';
+      text += "       " + item.desc + "   " + item.key + "\n";
     }
   }
 

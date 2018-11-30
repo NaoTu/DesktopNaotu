@@ -1,7 +1,3 @@
-// /*jshint esversion: 6 */
-// var remote = require("electron").remote;
-// var Menu = remote.Menu;
-
 var template = [
   {
     label: i18n.__("mFile"),
@@ -15,6 +11,11 @@ var template = [
         label: i18n.__("miOpenFile"),
         accelerator: "CmdOrCtrl+O",
         click: openDialog
+      },
+      {
+        label: i18n.__("miOpenWindow"),
+        accelerator: "CmdOrCtrl+Shift+N",
+        click: openWindow
       },
       { type: "separator" },
       {

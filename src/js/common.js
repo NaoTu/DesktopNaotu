@@ -34,6 +34,30 @@ log4js.configure({
 var logger = log4js.getLogger("NaoTuApp");
 var confPath = path.join(getUserDataDir(), "/naotu.config.json");
 
+try {
+  // 若没有用户文件夹，则创建
+  var defFolder = path.join(getUserDataDir(), "/");
+  if (!fs.existsSync(defFolder)) {
+    fs.mkdirSync(defFolder);
+  }
+
+  // 检查或创建配置文件
+  if (!fs.existsSync(confPath)) {
+    fs.writeFileSync(confPath, JSON.stringify(getDefConf()));
+  } else {
+    // 存在则更新
+    var newConf = getDefConf();
+    var oldConf = getConf();
+
+    newConf.defSavePath = oldConf.defSavePath;
+    newConf.recently = oldConf.recently;
+
+    fs.writeFileSync(confPath, JSON.stringify(newConf));
+  }
+} catch (ex) {
+  logger.error(ex);
+}
+
 // init
 $(function() {
   getAppInstance().setTitle(i18n.__("sAppName"));
@@ -41,23 +65,6 @@ $(function() {
 
   // 欢迎语
   logger.info("Jack welcomes you! v" + ver.version.slice(0, 3).join("."));
-
-  try {
-    // 若没有用户文件夹，则创建
-    var defFolder = path.join(getUserDataDir(), "/");
-    if (!fs.existsSync(defFolder)) {
-      fs.mkdirSync(defFolder);
-    }
-
-    // 检查或创建配置文件
-    fs.exists(confPath, function(exists) {
-      if (!exists) {
-        fs.writeFileSync(confPath, JSON.stringify(getDefConf()));
-      }
-    });
-  } catch (ex) {
-    logger.error(ex);
-  }
 });
 
 // 重选自动保存的目录
@@ -327,7 +334,7 @@ function about() {
   dialog.showMessageBox({
     type: "info",
     title: i18n.__("sAppName"),
-    message: text.join('\r'),
+    message: text.join("\r"),
     buttons: ["OK"]
   });
 }
@@ -396,5 +403,28 @@ function showFileName(fileName) {
 }
 
 function getAppInstance() {
-  return BrowserWindow.getAllWindows()[0];
+  return BrowserWindow.getFocusedWindow();
+}
+
+function openWindow() {
+  var subWinPath = path.join("file://", __dirname, "/index.html");
+  var subWinIcon = path.join("file://", __dirname, "/favicon.ico");
+
+  var newWin = new BrowserWindow({
+    minWidth: 700,
+    minHeight: 700,
+    width: 1000,
+    height: 800,
+
+    fullscreenable: true,
+    show: false,
+    icon: subWinIcon,
+    backgroundColor: "#fbfbfb"
+  });
+
+  newWin.on("close", function() {
+    newWin = null;
+  });
+  newWin.loadURL(subWinPath);
+  newWin.show();
 }

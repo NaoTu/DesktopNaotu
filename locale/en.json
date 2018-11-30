@@ -2,6 +2,7 @@
   "mFile": "&File",
   "miNewFile": "&New File",
   "miOpenFile": "&Open File...",
+  "miOpenWindow": "Open a New Window",
   "miOpenFolder": "Open &Folder...",
   "miOpenRecent": "Open &Recent",
   "miClearRecent": "&Clear Recently Opened",
