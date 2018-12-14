@@ -1,8 +1,0 @@
-{strip}
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xmap-revisions media-type="application/vnd.xmind.sheet" next-rev-num="2" resource-id="{$meta['id']}">
-    <revision creator-name="XMind" creator-version="3.4.1.201401221918"
-              resource="Revisions/{$meta['id']}/rev-1-{$revisions['timestamp']}.xml" rev-num="1"
-              timestamp="{$revisions['timestamp']}"/>
-</xmap-revisions>
-{/strip}

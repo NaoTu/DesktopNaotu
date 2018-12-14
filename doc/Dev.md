@@ -161,3 +161,23 @@ python 处理文件移动和打包
 ## 安装自定义的包
 
 bower install git://github.com/NaoTu/kityminder-core.git#dev --save
+
+## ts dev
+
+npm uninstall fs-extra --save
+npm uninstall @types/fs-extra --save-dev
+npm uninstall @types/event-kit --save-dev
+
+https://www.cnblogs.com/zqzjs/p/6160205.html
+
+npm install log4js --save
+
+https://74th.github.io/vscode-debug-specs/javascript_electron/
+
+ts debugger
+
+https://www.jianshu.com/p/d906dfaeddc5
+
+高版本有bug，需要指定到这个版本。
+npm install typescript --save-dev
+npm install gulp-tsc --save-dev

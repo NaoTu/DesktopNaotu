@@ -1,14 +1,14 @@
 {
   "name": "desktopnaotu",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "桌面版脑图",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "start": "gulp default && electron main.js",
-    "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=src/favicon.ico --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
-    "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=src/favicon.ico --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
-    "packmacos": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=src/favicon.icns --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune",
-    "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=src/favicon.png --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|bower_components|electron-packager)\" --overwrite --prune"
+    "start": "gulp default",
+    "packwin32": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packwin64": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packmacos": "electron-packager ./ DesktopNaotu --platform=darwin --arch=x64 --out=../OutApp --icon=app/static/favicon.icns --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packlinux": "electron-packager ./ DesktopNaotu --platform=linux --arch=x64 --out=../OutApp --icon=app/static/favicon.png --electron-version=3.0.10 --app-version=3.1.0 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,9 @@
   "homepage": "https://github.com/NaoTu/DesktopNaotu#readme",
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@types/byline": "^4.2.31",
     "del": "^3.0.0",
-    "electron": "^3.0.3",
+    "electron": "^3.0.11",
     "electron-packager": "^12.2.0",
     "electron-prebuilt": "^1.4.13",
     "grunt": "^1.0.3",
@@ -46,10 +47,10 @@
     "gulp-obfuscate": "^0.2.9",
     "gulp-rename": "^1.4.0",
     "gulp-ruby-sass": "^3.0.0",
+    "gulp-tsc": "^1.3.2",
     "gulp-uglify": "^3.0.1",
     "js-beautify": "^1.8.6",
     "jshint": "^2.9.6",
-    "log4js": "^3.0.6",
     "run-sequence": "^2.2.1",
     "wiredep": "^4.0.0"
   },

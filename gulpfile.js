@@ -20,24 +20,38 @@ const gulp = require("gulp"),
   mainBowerFiles = require("gulp-main-bower-files"),
   babel = require("gulp-babel"),
   gutil = require("gulp-util"),
+  typescript = require("gulp-tsc"),
   obfuscate = require("gulp-obfuscate");
 
 gulp.task("clean-dist", () => {
   return del(["dist/**/*"], { force: true });
 });
 
-gulp.task("bower", function() {
-  gulp
-    .src("./src/index.html")
+gulp.task("compile", function() {
+  return gulp
+    .src(["./app/src/**/*.ts"])
     .pipe(
-      wiredep({
-        optional: "configuration",
-        goes: "here"
+      typescript({
+        sourceMap: true,
+        target: "ES2015",
+        module: "commonjs"
       })
     )
-    .pipe(gulp.dest("./dist/"))
-    .pipe(notify({ message: "bower task complete" }));
+    .pipe(gulp.dest("./dist/"));
 });
+
+// gulp.task("bower", function() {
+//   gulp
+//     .src("./src/index.html")
+//     .pipe(
+//       wiredep({
+//         optional: "configuration",
+//         goes: "here"
+//       })
+//     )
+//     .pipe(gulp.dest("./dist/"))
+//     .pipe(notify({ message: "bower task complete" }));
+// });
 
 // gulp.task('main-bower-files', function () {
 //     return gulp.src('./bower.json')
@@ -134,13 +148,13 @@ gulp.task("copy-images-vendor", function() {
 });
 
 gulp.task("copy-html-vendor", function() {
-  gulp.src("./src/index.html").pipe(gulp.dest("dist"));
-  gulp.src("./src/favicon.*").pipe(gulp.dest("dist"));
+  gulp.src("./app/static/index.html").pipe(gulp.dest("dist"));
+  // gulp.src("./app/static/favicon.ico").pipe(gulp.dest("dist"));
 });
 
 gulp.task("copy-css", function() {
   return gulp
-    .src("src/**/*.css")
+    .src("app/**/*.css")
     .pipe(minifycss())
     .pipe(gulp.dest("dist/"))
     .pipe(notify({ message: "css task complete" }));
@@ -176,8 +190,10 @@ gulp.task("webserver", function() {
 gulp.task("default", function(done) {
   run(
     "clean-dist",
+    "build-version",
+    "compile",
     "copy-css",
-    "copy-js",
+    // "copy-js",
     "copy-html-vendor",
     // 'bower',
     // 'main-bower-files',
@@ -186,7 +202,6 @@ gulp.task("default", function(done) {
     "copy-font-vendor",
     "copy-images-vendor",
     // 'clean-libs',
-    "build-version",
     done
   );
 });
@@ -200,20 +215,29 @@ gulp.task("watch", function() {
 
 gulp.task("build-version", () => {
   // build next version num.
-  let fn = path.join(__dirname, "", "version.js");
-  let version = require("./version").version;
+  let url = path.join(__dirname, "app/src", "version.ts");
+  let text = fs.readFileSync(url, "utf-8");
+  let version = text
+    .substring(text.indexOf("[") + 1, text.lastIndexOf("]"))
+    .replace(/ /gi, "")
+    .split(",");
+  version[0] = parseInt(version[0]);
+  version[1] = parseInt(version[1]);
+  version[2] = parseInt(version[2]);
   version[3]++;
+  // let version = require("./dist/version").version;
+  // version[3]++;
 
   console.log(`version -> ${version.join(".")}`);
 
-  let cnt = beautify(`exports.version = ${JSON.stringify(version)};`);
-  fs.writeFileSync(fn, cnt, "utf-8");
+  let cnt = beautify(`export let version = ${JSON.stringify(version)};`);
+  fs.writeFileSync(url, cnt, "utf-8");
 
   // update package.json
-  fn = "./package.json";
-  cnt = fs.readFileSync(fn);
+  url = "./package.json";
+  cnt = fs.readFileSync(url);
   let d = JSON.parse(cnt);
   d.version = version.slice(0, 3).join(".");
   cnt = beautify(JSON.stringify(d), { indent_size: 2 });
-  fs.writeFileSync(fn, cnt, "utf-8");
+  fs.writeFileSync(url, cnt, "utf-8");
 });
