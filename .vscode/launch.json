@@ -1,0 +1,35 @@
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "launch",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/dist/main.js",
+      // "program": "${workspaceRoot}/dist/index.js",
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Main Process",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+      // "program": "${workspaceRoot}/dist/ts/index.js",
+      "runtimeArgs": [
+        ".",
+        // this args for attaching render process
+        "--remote-debugging-port=9222"
+      ],
+      "windows": {
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+      },
+      "protocol": "inspector"
+      // "protocol": "legacy"
+    }
+  ]
+}
