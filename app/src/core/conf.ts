@@ -6,6 +6,7 @@ import { existsSync } from "fs";
 import { app, remote } from "electron";
 import { writeText, readText } from "./io";
 import { sBackupDir, Languages, sConfigVersion } from "../define";
+import { logger } from "./logger";
 
 /**
  * 配置文件的模板
@@ -123,7 +124,7 @@ interface IDesktopConfig {
   save(config: NaotuConfig): void;
 
   /**
-   * 创建日志文件
+   * 创建配置文件
    */
   create(): void;
 }
@@ -147,11 +148,13 @@ export class DesktopConfig implements IDesktopConfig {
   }
 
   upgrade(): void {
+    logger.debug(`upgrade ${this.configPath}`);
+
     if (!existsSync(this.configPath)) {
       this.create();
     } else {
-      var oldModel = this.getModel();
-      var newModel = this.getTemplate();
+      let oldModel = this.getModel();
+      let newModel = this.getTemplate();
 
       // 升级配置
       if (oldModel.version !== newModel.version) {
@@ -176,8 +179,8 @@ export class DesktopConfig implements IDesktopConfig {
   }
 
   getModel(): NaotuConfig {
-    var data = readText(this.configPath);
-    var model = NaotuConfig.Deserialization(data);
+    let data = readText(this.configPath);
+    let model = NaotuConfig.Deserialization(data);
 
     return model;
   }

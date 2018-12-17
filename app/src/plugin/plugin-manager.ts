@@ -67,7 +67,7 @@ export class PluginManager implements IPluginManager {
   }
 
   unloadAllPlugins(): void {
-    for (var prop in this._plugins) {
+    for (let prop in this._plugins) {
       if (this._plugins.hasOwnProperty(prop)) {
         delete this._plugins[prop];
       }
@@ -75,7 +75,7 @@ export class PluginManager implements IPluginManager {
   }
 
   runPlugins(): void {
-    for (var prop in this._plugins) {
+    for (let prop in this._plugins) {
       if (this._plugins.hasOwnProperty(prop)) {
         let item = this._plugins[prop];
 

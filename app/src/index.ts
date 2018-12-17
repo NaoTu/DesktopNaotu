@@ -54,12 +54,12 @@ $(function() {
     });
 
     minder.on("selectionchange", function() {
-      var node = minder.getSelectedNode();
+      let node = minder.getSelectedNode();
 
-      //   var menu = remote.Menu.getApplicationMenu();
+      //   let menu = remote.Menu.getApplicationMenu();
 
       //   // 对编辑菜单进行管理
-      //   var editItems = menu.items[1].submenu.items;
+      //   let editItems = menu.items[1].submenu.items;
       //   editItems[3].enabled = editItems[4].enabled = editItems[5].enabled = !!node;
     });
   }

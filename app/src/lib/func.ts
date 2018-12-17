@@ -257,7 +257,7 @@ function openFileInFolder() {
 
 // inner function.
 function exportFile(protocol: any, filename: string) {
-  var options = {
+  let options = {
     download: true,
     filename: filename
   };
@@ -268,8 +268,8 @@ function exportFile(protocol: any, filename: string) {
         writeText(filename, data);
         break;
       case "base64":
-        var base64Data = data.replace(/^data:image\/\w+;base64,/, "");
-        var dataBuffer = new Buffer(base64Data, "base64");
+        let base64Data = data.replace(/^data:image\/\w+;base64,/, "");
+        let dataBuffer = new Buffer(base64Data, "base64");
 
         writeBuffer(filename, dataBuffer);
         break;
@@ -285,11 +285,11 @@ function exportFile(protocol: any, filename: string) {
  * 导出文件
  */
 function exportDialog() {
-  var newPath = join(getUserDataDir(), minder.getRoot().data.text);
+  let newPath = join(getUserDataDir(), minder.getRoot().data.text);
 
-  var filters = [];
-  var pool = kityminder.data.getRegisterProtocol();
-  for (var name in pool) {
+  let filters = [];
+  let pool = kityminder.data.getRegisterProtocol();
+  for (let name in pool) {
     if (pool.hasOwnProperty(name) && pool[name].encode) {
       filters.push({
         name: pool[name].fileDescription,
@@ -307,10 +307,10 @@ function exportDialog() {
     function(fileName) {
       if (!fileName) return; // cancel export
 
-      var ext = fileName.toLowerCase().substring(fileName.lastIndexOf("."));
-      var protocol = null;
-      var pool = kityminder.data.getRegisterProtocol();
-      for (var name in pool) {
+      let ext = fileName.toLowerCase().substring(fileName.lastIndexOf("."));
+      let protocol = null;
+      let pool = kityminder.data.getRegisterProtocol();
+      for (let name in pool) {
         if (pool.hasOwnProperty(name) && pool[name].encode) {
           if (pool[name].fileExtension === ext) {
             protocol = pool[name];
@@ -362,10 +362,10 @@ function getAppInstance() {
  */
 function showFileName(fileName: string) {
   if (fileName != undefined) {
-    var index = fileName.lastIndexOf("/");
+    let index = fileName.lastIndexOf("/");
 
     if (fileName.lastIndexOf("\\") > -1) index = fileName.lastIndexOf("\\");
-    var title = fileName.substring(index + 1) + " - " + I18n.__("sAppName");
+    let title = fileName.substring(index + 1) + " - " + I18n.__("sAppName");
 
     let appInstance = getAppInstance();
     if (appInstance) {
