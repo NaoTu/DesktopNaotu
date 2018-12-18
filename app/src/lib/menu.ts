@@ -1,6 +1,7 @@
 import { ipcRenderer } from "electron";
 import { MenuEvent } from "../menu/menu-event";
 import { func } from "./func";
+import { logger } from "../core/logger";
 
 interface IMenu {
   /**
@@ -26,6 +27,8 @@ export class NaotuMenu {
    * event-Listenner
    */
   public Start() {
+    logger.info("Naotu menu start event listener");
+    
     // 设置监听
     ipcRenderer.on(
       "menu-event",

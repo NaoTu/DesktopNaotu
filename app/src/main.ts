@@ -5,9 +5,11 @@ import { logger } from "./core/logger";
 import { buildDefaultMenu } from "./menu/build-default-menu";
 import { DesktopConfig } from "./core/conf";
 import { sIndexUrl } from "./define";
+import { func } from "./lib/func";
 
 // Main Method
 (() => {
+  func.cloneFile();
   // 开始记录日志
   logger.info(`app start ${(process.platform, process.pid)}`);
 
@@ -18,7 +20,6 @@ import { sIndexUrl } from "./define";
   const isDevMode = process.execPath.match(/[\\/]electron/);
 
   // main.ts启动顺序为：读取系统参数（如系统类型、系统语言）、读取用户设置、初始化插件模块、载入系统插件、载入用户插件、启动主界面、载入菜单栏、其他
-
   const createWindow = async () => {
     // 隐藏菜单栏
     Menu.setApplicationMenu(null);
@@ -110,4 +111,5 @@ import { sIndexUrl } from "./define";
   // code. You can also put them in separate files and import them here.
 
   // global.sharedObject = { prop1: process.argv };
+  //  global.sharedObject = { prop1: process.argv };
 })();

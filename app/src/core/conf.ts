@@ -140,15 +140,19 @@ export class DesktopConfig implements IDesktopConfig {
 
   constructor() {
     this.configPath = getConfigFilePath();
+
+    logger.info(`init DesktopConfig. path is "${this.configPath}"`);
   }
 
   create(): void {
+    logger.info(`create DesktopConfig. path is "${this.configPath}"`);
+
     let config = this.getTemplate();
     this.save(config);
   }
 
   upgrade(): void {
-    logger.debug(`upgrade ${this.configPath}`);
+    logger.info(`upgrade DesktopConfig. path is "${this.configPath}"`);
 
     if (!existsSync(this.configPath)) {
       this.create();
@@ -189,5 +193,9 @@ export class DesktopConfig implements IDesktopConfig {
     let data = NaotuConfig.Serialization(config);
 
     writeText(this.configPath, data);
+
+    logger.info(
+      `save DesktopConfig. path is "${this.configPath}", content is "${data}".`
+    );
   }
 }

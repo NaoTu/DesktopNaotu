@@ -14,7 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/NaoTu/DesktopNaotu.git"
   },
-  "keywords": ["mind", "naotu"],
+  "keywords": [
+    "mind",
+    "naotu"
+  ],
   "author": "'Jack' <'topcss@gmail.com'>",
   "license": "MIT",
   "bugs": {

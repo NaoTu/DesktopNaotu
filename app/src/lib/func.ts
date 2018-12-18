@@ -12,6 +12,8 @@ import {
   sLicenseUrl,
   sAboutText
 } from "../define";
+import { existsSync } from "fs";
+import execAsync from "../core/exec";
 
 let configFile = new DesktopConfig();
 
@@ -35,6 +37,8 @@ function getDefaultPath() {
  * 拖拽打开文件
  */
 function dropOpenFile() {
+  logger.info("allow drop Open File");
+
   let body = document.body;
 
   body.ondrop = e => {
@@ -63,13 +67,15 @@ function dropOpenFile() {
  */
 function openKm(filePath: string) {
   try {
+    if (existsSync(filePath)) throw `file not found, ${filePath}`;
+
     editor.minder.importJson(readJson(filePath));
 
     showFileName(filePath);
 
     currentFilePath = filePath;
   } catch (error) {
-    logger.error(error);
+    logger.error("openKm error, ", error);
   }
 }
 
@@ -83,7 +89,7 @@ function saveKm(filePath: string) {
 
     currentFilePath = filePath;
   } catch (error) {
-    logger.error(error);
+    logger.error("saveKm error, ", error);
   }
 }
 
@@ -192,7 +198,32 @@ function newDialog() {
  * 生成副本
  */
 function cloneFile() {
-  //
+  // create and open a new window.
+  let command = "";
+  switch (process.platform) {
+    case "win32":
+      command = "start";
+      break;
+    case "darwin":
+      command = "";
+      break;
+    default:
+    case "linux":
+      command = "";
+      break;
+  }
+
+  // 当前执行程序的路径
+  let app = process.execPath;
+
+  // 执行命令
+  execAsync(command, app)
+    .then(a => {
+      logger.info(a);
+    })
+    .catch(e => {
+      logger.error("asyncExec err: ", e);
+    });
 }
 
 /**
@@ -425,6 +456,9 @@ export let currentFilePath: string | null;
  * 导出接口
  */
 export const func = {
+  openKm,
+  // 菜单的方法
+  cloneFile,
   openDialog,
   saveDialog,
   saveAsDialog,

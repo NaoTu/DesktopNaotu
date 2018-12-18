@@ -4,38 +4,39 @@ import { I18n } from "./core/i18n";
 import { NaotuMenu } from "./lib/menu";
 import { func } from "./lib/func";
 import { DesktopConfig } from "./core/conf";
+import { remote } from "electron";
 
+// 进入即记录日志
 logger.info("ipcRender init");
 
+// 初始化配置文件
 let configFile = new DesktopConfig();
+
+// 初始化菜单
 let naotuMenu = new NaotuMenu();
 naotuMenu.Start();
 
-logger.info("Naotu menu start event listener");
-
+// 开启拖动打开文件的功能
 func.dropOpenFile();
-
-logger.info("allow drop Open File");
 
 $ = jQuery = require("./js/jquery.min.js");
 
 angular
   .module("kityminderDemo", ["kityminderEditor"])
   .config(function(configProvider: any) {
+    logger.info(`loaded language "${I18n.getLang()}".`);
+
     configProvider.set("lang", I18n.getLang());
 
-    logger.info(`loaded language ${I18n.getLang()}.`);
-
     // configProvider.set('imageUpload', '../server/imageUpload.php');
+    let argv = remote.process.argv;
+    if (argv.length >= 2) {
+      let filePath = argv[1] as string;
 
-    // if (argv.length >= 2) {
-    //     let filePath = argv[1];
-
-    //     //open, read, handle file
-    //     if (filePath.indexOf('km') > -1) {
-    //         readFile(filePath);
-    //     }
-    // }
+      if (filePath.indexOf("km") > -1) {
+        func.openKm(filePath);
+      }
+    }
   })
   .controller("MainController", function($scope: any, $modal: any) {
     $scope.initEditor = function(editor: any, minder: any) {

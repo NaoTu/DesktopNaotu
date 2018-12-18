@@ -26,7 +26,7 @@ export class NaotuLogger implements INaotuLogger {
     this.logger.warn(message, error);
   }
   public info(message: string, error?: Error) {
-    this.logger.info(message, error);
+    this.logger.info(message, "");
   }
   public debug(message: string, error?: Error) {
     this.logger.debug(message, error);
