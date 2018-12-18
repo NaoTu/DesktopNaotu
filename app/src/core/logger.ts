@@ -1,5 +1,6 @@
 import { Logger, createLogger, format, transports } from "winston";
 import { getLogDirectoryPath } from "./path";
+import { join } from "path";
 
 interface LeveledLogMethod {
   (message: string): void;
@@ -46,6 +47,9 @@ class NaotuLogger implements INaotuLogger {
    * 私有的构造方法
    */
   private constructor() {
+
+    let dir = getLogDirectoryPath();
+
     this.logger = createLogger({
       level: "info",
       format: format.combine(
@@ -56,12 +60,12 @@ class NaotuLogger implements INaotuLogger {
       ),
       transports: [
         new transports.File({
-          filename: getLogDirectoryPath() + ".err.log",
+          filename: join(dir, "naotu.err.log"),
           level: "error"
         }),
         new transports.File({
-          filename: getLogDirectoryPath() + ".log",
-          maxsize: 104857600,// 100M
+          filename: join(dir, "naotu.log"),
+          maxsize: 104857600, // 100M
           maxFiles: 50,
           tailable: true
         })

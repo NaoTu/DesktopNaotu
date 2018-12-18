@@ -1,9 +1,8 @@
 // --> ipcMain 主线程使用的代码
 import { app, BrowserWindow, globalShortcut, Menu } from "electron";
 import { logger } from "./core/logger";
-import { DesktopConfig } from "./core/conf";
+import { naotuConf } from "./core/conf";
 import { sIndexUrl } from "./define";
-import { buildDefaultMenu } from "./menu/build-default-menu";
 
 // Main Method
 (() => {
@@ -22,8 +21,7 @@ import { buildDefaultMenu } from "./menu/build-default-menu";
     Menu.setApplicationMenu(null);
 
     // 初始化和更新配置文件
-    let configFile = new DesktopConfig();
-    configFile.upgrade();
+    naotuConf.upgrade();
 
     // Create the browser window.
     mainWindow = new BrowserWindow({
@@ -40,10 +38,6 @@ import { buildDefaultMenu } from "./menu/build-default-menu";
     // and load the index.html of the app.
     logger.info(`open url ${sIndexUrl} `);
     mainWindow.loadURL(sIndexUrl);
-
-    // init menu
-    let menu = buildDefaultMenu();
-    Menu.setApplicationMenu(menu);
 
     globalShortcut.register("CmdOrCtrl+Shift+D", () => {
       if (mainWindow) {

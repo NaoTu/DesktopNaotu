@@ -1,30 +1,26 @@
 // --> ipcRender 渲染线程的入口
 import { logger } from "./core/logger";
 import { I18n } from "./core/i18n";
-import { NaotuMenu } from "./lib/menu";
-import { func } from "./lib/func";
-import { DesktopConfig } from "./core/conf";
+import { naotuMenu } from "./lib/menu";
+import { naotuConf } from "./core/conf";
 import { remote } from "electron";
-import { buildDefaultMenu } from "./menu/build-default-menu";
+import { dropOpenFile, openKm } from "./lib/file";
+import { saveDialog } from "./lib/dialog";
 
 // 进入即记录日志
 logger.info("ipcRender init");
 
-// 初始化配置文件
-let configFile = new DesktopConfig();
+// 初始化渲染菜单
+naotuMenu.render();
 
-
-let naotuMenu = new NaotuMenu();
-naotuMenu.Start();
 // 开启拖动打开文件的功能
-func.dropOpenFile();
+dropOpenFile();
 
 $ = jQuery = require("./js/jquery.min.js");
 
 angular
   .module("kityminderDemo", ["kityminderEditor"])
   .config(function(configProvider: any) {
-
     configProvider.set("lang", I18n.getLang());
 
     // configProvider.set('imageUpload', '../server/imageUpload.php');
@@ -33,7 +29,7 @@ angular
       let filePath = argv[1] as string;
 
       if (filePath.indexOf("km") > -1) {
-        func.openKm(filePath);
+        openKm(filePath);
       }
     }
   })
@@ -48,8 +44,8 @@ $(function() {
   if (minder != null) {
     // auto saving
     minder.on("contentchange", function() {
-      if (configFile.getModel().isAutoSave) {
-        func.saveDialog();
+      if (naotuConf.getModel().isAutoSave) {
+        saveDialog();
       }
     });
 

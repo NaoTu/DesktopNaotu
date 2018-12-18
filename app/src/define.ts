@@ -19,7 +19,7 @@ export let sLocaleDir = "../locale";
 /**
  * 日志目录
  */
-export let sLogsDir = "/logs/naotu";
+export let sLogsDir = "/logs";
 
 /**
  * 配置文件名称

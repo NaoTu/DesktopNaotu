@@ -4,7 +4,7 @@
 import { app, remote } from "electron";
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import { sConfigFile, sLogsDir } from "../define";
+import { sConfigFile, sLogsDir, sBackupDir } from "../define";
 
 /**
  * 获取用户目录
@@ -18,26 +18,37 @@ export function getUserDataDir() {
     userData = (app || remote.app).getPath("userData");
 
     // 若没有用户目录，则创建
-    if (!existsSync(userData)) {
-      mkdirSync(userData);
-    }
+    if (!existsSync(userData)) mkdirSync(userData);
   } catch (error) {}
 
   return userData;
+}
+
+function getPath(dir: string) {
+  const userData = getUserDataDir();
+  let path = join(userData, dir);
+
+  if (!existsSync(path)) mkdirSync(path);
+  return path;
 }
 
 /**
  * 获取配置文件的路径
  */
 export function getConfigFilePath(): string {
-  const userData = getUserDataDir();
-  return join(userData, sConfigFile);
+  return getPath(sConfigFile);
 }
 
 /**
  * 获取日志目录的路径
  */
 export function getLogDirectoryPath(): string {
-  const userData = getUserDataDir();
-  return join(userData, sLogsDir);
+  return getPath(sLogsDir);
+}
+
+/**
+ * 获取备份目录
+ */
+export function getBackupDirectoryPath(): string {
+  return getPath(sBackupDir);
 }

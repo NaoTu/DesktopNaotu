@@ -1,11 +1,10 @@
 // 配置文件辅助类
 
-import { getConfigFilePath, getUserDataDir } from "./path";
-import { join } from "path";
+import { getConfigFilePath, getBackupDirectoryPath } from "./path";
 import { existsSync } from "fs";
-import { app, remote } from "electron";
+import { app } from "electron";
 import { writeText, readText } from "./io";
-import { sBackupDir, Languages, sConfigVersion } from "../define";
+import { Languages, sConfigVersion } from "../define";
 import { logger } from "./logger";
 
 /**
@@ -132,7 +131,7 @@ interface IDesktopConfig {
 /**
  * 配置文件实现类
  */
-export class DesktopConfig implements IDesktopConfig {
+class DesktopConfig implements IDesktopConfig {
   /**
    * 配置文件的路径
    */
@@ -175,11 +174,17 @@ export class DesktopConfig implements IDesktopConfig {
   }
 
   getTemplate(): NaotuConfig {
-    const savePath = join(getUserDataDir(), sBackupDir);
     let locale = app.getLocale();
     const lang = (locale as Languages) || "en";
 
-    return new NaotuConfig(lang, savePath, true, 5, [], sConfigVersion);
+    return new NaotuConfig(
+      lang,
+      getBackupDirectoryPath(),
+      true,
+      5,
+      [],
+      sConfigVersion
+    );
   }
 
   getModel(): NaotuConfig {
@@ -199,3 +204,5 @@ export class DesktopConfig implements IDesktopConfig {
     );
   }
 }
+
+export let naotuConf = new DesktopConfig();

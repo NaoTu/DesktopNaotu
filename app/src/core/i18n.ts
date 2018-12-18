@@ -1,4 +1,4 @@
-import { DesktopConfig } from "./conf";
+import { naotuConf } from "./conf";
 import { join } from "path";
 import { readJson } from "./io";
 import { sLocaleDir } from "../define";
@@ -7,13 +7,11 @@ import { sLocaleDir } from "../define";
  * 国际化接口
  */
 export namespace I18n {
-  let config = new DesktopConfig();
-
   /**
    * 应该显示什么语言
    */
   export function getLang(): string {
-    let locale = config.getModel().locale || "en";
+    let locale = naotuConf.getModel().locale || "en";
 
     return locale.replace("-", "_");
   }
