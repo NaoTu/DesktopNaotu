@@ -1,6 +1,7 @@
 import { MenuEvent } from "./menu-event";
 import { ipcMain, Menu } from "electron";
 import { ensureItemIds } from "./ensure-item-ids";
+import { func } from "../lib/func";
 
 type ClickHandler = (
   menuItem: Electron.MenuItem,
@@ -32,7 +33,8 @@ export function buildDefaultMenu(): Electron.Menu {
       {
         id: "miNewFile",
         accelerator: "CmdOrCtrl+N",
-        click: emit("newDialog")
+        click: func.cloneFile
+        // click: emit("cloneFile")
       },
       {
         id: "miOpenFile",

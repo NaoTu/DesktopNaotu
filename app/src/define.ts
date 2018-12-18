@@ -4,6 +4,7 @@
 
 //#region 1. 不容易变化的部分
 import { version } from "./version";
+import { join } from "path";
 
 /**
  * 文件备份的路径
@@ -28,7 +29,7 @@ export let sConfigFile = "/naotu.config.json";
 /**
  * 首页的路径
  */
-export let sIndexUrl = "/index.html";
+export let sIndexUrl = join(`file://${__dirname}`, "/index.html");
 
 /**
  * 许可证的地址

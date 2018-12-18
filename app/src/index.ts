@@ -5,6 +5,7 @@ import { NaotuMenu } from "./lib/menu";
 import { func } from "./lib/func";
 import { DesktopConfig } from "./core/conf";
 import { remote } from "electron";
+import { buildDefaultMenu } from "./menu/build-default-menu";
 
 // 进入即记录日志
 logger.info("ipcRender init");
@@ -12,10 +13,9 @@ logger.info("ipcRender init");
 // 初始化配置文件
 let configFile = new DesktopConfig();
 
-// 初始化菜单
+
 let naotuMenu = new NaotuMenu();
 naotuMenu.Start();
-
 // 开启拖动打开文件的功能
 func.dropOpenFile();
 
@@ -24,7 +24,6 @@ $ = jQuery = require("./js/jquery.min.js");
 angular
   .module("kityminderDemo", ["kityminderEditor"])
   .config(function(configProvider: any) {
-    logger.info(`loaded language "${I18n.getLang()}".`);
 
     configProvider.set("lang", I18n.getLang());
 

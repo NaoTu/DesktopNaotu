@@ -4,7 +4,7 @@ import { getUserDataDir } from "../core/path";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
 import { DesktopConfig } from "../core/conf";
-import { writeJson, readJson, writeText, writeBuffer } from "../core/io";
+import { writeJson, readJson, writeText, writeBuffer, copy } from "../core/io";
 import {
   arrExtensions,
   sExportTitle,
@@ -67,7 +67,7 @@ function dropOpenFile() {
  */
 function openKm(filePath: string) {
   try {
-    if (existsSync(filePath)) throw `file not found, ${filePath}`;
+    if (!existsSync(filePath)) throw new Error(`file not found, ${filePath}`);
 
     editor.minder.importJson(readJson(filePath));
 
@@ -198,32 +198,41 @@ function newDialog() {
  * 生成副本
  */
 function cloneFile() {
-  // create and open a new window.
-  let command = "";
-  switch (process.platform) {
-    case "win32":
-      command = "start";
-      break;
-    case "darwin":
-      command = "";
-      break;
-    default:
-    case "linux":
-      command = "";
-      break;
+  // 创建一个新文件，并在新窗口打开它
+  if (currentFilePath) {
+    let dstKmPath = getDefaultPath(); // 生成一个文件的地址
+    copy(currentFilePath, dstKmPath); // 复制一份
+
+    // 获取当前执行程序的路径
+    let appPath = process.execPath;
+    let command = "";
+
+    switch (process.platform) {
+      case "win32":
+        command = "start " + appPath;
+        break;
+      case "darwin":
+        // TODO： 待验证
+        command = appPath;
+        break;
+      default:
+      case "linux":
+        // TODO： 待验证
+        command = appPath;
+        break;
+    }
+
+    // 执行打开该文件的命令
+    execAsync(command, dstKmPath)
+      .then(output => {
+        logger.info(output);
+      })
+      .catch(err => {
+        logger.error("asyncExec err: ", err);
+      });
+  } else {
+    new Error("No files are currently open.");
   }
-
-  // 当前执行程序的路径
-  let app = process.execPath;
-
-  // 执行命令
-  execAsync(command, app)
-    .then(a => {
-      logger.info(a);
-    })
-    .catch(e => {
-      logger.error("asyncExec err: ", e);
-    });
 }
 
 /**
@@ -268,10 +277,9 @@ function openWindow() {
     if (newWin) newWin = null;
   });
 
-  let pageUrl = join(`file://${__dirname}`, "../", sIndexUrl);
-  logger.info(`open new window '${pageUrl}' `);
+  logger.info(`open new window '${sIndexUrl}' `);
 
-  newWin.loadURL(pageUrl);
+  newWin.loadURL(sIndexUrl);
   newWin.show();
 }
 

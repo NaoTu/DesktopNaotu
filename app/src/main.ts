@@ -1,17 +1,14 @@
 // --> ipcMain 主线程使用的代码
 import { app, BrowserWindow, globalShortcut, Menu } from "electron";
-import { join } from "path";
 import { logger } from "./core/logger";
-import { buildDefaultMenu } from "./menu/build-default-menu";
 import { DesktopConfig } from "./core/conf";
 import { sIndexUrl } from "./define";
-import { func } from "./lib/func";
+import { buildDefaultMenu } from "./menu/build-default-menu";
 
 // Main Method
 (() => {
-  func.cloneFile();
   // 开始记录日志
-  logger.info(`app start ${(process.platform, process.pid)}`);
+  logger.info(`app start. ${(process.platform, process.pid)}`);
 
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
@@ -24,11 +21,9 @@ import { func } from "./lib/func";
     // 隐藏菜单栏
     Menu.setApplicationMenu(null);
 
-    // 加载配置
+    // 初始化和更新配置文件
     let configFile = new DesktopConfig();
     configFile.upgrade();
-
-    logger.info("app upgrade config.");
 
     // Create the browser window.
     mainWindow = new BrowserWindow({
@@ -42,15 +37,9 @@ import { func } from "./lib/func";
       backgroundColor: "#fbfbfb"
     });
 
-    // if (process.platform === 'linux') {
-    //   windowOptions.icon = join(__dirname, '/app/ico/your-ico.png')
-    // }
-
     // and load the index.html of the app.
-    let pageUrl = join(`file://${__dirname}`, sIndexUrl);
-    logger.info(`open url ${pageUrl} `);
-
-    mainWindow.loadURL(pageUrl);
+    logger.info(`open url ${sIndexUrl} `);
+    mainWindow.loadURL(sIndexUrl);
 
     // init menu
     let menu = buildDefaultMenu();
@@ -93,7 +82,7 @@ import { func } from "./lib/func";
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== "darwin") {
-      logger.info("app quit");
+      logger.info(`app quit. ${(process.platform, process.pid)}`);
 
       app.quit();
     }
@@ -111,5 +100,4 @@ import { func } from "./lib/func";
   // code. You can also put them in separate files and import them here.
 
   // global.sharedObject = { prop1: process.argv };
-  //  global.sharedObject = { prop1: process.argv };
 })();

@@ -59,6 +59,6 @@
   },
   "dependencies": {
     "hotkeys-js": "^3.3.8",
-    "log4js": "^3.0.6"
+    "winston": "^3.1.0"
   }
 }

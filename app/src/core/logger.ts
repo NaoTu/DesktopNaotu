@@ -1,20 +1,25 @@
-import { configure, getLogger, Logger } from "log4js";
+import { Logger, createLogger, format, transports } from "winston";
 import { getLogDirectoryPath } from "./path";
+
+interface LeveledLogMethod {
+  (message: string): void;
+  (message: string, error?: Error): void;
+}
 
 /**
  * 定义日志类的接口
  */
 declare interface INaotuLogger {
-  error(message: string, error?: Error): void;
-  warn(message: string, error?: Error): void;
-  info(message: string, error?: Error): void;
-  debug(message: string, error?: Error): void;
+  error: LeveledLogMethod;
+  warn: LeveledLogMethod;
+  info: LeveledLogMethod;
+  debug: LeveledLogMethod;
 }
 
 /**
  * 桌面版脑图的日志类
  */
-export class NaotuLogger implements INaotuLogger {
+class NaotuLogger implements INaotuLogger {
   //#region 日志的方法
   // 日志对象
   private logger: Logger;
@@ -26,7 +31,7 @@ export class NaotuLogger implements INaotuLogger {
     this.logger.warn(message, error);
   }
   public info(message: string, error?: Error) {
-    this.logger.info(message, "");
+    this.logger.info(message, error || "");
   }
   public debug(message: string, error?: Error) {
     this.logger.debug(message, error);
@@ -41,26 +46,36 @@ export class NaotuLogger implements INaotuLogger {
    * 私有的构造方法
    */
   private constructor() {
-    // 初始化日志对象
-    configure({
-      appenders: {
-        NaoTuApp: {
-          type: "dateFile",
-          filename: getLogDirectoryPath(),
-          pattern: ".yyyy-MM-dd-hh.log",
-          compress: true,
-          alwaysIncludePattern: true
-        }
-      },
-      categories: {
-        default: { appenders: ["NaoTuApp"], level: "debug" }
-      }
+    this.logger = createLogger({
+      level: "info",
+      format: format.combine(
+        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+        format.printf(
+          info => `${info.timestamp} ${info.level}: ${info.message}`
+        )
+      ),
+      transports: [
+        new transports.File({
+          filename: getLogDirectoryPath() + ".err.log",
+          level: "error"
+        }),
+        new transports.File({
+          filename: getLogDirectoryPath() + ".log",
+          maxsize: 4096,
+          maxFiles: 50,
+          tailable: true
+        })
+      ]
     });
 
-    // 初始化日志对象
-    this.logger = getLogger("NaoTuApp");
+    if (process.env.NODE_ENV !== "production") {
+      this.logger.add(
+        new transports.Console({
+          format: format.simple()
+        })
+      );
+    }
   }
-
   /**
    * 获取日志对象
    */
