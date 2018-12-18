@@ -61,7 +61,7 @@ class NaotuLogger implements INaotuLogger {
         }),
         new transports.File({
           filename: getLogDirectoryPath() + ".log",
-          maxsize: 4096,
+          maxsize: 104857600,// 100M
           maxFiles: 50,
           tailable: true
         })
