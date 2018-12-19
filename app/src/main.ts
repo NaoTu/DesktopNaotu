@@ -120,7 +120,7 @@ import { sIndexUrl } from "./define";
   ipcMain.on("reqaction", (event: Event, arg: string) => {
     switch (arg) {
       case "exit":
-        logger.info(`app quit.`);
+        logger.info("app exit successfully!");
 
         safeExit = true;
         app.quit(); //退出程序

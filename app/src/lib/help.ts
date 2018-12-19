@@ -3,9 +3,13 @@ import { remote } from "electron";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
 
+/**
+ * 退出
+ * 
+ * Ctrl+Q
+ * 行为：有未保存的数据，则提示，否则直接退出。
+ */
 export function exitApp() {
-  logger.info("exit successfully!");
-
   remote.app.quit();
 }
 
