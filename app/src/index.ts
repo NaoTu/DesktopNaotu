@@ -16,8 +16,6 @@ naotuMenu.render();
 // 开启拖动打开文件的功能
 dropOpenFile();
 
-$ = jQuery = require("./js/jquery.min.js");
-
 angular
   .module("kityminderDemo", ["kityminderEditor"])
   .config(function(configProvider: any) {

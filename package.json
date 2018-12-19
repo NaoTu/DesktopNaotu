@@ -14,10 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/NaoTu/DesktopNaotu.git"
   },
-  "keywords": [
-    "mind",
-    "naotu"
-  ],
+  "keywords": ["mind", "naotu"],
   "author": "'Jack' <'topcss@gmail.com'>",
   "license": "MIT",
   "bugs": {
@@ -27,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@types/byline": "^4.2.31",
+    "browserify": "^16.2.3",
     "del": "^3.0.0",
     "electron": "^3.0.11",
     "electron-packager": "^12.2.0",
@@ -55,6 +53,9 @@
     "js-beautify": "^1.8.6",
     "jshint": "^2.9.6",
     "run-sequence": "^2.2.1",
+    "tsify": "^4.0.1",
+    "typescript": "^3.2.2",
+    "vinyl-source-stream": "^2.0.0",
     "wiredep": "^4.0.0"
   },
   "dependencies": {

@@ -5,16 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "launch",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceRoot}/dist/main.js",
-      // "program": "${workspaceRoot}/dist/index.js",
-      "args": [],
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector"
-    },
-    {
       "type": "node",
       "request": "launch",
       "name": "Debug Main Process",

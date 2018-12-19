@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>桌面版脑图</title>
 
     <!-- bower:css -->
     <!-- endbower -->
     <link rel="stylesheet" href="style/vendor.css" />
-    <link rel="stylesheet" href="style/main.css">
-</head>
+    <link rel="stylesheet" href="style/main.css" />
+  </head>
 
-<body ng-app="kityminderDemo" ng-controller="MainController">
+  <body ng-app="kityminderDemo" ng-controller="MainController">
     <kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
     <a id="bb" ng-click="shortcut1()"></a>
-</body>
+  </body>
 
-<!-- bower:js -->
-<!-- endbower -->
-<script src="js/jquery.min.js"></script>
-<script src="js/vendor.js"></script>
-
-<script> var exports = {}; </script>
-<script src="index.js"></script>
-<!-- <script src="js/main.js"></script> -->
-
+  <!-- bower:js -->
+  <!-- endbower -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/vendor.js"></script>
+  <script>
+    var exports = {};
+    $ = jQuery = require("./js/jquery.min.js");
+  </script>
+  <script src="index.js"></script>
 </html>

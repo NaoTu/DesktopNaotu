@@ -21,10 +21,27 @@ const gulp = require("gulp"),
   babel = require("gulp-babel"),
   gutil = require("gulp-util"),
   typescript = require("gulp-tsc"),
+  source = require('vinyl-source-stream'),
+  browserify = require("browserify"),
+  tsify = require("tsify"),
   obfuscate = require("gulp-obfuscate");
 
 gulp.task("clean-dist", () => {
   return del(["dist/**/*"], { force: true });
+});
+
+gulp.task("index", function() {
+  return browserify({
+      basedir: '.',
+      debug: true,
+      entries: ['app/src/index.ts'],
+      cache: {},
+      packageCache: {}
+    })
+    .plugin(tsify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest("dist/js"));
 });
 
 gulp.task("compile", function() {
@@ -191,6 +208,7 @@ gulp.task("default", function(done) {
   run(
     "clean-dist",
     "build-version",
+    // "index",
     "compile",
     "copy-css",
     // "copy-js",
