@@ -32,10 +32,7 @@ class NaotuLogger implements INaotuLogger {
     this.logger.warn(message, error);
   }
   public info(message: string, error?: Error) {
-    this.logger.info(
-      `[${process.platform},${process.pid}] ${message}`,
-      error || ``
-    );
+    this.logger.info(message, error || "");
   }
   public debug(message: string, error?: Error) {
     this.logger.debug(message, error);
@@ -57,7 +54,10 @@ class NaotuLogger implements INaotuLogger {
       format: format.combine(
         format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         format.printf(
-          info => `${info.timestamp} ${info.level}: ${info.message}`
+          info =>
+            `${info.timestamp} [${process.platform},${process.pid}] ${
+              info.level
+            }: ${info.message}`
         )
       ),
       transports: [
