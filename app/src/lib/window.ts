@@ -50,7 +50,7 @@ export function newDialog() {
  * 关闭文件
  */
 export function closeFile() {
-  logger.info(`关闭文件: "${naotuBase.getCurrentFilePath()}"`);
+  logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
 
   if (hasData()) {
     bootbox.confirm({
@@ -72,7 +72,7 @@ export function closeFile() {
  */
 export function cloneFile() {
   // 创建一个新文件，并在新窗口打开它
-  let srcPath = naotuBase.getCurrentFilePath();
+  let srcPath = naotuBase.getCurrentKm();
   if (srcPath) {
     let dstKmPath = getDefaultPath(); // 生成一个文件的地址
     copy(srcPath, dstKmPath); // 复制一份
@@ -140,7 +140,7 @@ export function openWindow() {
  * 在文件夹中打开文件
  */
 export function openFileInFolder() {
-  let path = naotuBase.getCurrentFilePath();
+  let path = naotuBase.getCurrentKm();
   if (path) {
     remote.shell.showItemInFolder(path);
   } else {

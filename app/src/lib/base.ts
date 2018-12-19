@@ -1,13 +1,51 @@
+/**
+ * 当做状态机类用
+ */
 class NaotuBase {
   /**
    * 当前打开文件的路径
    */
-  private _currentFilePath: string | null;
-  public getCurrentFilePath(): string | null {
-    return this._currentFilePath;
+  private _kmPath: string | null;
+  public getCurrentKm(): string | null {
+    return this._kmPath;
   }
-  public setCurrentFilePath(value: string | null) {
-    this._currentFilePath = value;
+  public setCurrentKm(value: string | null) {
+    this._kmPath = value;
+  }
+
+  // 保存序号
+  private _savedNum: number;
+  // 修改序号
+  private _changedNum: number;
+
+  /**
+   * 打开时调用
+   */
+  public OnOpened() {
+    // 打开时，会出发2次修改，需豁免
+    this._changedNum -= 2;
+  }
+
+  /**
+   * 保存时调用
+   */
+  public OnSaved() {
+    this._savedNum = this._changedNum;
+  }
+
+  /**
+   * 修改时调用
+   */
+  public OnEdited() {
+    this._changedNum++;
+  }
+
+  /**
+   * 是否保存了
+   */
+  public HasSaved() {
+    // 修改的序号 与 保存的序号一致
+    return this._changedNum === this._savedNum;
   }
 
   //#region 单例化
@@ -18,7 +56,9 @@ class NaotuBase {
    * 私有的构造方法
    */
   private constructor() {
-    this._currentFilePath = null;
+    this._kmPath = null;
+    this._changedNum = 0;
+    this._savedNum = 0;
   }
   /**
    * 获取日志对象

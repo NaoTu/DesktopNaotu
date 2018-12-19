@@ -8,7 +8,7 @@ import { getUserDataDir } from "../core/path";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
 import { exportFile } from "./window";
-import { getDefaultPath, hasSaved } from "./minder";
+import { getDefaultPath } from "./minder";
 
 /**
  * 打开脑图文件
@@ -17,7 +17,7 @@ import { getDefaultPath, hasSaved } from "./minder";
  * 行为：弹出打开对话框，并在新窗口中载入选择的文件
  */
 export function openDialog() {
-  if (hasSaved()) {
+  if (naotuBase.HasSaved()) {
     // 已经保存了，本窗口打开
     remote.dialog.showOpenDialog(
       { filters: [{ name: sExportTitle, extensions: arrExtensions }] },
@@ -36,7 +36,7 @@ export function openDialog() {
  * 保存脑图文件
  */
 export function saveDialog() {
-  let path = naotuBase.getCurrentFilePath();
+  let path = naotuBase.getCurrentKm();
   if (path) {
     saveKm(path);
   } else {
@@ -68,7 +68,7 @@ export function saveAsDialog() {
 
       saveKm(filePath);
 
-      naotuBase.setCurrentFilePath(filePath);
+      naotuBase.setCurrentKm(filePath);
     }
   );
 }

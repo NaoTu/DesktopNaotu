@@ -18,7 +18,8 @@ export function openKm(filePath: string) {
 
     showFileName(filePath);
 
-    naotuBase.setCurrentFilePath(filePath);
+    naotuBase.setCurrentKm(filePath);
+    naotuBase.OnOpened();
   } catch (error) {
     logger.error("openKm error, ", error);
   }
@@ -34,7 +35,8 @@ export function saveKm(filePath: string) {
 
     showFileName(filePath);
 
-    naotuBase.setCurrentFilePath(filePath);
+    naotuBase.setCurrentKm(filePath);
+    naotuBase.OnSaved();
   } catch (error) {
     logger.error("saveKm error, ", error);
   }

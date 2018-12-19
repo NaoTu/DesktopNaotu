@@ -15,20 +15,6 @@ export function getMinder() {
 }
 
 /**
- * 判断是否保存了
- */
-export function hasSaved() {
-  // 有数据 -> 继续判断
-  if (hasData()) {
-    // 启动自动保存 -> 保存了
-    // 否则 -> 没有保存
-    return naotuConf.getModel().isAutoSave;
-  }
-  // 没有数据 -> 通过判断
-  return true;
-}
-
-/**
  * 检查是不是空白的数据
  */
 export function hasData() {
@@ -42,7 +28,7 @@ export function hasData() {
  * 初始化根节点
  */
 export function initRoot() {
-  naotuBase.setCurrentFilePath(null);
+  naotuBase.setCurrentKm(null);
 
   let appInstance = getAppInstance();
   if (appInstance) {

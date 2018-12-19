@@ -7,6 +7,7 @@ import { remote } from "electron";
 import { dropOpenFile, openKm } from "./lib/file";
 import { saveDialog } from "./lib/dialog";
 import { monitorExitRequest } from "./lib/exit";
+import { naotuBase } from "./lib/base";
 
 // 进入即记录日志
 logger.info("ipcRender init");
@@ -45,7 +46,9 @@ angular
 $(function() {
   if (minder != null) {
     // auto saving
-    minder.on("contentchange", function() {
+    minder.on("contentchange", function(argv: any) {
+      naotuBase.OnEdited();
+
       if (naotuConf.getModel().isAutoSave) {
         saveDialog();
       }
