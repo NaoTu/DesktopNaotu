@@ -1,3 +1,5 @@
+import { addRecentlyRecord } from "./recently";
+
 /**
  * 当做状态机类用
  */
@@ -11,6 +13,9 @@ class NaotuBase {
   }
   public setCurrentKm(value: string | null) {
     this._kmPath = value;
+
+    // 记录到配置文件中
+    if (value) addRecentlyRecord(value);
   }
 
   // 保存序号

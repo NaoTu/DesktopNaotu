@@ -29,15 +29,18 @@ class NaotuMenu {
 
     let conf = naotuConf.getModel();
     if (conf.recently) {
+      let maxNum = conf.recentMaxNum || 5;
+
       // 最近打开文件列表
-      conf.recently.forEach(path => {
+      for (let i = 0; i < Math.min(conf.recently.length, maxNum); i++) {
+        const item = conf.recently[i];
         recentListMenu.push({
-          label: path,
+          label: item.path,
           click: openRecently
         });
-      });
+      }
 
-      // 清除菜单
+      // 加入清除菜单
       recentListMenu.push({ type: "separator" });
       recentListMenu.push({
         label: I18n.__("miClearRecent"),
@@ -127,7 +130,7 @@ class NaotuMenu {
           click: undo
         },
         {
-          label: I18n.__("miRedo"), // 恢复
+          label: I18n.__("miRedo"), // 重做
           accelerator: "CmdOrCtrl+Y",
           click: redo
         },

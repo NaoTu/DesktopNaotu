@@ -35,7 +35,7 @@ export function saveKm(filePath: string) {
     showFileName(filePath);
 
     naotuBase.setCurrentKm(filePath);
-    naotuBase.OnSaved();
+    naotuBase.OnSaved();    
   } catch (error) {
     logger.error("saveKm error, ", error);
   }

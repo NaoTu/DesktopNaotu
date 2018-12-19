@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "hotkeys-js": "^3.3.8",
+    "moment": "^2.23.0",
     "winston": "^3.1.0"
   }
 }

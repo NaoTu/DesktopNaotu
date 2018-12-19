@@ -7,6 +7,14 @@ import { Languages, sConfigVersion } from "../define";
 import { logger } from "./logger";
 
 /**
+ * 文件打开记录的格式
+ */
+export declare interface IRecentlyItem {
+  time: string;
+  path: string;
+}
+
+/**
  * 配置文件的模板
  */
 class NaotuConfig {
@@ -20,7 +28,7 @@ class NaotuConfig {
   /**
    * 最近使用文件列表
    */
-  recently?: string[];
+  recently?: IRecentlyItem[];
 
   /**
    * 语言
@@ -49,7 +57,7 @@ class NaotuConfig {
     defSavePath: string,
     isAutoSave: boolean,
     recentMaxNum: number,
-    recently: string[],
+    recently: IRecentlyItem[],
     version: string
   ) {
     this.locale = locale;
@@ -81,7 +89,7 @@ class NaotuConfig {
     let defSavePath = confJson.defSavePath as string;
     let isAutoSave = confJson.isAutoSave as boolean;
     let recentMaxNum = confJson.recentMaxNum as number;
-    let recently = confJson.recently as string[];
+    let recently = confJson.recently as IRecentlyItem[];
     let version = confJson.version as string;
 
     return new NaotuConfig(

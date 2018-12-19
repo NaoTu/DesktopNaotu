@@ -13,7 +13,7 @@ export default async function execAsync(
   return new Promise<string>((resolve, reject) => {
     logger.info(`${command} ${args}`);
 
-    var options = { encoding: "utf8" };
+    let options = { encoding: "utf8" };
 
     exec(`${command} ${args}`, options, (error, stdout, stderr) => {
       /* istanbul ignore if */

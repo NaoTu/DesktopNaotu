@@ -1,1 +1,1 @@
-export let version = [3, 2, 0, 504];
+export let version = [3, 2, 0, 505];

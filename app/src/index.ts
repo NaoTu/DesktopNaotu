@@ -8,6 +8,7 @@ import { dropOpenFile, openKm } from "./lib/file";
 import { saveDialog } from "./lib/dialog";
 import { monitorExitRequest } from "./lib/exit";
 import { naotuBase } from "./lib/base";
+import { onSelectedNodeItem } from "./lib/minder";
 
 // 进入即记录日志
 logger.info("ipcRender init");
@@ -56,12 +57,8 @@ $(function() {
 
     minder.on("selectionchange", function() {
       let node = minder.getSelectedNode();
-
-      //   let menu = remote.Menu.getApplicationMenu();
-
-      //   // 对编辑菜单进行管理
-      //   let editItems = menu.items[1].submenu.items;
-      //   editItems[3].enabled = editItems[4].enabled = editItems[5].enabled = !!node;
+      
+      onSelectedNodeItem(!!node);
     });
   }
 });

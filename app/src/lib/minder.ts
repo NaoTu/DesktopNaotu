@@ -1,10 +1,12 @@
 import { naotuBase } from "./base";
 import { I18n } from "../core/i18n";
+import { remote, MenuItemConstructorOptions } from "electron";
 import { getAppInstance } from "./electron";
 import { join } from "path";
 import { naotuConf } from "../core/conf";
 import { getBackupDirectoryPath } from "../core/path";
 import { existsSync } from "fs";
+import { logger } from "../core/logger";
 
 export function setMinder(json: JSON | any) {
   editor.minder.importJson(json);
@@ -68,4 +70,21 @@ export function getDefaultPath(path?: string | undefined): string {
   } while (existsSync(filePath));
 
   return filePath;
+}
+
+/**
+ * 设置选择菜单触发
+ * @param isSelected
+ */
+export function onSelectedNodeItem(isSelected: boolean) {
+  try {
+    let menu = remote.Menu.getApplicationMenu();
+    // 对编辑菜单进行管理
+    if (menu) {
+      let editItems = (menu.items[1] as any).submenu.items;
+      editItems[3].enabled = editItems[4].enabled = editItems[5].enabled = isSelected;
+    }
+  } catch (ex) {
+    logger.error(ex);
+  }
 }

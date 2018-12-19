@@ -28,8 +28,8 @@ export function checkVersion() {
   // $.get(
   //   "https://raw.githubusercontent.com/NaoTu/DesktopNaotu/master/version.js",
   //   function(data) {
-  //     var newVer = data.substring(19, data.lastIndexOf(","));
-  //     var oldVer = ver.version.slice(0, 3).join(", ");
+  //     let newVer = data.substring(19, data.lastIndexOf(","));
+  //     let oldVer = ver.version.slice(0, 3).join(", ");
 
   //     if (newVer != oldVer) {
   //       bootbox.alert(i18n.__("sUpdateMessage"));

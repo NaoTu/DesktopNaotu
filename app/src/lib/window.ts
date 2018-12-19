@@ -4,8 +4,7 @@ import { naotuBase } from "./base";
 import { copy, writeText, writeBuffer } from "../core/io";
 import execAsync from "../core/exec";
 import { logger } from "../core/logger";
-import { hasData, initRoot, getDefaultPath } from "./minder";
-import { sIndexUrl } from "../define";
+import { initRoot, getDefaultPath } from "./minder";
 import { getAppInstance } from "./electron";
 import { basename } from "path";
 
@@ -86,7 +85,7 @@ export function cloneFile() {
   // 创建一个新文件，并在新窗口打开它
   let srcPath = naotuBase.getCurrentKm();
   if (srcPath) {
-    var rootPath = srcPath.replace(basename(srcPath), "");
+    let rootPath = srcPath.replace(basename(srcPath), "");
     let dstKmPath = getDefaultPath(rootPath); // 生成一个文件的地址
     copy(srcPath, dstKmPath); // 复制一份
 
@@ -188,8 +187,9 @@ export function exportFile(protocol: any, filename: string) {
   });
 }
 
-//#endregion
-
+/**
+ * 行为：将当前窗口最大化
+ */
 export function maxwin() {
   let appInstance = getAppInstance();
   if (appInstance) {
@@ -197,9 +197,15 @@ export function maxwin() {
   }
 }
 
+/**
+ * 行为：将当前窗口最小化
+ */
 export function minwin() {
   let appInstance = getAppInstance();
   if (appInstance) {
     appInstance.minimize();
   }
 }
+
+
+//#endregion

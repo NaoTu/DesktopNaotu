@@ -66,7 +66,7 @@ export function saveAsDialog() {
   // 如果有，通过当前文件路径，生成一个新的文件路径
   let srcPath = naotuBase.getCurrentKm();
   if (srcPath) {
-    var rootPath = srcPath.replace(basename(srcPath), "");
+    let rootPath = srcPath.replace(basename(srcPath), "");
     newPath = getDefaultPath(rootPath); // 生成一个文件的地址
   }
 
