@@ -14,7 +14,8 @@ import {
   openFileInFolder,
   maxwin,
   minwin,
-  newDialog
+  newDialog,
+  closeFile
 } from "./window";
 import { exitApp, license, about, checkVersion } from "./help";
 import { undo, redo } from "./edit";
@@ -57,6 +58,11 @@ class NaotuMenu {
           label: I18n.__("miOpenFile"), // 打开文件
           accelerator: "CmdOrCtrl+O",
           click: openDialog
+        },
+        {
+          label: I18n.__("miCloseFile"), // 关闭
+          accelerator: "CmdOrCtrl+W",
+          click: closeFile
         },
         {
           label: I18n.__("miOpenWindow"), // 打开新窗口

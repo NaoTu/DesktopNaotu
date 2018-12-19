@@ -8,6 +8,9 @@ import { existsSync } from "fs";
 
 export function setMinder(json: JSON | any) {
   editor.minder.importJson(json);
+
+  // 触发打开方法
+  naotuBase.OnOpened();
 }
 
 export function getMinder() {

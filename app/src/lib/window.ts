@@ -50,20 +50,25 @@ export function newDialog() {
  * 关闭文件
  */
 export function closeFile() {
-  logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
+  // 如果关闭成功，也触发一次保存事件
+  if (naotuBase.HasSaved()) {
+    // 若已保存，则直接初始化
+    initRoot();
 
-  if (hasData()) {
+    naotuBase.OnSaved();
+    logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
+  } else {
     bootbox.confirm({
-      // TODO,
-      message: I18n.__("sNewKm"),
-      callback: (result: any) => {
+      message: I18n.__("sCloseTip"),
+      callback: (result: boolean) => {
         if (result) {
           initRoot();
+
+          naotuBase.OnSaved();
+          logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
         }
       }
     });
-  } else {
-    initRoot();
   }
 }
 

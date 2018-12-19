@@ -19,7 +19,6 @@ export function openKm(filePath: string) {
     showFileName(filePath);
 
     naotuBase.setCurrentKm(filePath);
-    naotuBase.OnOpened();
   } catch (error) {
     logger.error("openKm error, ", error);
   }

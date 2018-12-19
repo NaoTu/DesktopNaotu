@@ -34,8 +34,8 @@
   "sUpdateMessage": "检测到新版本，请下载新版本。",
   "sExportKm": "导出 KityMinder 文件",
   "sSaveKm": "保存 KityMinder 文件",
-  "sNoOpenFile": "您当前还未打开任何文件。",
-  "sNewKm": "新建文件会关闭当前文件，是否继续？",
-  "sSaveTip": "当前文件尚未保存，请保存后再试。",
-  "sExitTip": "当前文件尚未保存，是否继续退出。"
+  "sNoOpenFile": "您当前还未打开任何文件。", 
+  "sSaveTip": "当前文件尚未保存，请保存后再试？",
+  "sExitTip": "当前文件尚未保存，是否继续退出？",
+  "sCloseTip": "当前文件尚未保存，是否继续关闭？"
 }
