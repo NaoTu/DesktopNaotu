@@ -12,9 +12,38 @@ import { getAppInstance } from "./electron";
 
 /**
  * 新建文件
+ *
+ * 快捷键：Ctrl + N
+ * 行为：新窗口打开一个空白文档
  */
 export function newDialog() {
-  //
+  // 获取当前执行程序的路径
+  let appPath = process.execPath;
+  let command = "";
+
+  switch (process.platform) {
+    case "win32":
+      command = "start " + appPath;
+      break;
+    case "darwin":
+      // TODO： 待验证
+      command = appPath;
+      break;
+    default:
+    case "linux":
+      // TODO： 待验证
+      command = appPath;
+      break;
+  }
+
+  // 执行打开该文件的命令
+  execAsync(command, "")
+    .then(output => {
+      logger.info(output);
+    })
+    .catch(err => {
+      logger.error("asyncExec err: ", err);
+    });
 }
 
 /**

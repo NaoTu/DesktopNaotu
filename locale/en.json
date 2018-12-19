@@ -35,5 +35,7 @@
   "sExportKm": "Export .Km",
   "sSaveKm": "Save .Km",
   "sNoOpenFile": "You have not opened any files yet.",
-  "sNewKm": "New file will close the current file, continue?"
+  "sNewKm": "New file will close the current file, continue?",
+  "sSaveTip": "The current file has not been saved. Please save it and try again.",
+  "sExitTip": "The current file has not been saved and will continue to exit."
 }

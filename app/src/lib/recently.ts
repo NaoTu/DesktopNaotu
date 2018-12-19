@@ -31,3 +31,18 @@ export function clearRecently() {
     logger.error(ex);
   }
 }
+
+/**
+ * 切换自动保存状态
+ * @param menuItem
+ */
+export function autoSave(menuItem: Electron.MenuItem) {
+  // 获取配置文件
+  var confObj = naotuConf.getModel();
+
+  // 修改自动保存状态
+  confObj.isAutoSave = menuItem.checked;
+
+  // 保存配置文件
+  naotuConf.save(confObj);
+}

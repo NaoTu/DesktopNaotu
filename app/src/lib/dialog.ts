@@ -1,27 +1,35 @@
 import { remote } from "electron";
 import { sExportTitle, arrExtensions } from "../define";
 import { naotuBase } from "./base";
-import { saveKm } from "./file";
+import { saveKm, openKm } from "./file";
 import { naotuConf } from "../core/conf";
 import { join } from "path";
 import { getUserDataDir } from "../core/path";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
 import { exportFile } from "./window";
-import { getDefaultPath } from "./minder";
+import { getDefaultPath, hasSaved } from "./minder";
 
 /**
  * 打开脑图文件
+ *
+ * 快捷键：Ctrl + O
+ * 行为：弹出打开对话框，并在新窗口中载入选择的文件
  */
 export function openDialog() {
-  remote.dialog.showOpenDialog(
-    { filters: [{ name: sExportTitle, extensions: arrExtensions }] },
-    fileNames => {
-      if (!fileNames) return;
+  if (hasSaved()) {
+    // 已经保存了，本窗口打开
+    remote.dialog.showOpenDialog(
+      { filters: [{ name: sExportTitle, extensions: arrExtensions }] },
+      fileNames => {
+        if (!fileNames) return;
 
-      open(fileNames[0]);
-    }
-  );
+        openKm(fileNames[0]);
+      }
+    );
+  } else {
+    bootbox.alert(I18n.__("sSaveTip"));
+  }
 }
 
 /**

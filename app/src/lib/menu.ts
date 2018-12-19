@@ -1,7 +1,7 @@
 import { I18n } from "../core/i18n";
 import { remote } from "electron";
 import { naotuConf } from "../core/conf";
-import { openRecently, clearRecently } from "./recently";
+import { openRecently, clearRecently, autoSave } from "./recently";
 import {
   openDialog,
   saveDialog,
@@ -94,8 +94,8 @@ class NaotuMenu {
           label: I18n.__("miAutoSave"), // 自动保存
           type: "checkbox",
           // 基于配置文件
-          checked: conf.isAutoSave
-          // click: autoSave
+          checked: conf.isAutoSave,
+          click: autoSave
         },
         {
           label: I18n.__("miSavePath"), // 重选自动保存的目录

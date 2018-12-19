@@ -6,6 +6,7 @@ import { naotuConf } from "./core/conf";
 import { remote } from "electron";
 import { dropOpenFile, openKm } from "./lib/file";
 import { saveDialog } from "./lib/dialog";
+import { monitorExitRequest } from "./lib/exit";
 
 // 进入即记录日志
 logger.info("ipcRender init");
@@ -15,6 +16,9 @@ naotuMenu.render();
 
 // 开启拖动打开文件的功能
 dropOpenFile();
+
+// 监听退出请求
+monitorExitRequest();
 
 angular
   .module("kityminderDemo", ["kityminderEditor"])

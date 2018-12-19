@@ -1,11 +1,20 @@
 // --> ipcMain 主线程使用的代码
-import { app, BrowserWindow, globalShortcut, Menu } from "electron";
+import {
+  app,
+  BrowserWindow,
+  globalShortcut,
+  Menu,
+  ipcRenderer,
+  ipcMain
+} from "electron";
 import { logger } from "./core/logger";
 import { naotuConf } from "./core/conf";
 import { sIndexUrl } from "./define";
 
 // Main Method
 (() => {
+  let safeExit = false;
+
   // 开始记录日志
   logger.info(`app start.`);
 
@@ -60,6 +69,17 @@ import { sIndexUrl } from "./define";
         mainWindow.focus();
       }
     });
+
+    mainWindow.on("close", e => {
+      if (!safeExit) {
+        if (mainWindow) {
+          // 从主进程发送消息给渲染进程
+          mainWindow.webContents.send("action", "exit");
+        }
+
+        e.preventDefault();
+      }
+    });
   };
 
   // This method will be called when Electron has finished
@@ -69,17 +89,18 @@ import { sIndexUrl } from "./define";
 
   // Quit when all windows are closed.
   app.on("window-all-closed", () => {
-    if (isDevMode) {
-      globalShortcut.unregisterAll();
-    }
+    if (mainWindow) {
+      if (isDevMode) {
+        globalShortcut.unregisterAll();
+      }
 
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== "darwin") {
-      logger.info(`app quit.`);
-
-      app.quit();
+      // On OS X it is common for applications and their menu bar
+      // to stay active until the user quits explicitly with Cmd + Q
+      if (process.platform !== "darwin") {
+        app.quit();
+      }
     }
+    return false;
   });
 
   app.on("activate", () => {
@@ -94,4 +115,16 @@ import { sIndexUrl } from "./define";
   // code. You can also put them in separate files and import them here.
 
   // global.sharedObject = { prop1: process.argv };
+
+  // 监听与渲染进程的通信
+  ipcMain.on("reqaction", (event: Event, arg: string) => {
+    switch (arg) {
+      case "exit":
+        logger.info(`app quit.`);
+
+        safeExit = true;
+        app.quit(); //退出程序
+        break;
+    }
+  });
 })();
