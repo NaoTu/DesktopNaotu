@@ -6,6 +6,14 @@ import { naotuConf } from "../core/conf";
 import { getBackupDirectoryPath } from "../core/path";
 import { existsSync } from "fs";
 
+export function setMinder(json: JSON | any) {
+  editor.minder.importJson(json);
+}
+
+export function getMinder() {
+  return editor.minder.exportJson();
+}
+
 /**
  * 检查是不是空白的数据
  */
@@ -27,7 +35,7 @@ export function initRoot() {
     appInstance.setTitle(I18n.__("sAppName"));
   }
 
-  editor.minder.importJson({
+  setMinder({
     root: { data: { text: I18n.__("sMainTopic") } },
     template: "filetree",
     theme: "fresh-blue"

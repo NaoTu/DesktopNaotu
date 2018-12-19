@@ -1,5 +1,4 @@
 // 配置文件辅助类
-
 import { getConfigFilePath, getBackupDirectoryPath } from "./path";
 import { existsSync } from "fs";
 import { app } from "electron";

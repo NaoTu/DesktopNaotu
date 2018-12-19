@@ -1,7 +1,3 @@
-import { naotuConf } from "../core/conf";
-import { getUserDataDir } from "../core/path";
-import { join } from "path";
-
 class NaotuBase {
   /**
    * 当前打开文件的路径

@@ -46,65 +46,65 @@ class NaotuMenu {
 
     // 文件
     template.push({
-      label: I18n.__("mFile"),
+      label: I18n.__("mFile"), // 文件
       submenu: [
         {
-          label: I18n.__("miNewFile"),
+          label: I18n.__("miNewFile"), // 新建文件
           accelerator: "CmdOrCtrl+N",
           click: newDialog
         },
         {
-          label: I18n.__("miOpenFile"),
+          label: I18n.__("miOpenFile"), // 打开文件
           accelerator: "CmdOrCtrl+O",
           click: openDialog
         },
         {
-          label: I18n.__("miOpenWindow"),
+          label: I18n.__("miOpenWindow"), // 打开新窗口
           accelerator: "CmdOrCtrl+Shift+N",
           click: openWindow
         },
         { type: "separator" },
         {
-          label: I18n.__("miOpenFolder"),
+          label: I18n.__("miOpenFolder"), // 打开文件夹
           accelerator: "CmdOrCtrl+Shift+O",
           click: openFileInFolder
         },
         {
-          label: I18n.__("miOpenRecent"),
+          label: I18n.__("miOpenRecent"), // 打开最近的文件
           submenu: recentListMenu
         },
         { type: "separator" },
         {
-          label: I18n.__("miSave"),
+          label: I18n.__("miSave"), // 保存
           accelerator: "CmdOrCtrl+S",
           click: saveDialog
         },
         {
-          label: I18n.__("miSaveAs"),
+          label: I18n.__("miSaveAs"), // 另存为
           accelerator: "CmdOrCtrl+Shift+S",
           click: saveAsDialog
         },
         {
-          label: I18n.__("miExport"),
+          label: I18n.__("miExport"), // 导出
           accelerator: "CmdOrCtrl+E",
           click: exportDialog
         },
         { type: "separator" },
         {
-          label: I18n.__("miAutoSave"),
+          label: I18n.__("miAutoSave"), // 自动保存
           type: "checkbox",
           // 基于配置文件
           checked: conf.isAutoSave
           // click: autoSave
         },
         {
-          label: I18n.__("miSavePath"),
+          label: I18n.__("miSavePath"), // 重选自动保存的目录
           accelerator: "CmdOrCtrl+R",
           click: setSavePath
         },
         { type: "separator" },
         {
-          label: I18n.__("miExit"),
+          label: I18n.__("miExit"), // 退出
           accelerator: "CmdOrCtrl+Q",
           click: exitApp
         }
@@ -113,31 +113,31 @@ class NaotuMenu {
 
     // 编辑
     template.push({
-      label: I18n.__("mEdit"),
+      label: I18n.__("mEdit"), // 编辑
       submenu: [
         {
-          label: I18n.__("miUndo"),
+          label: I18n.__("miUndo"), // 撤销
           accelerator: "CmdOrCtrl+Z",
           click: undo
         },
         {
-          label: I18n.__("miRedo"),
+          label: I18n.__("miRedo"), // 恢复
           accelerator: "CmdOrCtrl+Y",
           click: redo
         },
         { type: "separator" },
         {
-          label: I18n.__("miCut"),
+          label: I18n.__("miCut"), // 剪切
           accelerator: "CmdOrCtrl+X",
           role: "cut"
         },
         {
-          label: I18n.__("miCopy"),
+          label: I18n.__("miCopy"), // 复制
           accelerator: "CmdOrCtrl+C",
           role: "copy"
         },
         {
-          label: I18n.__("miPaste"),
+          label: I18n.__("miPaste"), // 粘贴
           accelerator: "CmdOrCtrl+V",
           role: "paste"
         }
@@ -146,14 +146,14 @@ class NaotuMenu {
 
     // 窗口
     template.push({
-      label: I18n.__("mWindow"),
+      label: I18n.__("mWindow"), // 窗口
       submenu: [
         {
-          label: I18n.__("miMaxWin"),
+          label: I18n.__("miMaxWin"), // 最大化
           click: maxwin
         },
         {
-          label: I18n.__("miMinWin"),
+          label: I18n.__("miMinWin"), // 最小化
           click: minwin
         }
       ]
@@ -161,18 +161,18 @@ class NaotuMenu {
 
     // 帮助
     template.push({
-      label: I18n.__("mHelp"),
+      label: I18n.__("mHelp"), // 帮助
       submenu: [
         {
-          label: I18n.__("miShortcut"),
+          label: I18n.__("miShortcut"), // 快捷键
           accelerator: "CmdOrCtrl+/"
           // click: shortcut
         },
         { type: "separator" },
-        { label: I18n.__("miBackup"), click: license },
-        { label: I18n.__("miCheckVer"), click: checkVersion },
+        { label: I18n.__("miBackup"), click: license }, // 备份百度脑图到本地
+        { label: I18n.__("miCheckVer"), click: checkVersion }, // 检查更新
         { type: "separator" },
-        { label: I18n.__("miAbout"), click: about }
+        { label: I18n.__("miAbout"), click: about } // 关于
       ]
     });
 
