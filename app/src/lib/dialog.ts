@@ -3,7 +3,7 @@ import { sExportTitle, arrExtensions } from "../define";
 import { naotuBase } from "./base";
 import { saveKm, openKm } from "./file";
 import { naotuConf } from "../core/conf";
-import { join } from "path";
+import { join, basename } from "path";
 import { getUserDataDir } from "../core/path";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
@@ -34,6 +34,9 @@ export function openDialog() {
 
 /**
  * 保存脑图文件
+ *
+ * 快捷键：Ctrl + S
+ * 行为：新建文件=另存为；老文件=保存修改
  */
 export function saveDialog() {
   let path = naotuBase.getCurrentKm();
@@ -53,9 +56,19 @@ export function saveDialog() {
 
 /**
  * 另存为脑图
+ *
+ * 快捷键：Ctrl + Shift + S
+ * 行为：弹出保存对话框，选择保存路径及文件名后，保存当前文件
  */
 export function saveAsDialog() {
   let newPath = join(getUserDataDir(), `${minder.getRoot().data.text}.km`);
+
+  // 如果有，通过当前文件路径，生成一个新的文件路径
+  let srcPath = naotuBase.getCurrentKm();
+  if (srcPath) {
+    var rootPath = srcPath.replace(basename(srcPath), "");
+    newPath = getDefaultPath(rootPath); // 生成一个文件的地址
+  }
 
   remote.dialog.showSaveDialog(
     {
