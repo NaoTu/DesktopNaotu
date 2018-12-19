@@ -8,6 +8,7 @@ import { getUserDataDir } from "../core/path";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
 import { exportFile } from "./window";
+import { getDefaultPath } from "./minder";
 
 /**
  * 打开脑图文件
@@ -34,7 +35,7 @@ export function saveDialog() {
     let conf = naotuConf.getModel();
     if (conf.isAutoSave) {
       // 如果开启了自动保存，就获取一个路径，直接保存
-      saveKm(naotuBase.getDefaultPath());
+      saveKm(getDefaultPath());
     } else {
       // 否则，调用另存为
       saveAsDialog();

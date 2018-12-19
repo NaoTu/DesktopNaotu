@@ -1,6 +1,10 @@
 import { naotuBase } from "./base";
 import { I18n } from "../core/i18n";
 import { getAppInstance } from "./electron";
+import { join } from "path";
+import { naotuConf } from "../core/conf";
+import { getBackupDirectoryPath } from "../core/path";
+import { existsSync } from "fs";
 
 /**
  * 检查是不是空白的数据
@@ -30,4 +34,24 @@ export function initRoot() {
   });
 
   editor.minder.select(minder.getRoot(), true);
+}
+
+/**
+ * 获取一个默认路径
+ */
+export function getDefaultPath(): string {
+  // 使用`中心主题`做文件名
+  let rootText = editor.minder.getRoot().data.text;
+
+  // 如果没有配置默认路径，就用备份目录
+  let dir = naotuConf.getModel().defSavePath || getBackupDirectoryPath();
+
+  let counter = 0;
+  let filePath = join(dir, `${rootText}.km`);
+
+  do {
+    filePath = join(dir, `${rootText}${counter++ || ""}.km`);
+  } while (existsSync(filePath));
+
+  return filePath;
 }

@@ -4,6 +4,10 @@ import { existsSync } from "fs";
 import { readJson, writeJson } from "../core/io";
 import { naotuBase } from "./base";
 import { showFileName } from "./electron";
+import { join } from "path";
+import { naotuConf } from "../core/conf";
+import { getBackupDirectoryPath } from "../core/path";
+
 
 /**
  * 打开一个脑图文件

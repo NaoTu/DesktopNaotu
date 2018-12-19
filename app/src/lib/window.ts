@@ -4,11 +4,8 @@ import { naotuBase } from "./base";
 import { copy, writeText, writeBuffer } from "../core/io";
 import execAsync from "../core/exec";
 import { logger } from "../core/logger";
-import { hasData, initRoot } from "./minder";
+import { hasData, initRoot, getDefaultPath } from "./minder";
 import { sIndexUrl } from "../define";
-import { getUserDataDir } from "../core/path";
-import { join } from "path";
-import { naotuConf } from "../core/conf";
 import { getAppInstance } from "./electron";
 
 //#region 3. 窗口对话框相关
@@ -48,7 +45,7 @@ export function cloneFile() {
   // 创建一个新文件，并在新窗口打开它
   let srcPath = naotuBase.getCurrentFilePath();
   if (srcPath) {
-    let dstKmPath = naotuBase.getDefaultPath(); // 生成一个文件的地址
+    let dstKmPath = getDefaultPath(); // 生成一个文件的地址
     copy(srcPath, dstKmPath); // 复制一份
 
     // 获取当前执行程序的路径

@@ -14,20 +14,6 @@ class NaotuBase {
     this._currentFilePath = value;
   }
 
-  /**
-   * 获取一个默认路径
-   */
-  public getDefaultPath(): string {
-    let d = new Date();
-    let time =
-      `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}_` +
-      `${(d.getHours(), d.getMinutes(), d.getSeconds())}`;
-
-    let defPath = naotuConf.getModel().defSavePath || getUserDataDir();
-
-    return join(defPath, `${time}.km`);
-  }
-
   //#region 单例化
   // 单例对象
   private static instance: NaotuBase;
