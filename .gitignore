@@ -4,3 +4,4 @@ bower_components/
 dist/
 OutApp/
 package-lock.json
+*.log
