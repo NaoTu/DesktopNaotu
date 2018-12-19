@@ -7,7 +7,7 @@ import { sIndexUrl } from "./define";
 // Main Method
 (() => {
   // 开始记录日志
-  logger.info(`app start. ${(process.platform, process.pid)}`);
+  logger.info(`app start.`);
 
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
@@ -76,7 +76,7 @@ import { sIndexUrl } from "./define";
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== "darwin") {
-      logger.info(`app quit. ${(process.platform, process.pid)}`);
+      logger.info(`app quit.`);
 
       app.quit();
     }

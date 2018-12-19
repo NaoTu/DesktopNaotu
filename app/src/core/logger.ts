@@ -32,7 +32,10 @@ class NaotuLogger implements INaotuLogger {
     this.logger.warn(message, error);
   }
   public info(message: string, error?: Error) {
-    this.logger.info(message, error || "");
+    this.logger.info(
+      `[${process.platform},${process.pid}] ${message}`,
+      error || ``
+    );
   }
   public debug(message: string, error?: Error) {
     this.logger.debug(message, error);
@@ -47,7 +50,6 @@ class NaotuLogger implements INaotuLogger {
    * 私有的构造方法
    */
   private constructor() {
-
     let dir = getLogDirectoryPath();
 
     this.logger = createLogger({
