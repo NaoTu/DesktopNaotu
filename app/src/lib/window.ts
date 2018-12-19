@@ -7,6 +7,7 @@ import { logger } from "../core/logger";
 import { hasData, initRoot, getDefaultPath } from "./minder";
 import { sIndexUrl } from "../define";
 import { getAppInstance } from "./electron";
+import { basename } from "path";
 
 //#region 3. 窗口对话框相关
 
@@ -48,6 +49,9 @@ export function newDialog() {
 
 /**
  * 关闭文件
+ *
+ * 快捷键：Ctrl + W
+ * 行为：关闭当前文件，如文件有修改，则提示是否保存
  */
 export function closeFile() {
   // 如果关闭成功，也触发一次保存事件
@@ -74,12 +78,16 @@ export function closeFile() {
 
 /**
  * 生成副本
+ *
+ * Ctrl+Shift+N
+ * 复制一个副本，在新窗口打开
  */
 export function cloneFile() {
   // 创建一个新文件，并在新窗口打开它
   let srcPath = naotuBase.getCurrentKm();
   if (srcPath) {
-    let dstKmPath = getDefaultPath(); // 生成一个文件的地址
+    var rootPath = srcPath.replace(basename(srcPath), "");
+    let dstKmPath = getDefaultPath(rootPath); // 生成一个文件的地址
     copy(srcPath, dstKmPath); // 复制一份
 
     // 获取当前执行程序的路径
@@ -114,32 +122,33 @@ export function cloneFile() {
   }
 }
 
-/**
- * 打开新窗口
- */
-export function openWindow() {
-  let newWin: Electron.BrowserWindow | null;
+// /**
+//  * 打开新窗口
+//  * tag: absolete
+//  */
+// export function openWindow() {
+//   let newWin: Electron.BrowserWindow | null;
 
-  newWin = new remote.BrowserWindow({
-    minWidth: 700,
-    minHeight: 700,
-    width: 1000,
-    height: 800,
+//   newWin = new remote.BrowserWindow({
+//     minWidth: 700,
+//     minHeight: 700,
+//     width: 1000,
+//     height: 800,
 
-    fullscreenable: true,
-    show: false,
-    backgroundColor: "#fbfbfb"
-  });
+//     fullscreenable: true,
+//     show: false,
+//     backgroundColor: "#fbfbfb"
+//   });
 
-  newWin.on("close", function() {
-    if (newWin) newWin = null;
-  });
+//   newWin.on("close", function() {
+//     if (newWin) newWin = null;
+//   });
 
-  logger.info(`open new window '${sIndexUrl}' `);
+//   logger.info(`open new window '${sIndexUrl}' `);
 
-  newWin.loadURL(sIndexUrl);
-  newWin.show();
-}
+//   newWin.loadURL(sIndexUrl);
+//   newWin.show();
+// }
 
 /**
  * 在文件夹中打开文件

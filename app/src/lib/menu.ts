@@ -10,12 +10,12 @@ import {
   setSavePath
 } from "./dialog";
 import {
-  openWindow,
   openFileInFolder,
   maxwin,
   minwin,
   newDialog,
-  closeFile
+  closeFile,
+  cloneFile
 } from "./window";
 import { exitApp, license, about, checkVersion } from "./help";
 import { undo, redo } from "./edit";
@@ -65,9 +65,9 @@ class NaotuMenu {
           click: closeFile
         },
         {
-          label: I18n.__("miOpenWindow"), // 打开新窗口
+          label: I18n.__("miCloneFile"), // 生成副本
           accelerator: "CmdOrCtrl+Shift+N",
-          click: openWindow
+          click: cloneFile
         },
         { type: "separator" },
         {

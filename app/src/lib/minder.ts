@@ -50,12 +50,15 @@ export function initRoot() {
 /**
  * 获取一个默认路径
  */
-export function getDefaultPath(): string {
+export function getDefaultPath(path?: string | undefined): string {
   // 使用`中心主题`做文件名
   let rootText = editor.minder.getRoot().data.text;
 
   // 如果没有配置默认路径，就用备份目录
   let dir = naotuConf.getModel().defSavePath || getBackupDirectoryPath();
+
+  // 如果指定了，就用指定的路径
+  if (path) dir = path;
 
   let counter = 0;
   let filePath = join(dir, `${rootText}.km`);
