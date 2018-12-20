@@ -3,7 +3,7 @@
   "miNewFile": "新建文件(&N)",
   "miOpenFile": "打开文件(&O)...",
   "miOpenWindow": "打开新窗口",
-  "miCloseFile": "关闭",
+  "miCloseFile": "关闭文件(&W)",
   "miCloneFile": "创建副本",
   "miOpenFolder": "打开文件夹(&F)...",
   "miOpenRecent": "打开最近的文件(&R)",

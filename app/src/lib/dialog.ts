@@ -112,11 +112,22 @@ export function setSavePath() {
  * 导出文件
  */
 export function exportDialog() {
+  // 目录应该为当前文件的目录
   let newPath = join(getUserDataDir(), minder.getRoot().data.text);
+
+  // 如果有，通过当前文件路径，生成一个新的文件路径
+  let srcPath = naotuBase.getCurrentKm();
+  if (srcPath) {
+    let rootPath = srcPath.replace(basename(srcPath), "");
+    newPath = getDefaultPath(rootPath); // 生成一个文件的地址
+  }
 
   let filters = [];
   let pool = kityminder.data.getRegisterProtocol();
   for (let name in pool) {
+    // 目前导出 md 文件有问题，暂时跳过
+    if (name === "markdown") continue;
+
     if (pool.hasOwnProperty(name) && pool[name].encode) {
       filters.push({
         name: pool[name].fileDescription,
