@@ -12,6 +12,7 @@ import { setMinder, getMinder } from "./minder";
  */
 export function openKm(filePath: string) {
   try {
+    logger.info(`open file: ${filePath}`);
     if (!existsSync(filePath)) throw new Error(`file not found, ${filePath}`);
 
     setMinder(readJson(filePath));
@@ -35,7 +36,7 @@ export function saveKm(filePath: string) {
     showFileName(filePath);
 
     naotuBase.setCurrentKm(filePath);
-    naotuBase.OnSaved();    
+    naotuBase.OnSaved();
   } catch (error) {
     logger.error("saveKm error, ", error);
   }
@@ -44,8 +45,8 @@ export function saveKm(filePath: string) {
 /**
  * 拖拽打开文件
  */
-export function dropOpenFile() {
-  logger.info("allow drop Open File");
+export function openFileByDrop() {
+  logger.info("Start drag and drop Open File.");
 
   let body = document.body;
 

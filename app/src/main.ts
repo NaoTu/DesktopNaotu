@@ -4,7 +4,6 @@ import {
   BrowserWindow,
   globalShortcut,
   Menu,
-  ipcRenderer,
   ipcMain
 } from "electron";
 import { logger } from "./core/logger";
@@ -48,12 +47,12 @@ import { sIndexUrl } from "./define";
     logger.info(`open url ${sIndexUrl} `);
     mainWindow.loadURL(sIndexUrl);
 
-    globalShortcut.register("CmdOrCtrl+Shift+D", () => {
-      if (mainWindow) {
+    // globalShortcut.register("CmdOrCtrl+Shift+D", () => {
+    //   if (mainWindow) {
         // Open the DevTools.
         mainWindow.webContents.toggleDevTools();
-      }
-    });
+    //   }
+    // });
 
     // Emitted when the window is closed.
     mainWindow.on("closed", () => {
@@ -115,6 +114,7 @@ import { sIndexUrl } from "./define";
   // code. You can also put them in separate files and import them here.
 
   // global.sharedObject = { prop1: process.argv };
+  logger.info(`process.argv: ${process.argv}`);
 
   // 监听与渲染进程的通信
   ipcMain.on("reqaction", (event: Event, arg: string) => {
