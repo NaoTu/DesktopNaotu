@@ -9,3 +9,115 @@ body {
 div.minder-editor-container{
     top: 0!important;
 }
+
+
+
+.shortcut-dialog {
+    height: 600px;
+    overflow-y: scroll;
+    -moz-user-select: none;
+    /*火狐*/
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -ms-user-select: none;
+    /*IE10*/
+    -khtml-user-select: none;
+    /*早期浏览器*/
+    user-select: none;
+  }
+  .shortcut-dialog section {
+    min-width: 300px;
+    margin: 0 20px 20px 0;
+  }
+  .shortcut-dialog section h3 {
+    border-bottom: 1px solid #EEE;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    margin-top: 0;
+  }
+  .shortcut-dialog section div.shortcut-group {
+    margin: 5px auto;
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut {
+    display: inline-block;
+    width: 220px;
+    text-align: right;
+    margin-right: 10px;
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key {
+    display: inline-block;
+    padding: 3px 8px 5px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 14px;
+    color: #6e6e6e;
+    /* text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25); */
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #fcfcfc;
+    border-radius: 3px;
+    border: 1px solid #cccccc;
+    text-transform: capitalize;
+    box-shadow: inset 0 -2px #ebebeb, inset 0 -3px #ffffff, 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key:active {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    box-shadow: inset 0 -1px #ebebeb, inset 0 -2px #ffffff, 0 1px 1px rgba(255, 255, 255, 0.3);
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key:active:after {
+    transform: translate(0, 1px);
+  }
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.ctrl,
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.shift,
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.alt,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.up,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.down,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.left,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.right {
+    text-indent: 99999px;
+    position: relative;
+    width: 9px;
+  }
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.ctrl:after,
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.shift:after,
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.alt:after,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.up:after,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.down:after,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.left:after,
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.right:after {
+    display: block;
+    position: absolute;
+    text-align: center;
+    left: 5px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    text-indent: 0;
+  }
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.ctrl:after {
+    content: '⌘';
+  }
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.shift:after {
+    content: '⇧';
+  }
+  .mac .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.alt:after {
+    content: '⌥';
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.up:after {
+    content: '↑';
+    top: 2px;
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.down:after {
+    content: '↓';
+    top: 2px;
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.left:after {
+    content: '←';
+    top: 2px;
+  }
+  .shortcut-dialog section div.shortcut-group span.shortcut .shortcut-key.right:after {
+    content: '→';
+    top: 2px;
+  }

@@ -1,11 +1,5 @@
 // --> ipcMain 主线程使用的代码
-import {
-  app,
-  BrowserWindow,
-  globalShortcut,
-  Menu,
-  ipcMain
-} from "electron";
+import { app, BrowserWindow, globalShortcut, Menu, ipcMain } from "electron";
 import { logger } from "./core/logger";
 import { naotuConf } from "./core/conf";
 import { sIndexUrl } from "./define";
@@ -47,12 +41,12 @@ import { sIndexUrl } from "./define";
     logger.info(`open url ${sIndexUrl} `);
     mainWindow.loadURL(sIndexUrl);
 
-    // globalShortcut.register("CmdOrCtrl+Shift+D", () => {
-    //   if (mainWindow) {
+    globalShortcut.register("CmdOrCtrl+Shift+D", () => {
+      if (mainWindow) {
         // Open the DevTools.
         mainWindow.webContents.toggleDevTools();
-    //   }
-    // });
+      }
+    });
 
     // Emitted when the window is closed.
     mainWindow.on("closed", () => {

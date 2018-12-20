@@ -19,6 +19,7 @@ import {
 } from "./window";
 import { exitApp, license, about, checkVersion } from "./help";
 import { undo, redo } from "./edit";
+import { shortcutDialog } from "../ui/shortcut";
 
 class NaotuMenu {
   constructor() {}
@@ -174,8 +175,8 @@ class NaotuMenu {
       submenu: [
         {
           label: I18n.__("miShortcut"), // 快捷键
-          accelerator: "CmdOrCtrl+/"
-          // click: shortcut
+          accelerator: "CmdOrCtrl+/",
+          click: shortcutDialog
         },
         { type: "separator" },
         { label: I18n.__("miBackup"), click: license }, // 备份百度脑图到本地

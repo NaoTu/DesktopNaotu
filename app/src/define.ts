@@ -38,6 +38,17 @@ export let sLicenseUrl =
   "https://github.com/NaoTu/DesktopNaotu/blob/master/doc/Help.md";
 
 /**
+ * 检查更新的地址
+ */
+export let sVersionUrl =
+  "https://raw.githubusercontent.com/NaoTu/DesktopNaotu/master/app/src/version.ts";
+
+/**
+ * 项目 release 地址
+ */
+export let sReleasesUrl = "https://github.com/NaoTu/DesktopNaotu/releases";
+
+/**
  * 导出窗口的标题
  */
 export let sExportTitle = "KityMinder";

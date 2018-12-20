@@ -9,6 +9,7 @@ import { monitorExitRequest } from "./lib/exit";
 import { naotuBase } from "./lib/base";
 import { onSelectedNodeItem } from "./lib/minder";
 import { remote } from "electron";
+import { shortcutDialog } from "./ui/shortcut";
 
 // 进入即记录日志
 logger.info("ipcRender init");
