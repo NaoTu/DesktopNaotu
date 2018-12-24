@@ -3,6 +3,8 @@
   "miNewFile": "新建文件(&N)",
   "miOpenFile": "打開文件(&O)...",
   "miOpenWindow": "打開新窗口",
+  "miCloseFile": "關閉文件(&W)",
+  "miCloneFile": "創建副本",
   "miOpenFolder": "打開文件夾(&F)...",
   "miOpenRecent": "打開最近的文件(&R)",
   "miClearRecent": "清除最近打開記錄",
@@ -35,5 +37,7 @@
   "sExportKm": "導出 KityMinder 文件",
   "sSaveKm": "保存 KityMinder 文件",
   "sNoOpenFile": "您當前還未打開任何文件。",
-  "sNewKm": "新建文件會關閉當前文件，是否繼續？"
+  "sSaveTip": "當前文件尚未保存，請保存後再試？",
+  "sExitTip": "當前文件尚未保存，是否繼續退出？",
+  "sCloseTip": "當前文件尚未保存，是否繼續關閉？"
 }

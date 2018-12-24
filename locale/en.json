@@ -3,6 +3,8 @@
   "miNewFile": "&New File",
   "miOpenFile": "&Open File...",
   "miOpenWindow": "Open a New Window",
+  "miCloseFile": "Close file(&W)",
+  "miCloneFile": "Create a copy",
   "miOpenFolder": "Open &Folder...",
   "miOpenRecent": "Open &Recent",
   "miClearRecent": "&Clear Recently Opened",
