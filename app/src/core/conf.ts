@@ -160,23 +160,20 @@ class DesktopConfig implements IDesktopConfig {
   upgrade(): void {
     logger.info(`upgrade DesktopConfig. path is "${this.configPath}"`);
 
-    if (!existsSync(this.configPath)) {
-      this.create();
-    } else {
-      let oldModel = this.getModel();
-      let newModel = this.getTemplate();
+    this.checkFile();
 
-      // 升级配置
-      if (oldModel.version !== newModel.version) {
-        if (oldModel.isAutoSave) newModel.isAutoSave = oldModel.isAutoSave;
-        if (oldModel.locale) newModel.locale = oldModel.locale;
-        if (oldModel.defSavePath) newModel.defSavePath = oldModel.defSavePath;
-        if (oldModel.recentMaxNum)
-          newModel.recentMaxNum = oldModel.recentMaxNum;
-        if (oldModel.recently) newModel.recently = oldModel.recently;
+    let oldModel = this.getModel();
+    let newModel = this.getTemplate();
 
-        this.save(newModel);
-      }
+    // 升级配置
+    if (oldModel.version !== newModel.version) {
+      if (oldModel.isAutoSave) newModel.isAutoSave = oldModel.isAutoSave;
+      if (oldModel.locale) newModel.locale = oldModel.locale;
+      if (oldModel.defSavePath) newModel.defSavePath = oldModel.defSavePath;
+      if (oldModel.recentMaxNum) newModel.recentMaxNum = oldModel.recentMaxNum;
+      if (oldModel.recently) newModel.recently = oldModel.recently;
+
+      this.save(newModel);
     }
   }
 
@@ -195,10 +192,18 @@ class DesktopConfig implements IDesktopConfig {
   }
 
   getModel(): NaotuConfig {
+    this.checkFile();
+
     let data = readText(this.configPath);
     let model = NaotuConfig.Deserialization(data);
 
     return model;
+  }
+
+  checkFile(): void {
+    if (!existsSync(this.configPath)) {
+      this.create();
+    }
   }
 
   save(config: NaotuConfig): void {

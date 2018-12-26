@@ -24,11 +24,11 @@ export function getUserDataDir() {
   return userData;
 }
 
-function getPath(dir: string) {
+function getPath(dir: string, isCreate: boolean = true) {
   const userData = getUserDataDir();
   let path = join(userData, dir);
 
-  if (!existsSync(path)) mkdirSync(path);
+  if (!existsSync(path) && isCreate) mkdirSync(path);
   return path;
 }
 
@@ -36,7 +36,7 @@ function getPath(dir: string) {
  * 获取配置文件的路径
  */
 export function getConfigFilePath(): string {
-  return getPath(sConfigFile);
+  return getPath(sConfigFile, false);
 }
 
 /**
