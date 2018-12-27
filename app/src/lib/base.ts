@@ -1,4 +1,5 @@
 import { addRecentlyRecord } from "./recently";
+import { StatusList } from "../define";
 
 /**
  * 当做状态机类用
@@ -18,18 +19,18 @@ class NaotuBase {
     if (value) addRecentlyRecord(value);
   }
 
+  private _state: StatusList;
+  public getState() {
+    return this._state;
+  }
+  public setState(str: StatusList) {
+    this._state = str;
+  }
+
   // 保存序号
   private _savedNum: number;
   // 修改序号
   private _changedNum: number;
-
-  /**
-   * 打开时调用
-   */
-  public OnOpened() {
-    // 打开时，会出发2次修改，需豁免
-    this._changedNum -= 2;
-  }
 
   /**
    * 保存时调用
@@ -61,6 +62,7 @@ class NaotuBase {
    * 私有的构造方法
    */
   private constructor() {
+    this._state = "none";
     this._kmPath = null;
     this._changedNum = 0;
     this._savedNum = 0;

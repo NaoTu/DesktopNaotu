@@ -15,11 +15,16 @@ export function openKm(filePath: string) {
     logger.info(`open file: ${filePath}`);
     if (!existsSync(filePath)) throw new Error(`file not found, ${filePath}`);
 
+    // 开启状态保护
+    naotuBase.setState("opening");
+
+    naotuBase.setCurrentKm(filePath);
+
     setMinder(readJson(filePath));
 
     showFileName(filePath);
-
-    naotuBase.setCurrentKm(filePath);
+    
+    naotuBase.setState("none");
   } catch (error) {
     logger.error("openKm error, ", error);
   }
@@ -31,12 +36,22 @@ export function openKm(filePath: string) {
  */
 export function saveKm(filePath: string) {
   try {
-    writeJson(filePath, getMinder());
+    var minder = getMinder();
+
+    // 修改内容时，记录日志
+    logger.info(`${filePath} => ${JSON.stringify(minder)}`);
+    
+    naotuBase.setState("saving");
+
+    naotuBase.setCurrentKm(filePath);
+
+    writeJson(filePath, minder);
 
     showFileName(filePath);
 
-    naotuBase.setCurrentKm(filePath);
     naotuBase.OnSaved();
+
+    naotuBase.setState("none");
   } catch (error) {
     logger.error("saveKm error, ", error);
   }

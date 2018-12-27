@@ -14,15 +14,16 @@ export function getAppInstance() {
  * @param fileName 文件路径
  */
 export function showFileName(fileName: string) {
-  if (fileName != undefined) {
+  let title = "";
+  if (fileName) {
     let index = fileName.lastIndexOf("/");
 
     if (fileName.lastIndexOf("\\") > -1) index = fileName.lastIndexOf("\\");
-    let title = fileName.substring(index + 1) + " - " + I18n.__("sAppName");
+    title = fileName.substring(index + 1) + " - ";
+  }
 
-    let appInstance = getAppInstance();
-    if (appInstance) {
-      appInstance.setTitle(title);
-    }
+  let appInstance = getAppInstance();
+  if (appInstance) {
+    appInstance.setTitle(title + I18n.__("sAppName"));
   }
 }

@@ -7,7 +7,7 @@ import { openFileByDrop, openKm } from "./lib/file";
 import { saveDialog } from "./lib/dialog";
 import { monitorExitRequest } from "./lib/exit";
 import { naotuBase } from "./lib/base";
-import { onSelectedNodeItem } from "./lib/minder";
+import { onSelectedNodeItem, hasData } from "./lib/minder";
 import { remote } from "electron";
 import { shortcutDialog } from "./ui/shortcut";
 
@@ -41,12 +41,16 @@ $(function() {
   if (minder != null) {
     // auto saving
     minder.on("contentchange", function(argv: any) {
-      logger.info(`invoked contentchange()`);
+      // 操作完成之后才触发事件
+      if (naotuBase.getState() == "none") {
+        logger.info(`invoked contentchange()`);
 
-      naotuBase.OnEdited();
+        naotuBase.OnEdited();
 
-      if (naotuConf.getModel().isAutoSave) {
-        saveDialog();
+        // 即使开启自动保存，必须有数据才保存
+        if (naotuConf.getModel().isAutoSave) {
+          saveDialog();
+        }
       }
     });
 

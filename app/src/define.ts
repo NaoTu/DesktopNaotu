@@ -53,6 +53,10 @@ export let sReleasesUrl = "https://github.com/NaoTu/DesktopNaotu/releases";
  */
 export let sExportTitle = "KityMinder";
 
+/**
+ * 操作状态
+ */
+export type StatusList = "none" | "opening" | "closing" | "saving";
 //#endregion
 
 //#region 2. 可能变化的部分

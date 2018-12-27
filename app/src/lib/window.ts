@@ -5,7 +5,7 @@ import { copy, writeText, writeBuffer } from "../core/io";
 import execAsync from "../core/exec";
 import { logger } from "../core/logger";
 import { initRoot, getDefaultPath } from "./minder";
-import { getAppInstance } from "./electron";
+import { getAppInstance, showFileName } from "./electron";
 import { basename } from "path";
 
 //#region 3. 窗口对话框相关
@@ -46,6 +46,19 @@ export function newDialog() {
     });
 }
 
+function doCloseFile() {
+  naotuBase.setState("closing");
+
+  // 若已保存，则直接初始化
+  initRoot();
+
+  showFileName("");
+
+  logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
+
+  naotuBase.setState("none");
+}
+
 /**
  * 关闭文件
  *
@@ -55,20 +68,13 @@ export function newDialog() {
 export function closeFile() {
   // 如果关闭成功，也触发一次保存事件
   if (naotuBase.HasSaved()) {
-    // 若已保存，则直接初始化
-    initRoot();
-
-    naotuBase.OnSaved();
-    logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
+    doCloseFile();
   } else {
     bootbox.confirm({
       message: I18n.__("sCloseTip"),
       callback: (result: boolean) => {
         if (result) {
-          initRoot();
-
-          naotuBase.OnSaved();
-          logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
+          doCloseFile();
         }
       }
     });
@@ -206,6 +212,5 @@ export function minwin() {
     appInstance.minimize();
   }
 }
-
 
 //#endregion
