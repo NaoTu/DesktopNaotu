@@ -1,6 +1,6 @@
 # 桌面版脑图(DesktopNaotu) [![Join the chat at https://gitter.im/DesktopNaotu/DesktopNaotu](https://badges.gitter.im/DesktopNaotu/DesktopNaotu.svg)](https://gitter.im/DesktopNaotu/DesktopNaotu) [![加入桌面版脑图QQ群：330722928](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=cbd6fbc32adbe20c99c005bc559ec45bf3c9bfe581f9226ed14bd0951ae95739)
 
-## Software introduction [**中文介绍**](../README.md)
+## Software introduction [--> **中文介绍**](doc/README-zh.md)
 
 The desktop version of Mind Mapping is a localized version of Baidu Mind Mapping, which helps you to use Mind Mapping Tool without Internet.
 
@@ -26,9 +26,9 @@ The desktop version of Mind Mapping is a localized version of Baidu Mind Mapping
 - Support dragging open km files
 - Support association to open km files
 - Support for automatic saving
-- [Provide **Baidu Mind Mapping** File Download Method](Help.md)
-- [Provide **ProcessOn** Mind Map Download Method](Help.md)
-- [View Historical Version](History.md)
+- [Provide **Baidu Mind Mapping** File Download Method](doc/Help.md)
+- [Provide **ProcessOn** Mind Map Download Method](doc/Help.md)
+- [View Historical Version](doc/History.md)
 
 ## Software screenshots
 
