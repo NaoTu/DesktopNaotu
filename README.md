@@ -1,56 +1,56 @@
 # 桌面版脑图(DesktopNaotu) [![Join the chat at https://gitter.im/DesktopNaotu/DesktopNaotu](https://badges.gitter.im/DesktopNaotu/DesktopNaotu.svg)](https://gitter.im/DesktopNaotu/DesktopNaotu) [![加入桌面版脑图QQ群：330722928](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=cbd6fbc32adbe20c99c005bc559ec45bf3c9bfe581f9226ed14bd0951ae95739)
 
-## 软件介绍 [English introduction](doc/README-en.md)
+## Software introduction [**中文介绍**](../README.md)
 
-桌面版脑图是基于百度脑图的本地化版本，帮助你在没有互联网环境的情况下，依然可以使用脑图工具。
+The desktop version of Mind Mapping is a localized version of Baidu Mind Mapping, which helps you to use Mind Mapping Tool without Internet.
 
-## 如何下载
+## How to download
 
-- 方法1：通过 [**百度云下载**](http://pan.baidu.com/s/1jHNBL7C)
-- 方法2：通过 [**Github 的 Releases 下载**](https://github.com/NaoTu/DesktopNaotu/releases)
+- Method 1：Download through [**Baidu Cloud**](http://pan.baidu.com/s/1jHNBL7C)
+- Method 2：Download through [**Github's Releases**](https://github.com/NaoTu/DesktopNaotu/releases)
 
-## 各版本对应的系统
+## System corresponding to each version
 
-| 操作系统  | 位数    |  对应文件 |  大小  | 支持情况 |
+| Operating System | Bit | Corresponding File | Size | Support |
 | --------  | -----: | -----: | :----  | -- |
-| MacOS | 64位 | DesktopNaotu-macOS-x64 | < 50M | 支持全部功能 |
-| Linux | 64位 | DesktopNaotu-linux-x64 | < 50M | 支持全部功能 |
-| Windows 7/10 | 64位 | DesktopNaotu-win32-x64 | < 50M | 支持全部功能 |
-| Windows 7/10 | 32位 | DesktopNaotu-win32-ia32 | < 50M | 支持全部功能 |
-| Windows XP  | 32位 | DesktopNaotu-Windows-mini | < 8M | 不支持调试 |
+| MacOS | 64 bit | DesktopNaotu - macOS - x64 | < 50M | Supports all functions |
+| Linux | 64 bit | DesktopNaotu-linux-x64 | < 50M | Supports all functions |
+| Windows 7/10 | 64 bit | DesktopNaotu-win32-x64 | < 50M | Supports all functions |
+| Windows 7/10 | 32 bits | DesktopNaotu-win32-ia32 | < 50M | Supports all functions |
+| Windows XP | 32 bits | DesktopNaotu-Windows-mini | < 8M | Debugging is not supported |
 
-## 功能特征
+## Functional characteristics
 
-- 包含百度脑图的基本功能
-- 本地km文件的操作
-- 支持拖拽打开km文件
-- 支持关联打开km文件
-- 支持自动保存功能
-- [提供 **百度脑图** 文件的下载方式](doc/Help.md)
-- [提供 **ProcessOn** 思维导图的下载方式](doc/Help.md)
-- [查看历史版本](doc/History.md)
+- Basic functions of Baidu Mind Mapping
+- Operation of local km files
+- Support dragging open km files
+- Support association to open km files
+- Support for automatic saving
+- [Provide **Baidu Mind Mapping** File Download Method](Help.md)
+- [Provide **ProcessOn** Mind Map Download Method](Help.md)
+- [View Historical Version](History.md)
 
-## 软件截图
+## Software screenshots
 
-- Windows 截图
+- Windows screenshot
 
-![Windows](screenshot/Windows.png)
+![Windows](screenshot/Windows-en.png)
 
-- Mac OS X 截图
+- Mac OS X screenshot
 
 ![OS X](screenshot/OSX.png)
 
-- Linux 截图
+- Linux screenshot
 
 ![Linux](screenshot/Linux.png)
 
-## 联系我们
+## Contact us
 
-问题和建议反馈：
+Questions and suggestion feedback:
 
 - [Github issues](https://github.com/NaoTu/DesktopNaotu/issues)
-- [加入讨论组](https://gitter.im/DesktopNaotu/DesktopNaotu)
-- QQ群：330722928
+- [Join the discussion group](https://gitter.im/DesktopNaotu/DesktopNaotu)
+- QQ group：330722928
 
 ## License
 
