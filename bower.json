@@ -24,6 +24,7 @@
     "bootbox.js": "bootbox#^4.4.0"
   },
   "dependencies": {
+    "kity": "^2.0.5",
     "kityminder-editor": "git://github.com/NaoTu/kityminder-editor#master",
     "bootbox.js": "bootbox#^4.4.0",
     "kityminder-core": "git://github.com/NaoTu/kityminder-core.git#dev"
