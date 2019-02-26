@@ -2,6 +2,7 @@ import { naotuConf } from "./conf";
 import { join } from "path";
 import { readJson } from "./io";
 import { sLocaleDir } from "../define";
+import { existsSync } from "fs";
 
 /**
  * 国际化接口
@@ -28,6 +29,10 @@ export namespace I18n {
   export function __(phrase: string): string {
     if (!loadedLanguage) {
       let path = join(__dirname, sLocaleDir, getLang() + ".json");
+
+      if (!existsSync(path)) {
+        path = join(__dirname, sLocaleDir, "en.json");
+      }
 
       loadedLanguage = readJson(path);
     }
