@@ -67,7 +67,8 @@ export type StatusList = "none" | "opening" | "closing" | "saving";
 export let sAboutText = `
 Copyright (c) 2019 Jack <br><br>
 Version: v${version.join(".")}<br><br>
-Thanks: <a href='https://www.52pojie.cn/' target='_blank'>52pojie.cn</a>`;
+Thanks: <a href='#' onclick='openUrl("https://www.52pojie.cn/");'>52pojie.cn</a> | 
+        <a href='#' onclick='openUrl("https://github.com/NaoTu/DesktopNaotu");'>Naotu Team.</a>`;
 
 /**
  * 当前配置文件的版本

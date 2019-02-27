@@ -75,3 +75,7 @@ $(function() {
     }
   }
 });
+
+function openUrl(url: string) {
+  require("electron").shell.openExternal(url);
+}
