@@ -109,3 +109,14 @@ try {
     alert(e);
 }
 ```
+
+## 四、如何在打印的时候去掉，节点前面的“展开和关闭”小圈圈
+
+- 1、导出为 svg 格式
+- 2、在 chrome 浏览器打开该 svg 文件
+- 3、按下 F12 打开控制台，切换到 Console 选项卡
+- 4、粘贴下面的代码
+
+```javascript
+document.querySelectorAll('g[id^="node_expander"]').forEach(n => n.remove());
+```
