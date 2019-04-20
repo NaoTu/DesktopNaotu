@@ -5,12 +5,12 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "gulp default",
-    "packwin32": "electron-packager ./ DesktopNaotu --asar=true --platform=win32 --arch=ia32 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=3.2.2 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
-    "packwin32dev": "electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=3.2.2 --ignore=\"(.git|screenshot|doc|bower_components|electron-packager)\" --overwrite --prune",
-    "packwin64": "electron-packager ./ DesktopNaotu --asar=true --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=3.2.2 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
-    "packwin64dev": "electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=3.2.2 --ignore=\"(.git|screenshot|doc|bower_components|electron-packager)\" --overwrite --prune",
-    "packmacos": "electron-packager ./ DesktopNaotu --asar=true --platform=darwin --arch=x64 --out=../OutApp --icon=app/static/favicon.icns --electron-version=3.0.10 --app-version=3.2.2 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
-    "packlinux": "electron-packager ./ DesktopNaotu --asar=true --platform=linux --arch=x64 --out=../OutApp --icon=app/static/favicon.png --electron-version=3.0.10 --app-version=3.2.2 --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune"
+    "packwin32": "cross-var electron-packager ./ DesktopNaotu --asar --platform=win32 --arch=ia32 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packwin32dev": "cross-var electron-packager ./ DesktopNaotu --platform=win32 --arch=ia32 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|bower_components|electron-packager)\" --overwrite --prune",
+    "packwin64": "cross-var electron-packager ./ DesktopNaotu --asar --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packwin64dev": "cross-var electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.0.10 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|bower_components|electron-packager)\" --overwrite --prune",
+    "packmacos": "cross-var electron-packager ./ DesktopNaotu --asar --platform=darwin --arch=x64 --out=../OutApp --icon=app/static/favicon.icns --electron-version=3.0.10 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packlinux": "cross-var electron-packager ./ DesktopNaotu --asar --platform=linux --arch=x64 --out=../OutApp --icon=app/static/favicon.png --electron-version=3.0.10 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune"
   },
   "repository": {
     "type": "git",
@@ -24,17 +24,18 @@
   },
   "homepage": "https://github.com/NaoTu/DesktopNaotu#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.4.3",
     "@types/byline": "^4.2.31",
     "browserify": "^16.2.3",
+    "cross-var": "^1.1.0",
     "del": "^3.0.0",
-    "electron": "^3.0.11",
+    "electron": "^3.1.8",
     "electron-packager": "^12.2.0",
     "electron-prebuilt": "^1.4.13",
-    "grunt": "^1.0.3",
+    "grunt": "^1.0.4",
     "grunt-electron-installer": "^2.1.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^6.0.0",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-babel": "^8.0.0",
     "gulp-cache": "^1.0.2",
     "gulp-clean-css": "^3.10.0",
@@ -52,16 +53,16 @@
     "gulp-ruby-sass": "^3.0.0",
     "gulp-tsc": "^1.3.2",
     "gulp-uglify": "^3.0.1",
-    "js-beautify": "^1.8.6",
-    "jshint": "^2.9.6",
+    "js-beautify": "^1.9.1",
+    "jshint": "^2.10.2",
     "run-sequence": "^2.2.1",
     "tsify": "^4.0.1",
-    "typescript": "^3.2.2",
+    "typescript": "^3.4.4",
     "vinyl-source-stream": "^2.0.0",
     "wiredep": "^4.0.0"
   },
   "dependencies": {
-    "hotkeys-js": "^3.3.8",
+    "hotkeys-js": "^3.6.2",
     "moment": "^2.23.0",
     "winston": "^3.1.0"
   }
