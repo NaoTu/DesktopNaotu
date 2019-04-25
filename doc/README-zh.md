@@ -52,6 +52,12 @@
 - [加入讨论组](https://gitter.im/DesktopNaotu/DesktopNaotu)
 - QQ群：330722928
 
+## 捐赠项目
+
+感谢您的慷慨捐赠。
+
+![微信捐赠](./image/wechat-qr.png)
+
 ## License
 
 Code released under the [GPL-2.0 License](LICENSE).
