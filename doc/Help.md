@@ -71,3 +71,10 @@ document.querySelectorAll('g[id^="node_expander"]').forEach(n => n.remove());
 ## 五、怎么重选默认保存路径
 
 在菜单栏中，点击 `文件` 下的 `重选自动保存的目录` 菜单，或按 Ctrl+R 快捷键重选目录。
+
+## 六、Linux 中如何运行
+
+需要添加运行权限，如下命令
+```
+sudo chmod a+x DesktopNaotu && ./DesktopNaotu
+```
