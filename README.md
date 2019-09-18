@@ -4,6 +4,11 @@
 
 The desktop version of Mind Mapping is a localized version of Baidu Mind Mapping, which helps you to use Mind Mapping Tool without Internet.
 
+## Special Sponsors
+
+<p align="center"><a href="https://documentnode.io/" target="_blank" rel="noopener noreferrer"><img src="https://user-images.githubusercontent.com/2252451/65103852-16463380-da02-11e9-8b58-bea4a84c2e31.png" alt="Document Node logo"></a><br>
+Open Document Node, Inspiration Unfold</p>
+
 ## How to download
 
 - Method 1：Download through [**Baidu Cloud**](http://pan.baidu.com/s/1jHNBL7C)
