@@ -6,7 +6,7 @@ The desktop version of Mind Mapping is a localized version of Baidu Mind Mapping
 
 ## Special Sponsors
 
-<p align="center"><a href="https://documentnode.io/" target="_blank" rel="noopener noreferrer"><img src="https://user-images.githubusercontent.com/2252451/65103852-16463380-da02-11e9-8b58-bea4a84c2e31.png" alt="Document Node logo"></a><br>
+<p align="center"><a href="https://documentnode.io/?utm_source=github&utm_medium=sponsor&utm_campaign=desktopnaotu" target="_blank" rel="noopener noreferrer"><img src="https://user-images.githubusercontent.com/2252451/65103852-16463380-da02-11e9-8b58-bea4a84c2e31.png" alt="Document Node logo"></a><br>
 Open Document Node, Inspiration Unfold</p>
 
 ## How to download
