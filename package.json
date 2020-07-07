@@ -29,7 +29,7 @@
     "browserify": "^16.2.3",
     "cross-var": "^1.1.0",
     "del": "^3.0.0",
-    "electron": "^3.1.8",
+    "electron": "^9.1.0",
     "electron-packager": "^12.2.0",
     "electron-prebuilt": "^1.4.13",
     "grunt": "^1.0.4",
