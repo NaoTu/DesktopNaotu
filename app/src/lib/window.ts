@@ -213,4 +213,14 @@ export function minwin() {
   }
 }
 
+/**
+ * 行为：切换开发者工具
+ */
+export function toggleDevTools() {
+  let webContents = remote.BrowserWindow.getFocusedWindow()?.webContents;
+  if (webContents) {
+    webContents.toggleDevTools();
+  }
+}
+
 //#endregion

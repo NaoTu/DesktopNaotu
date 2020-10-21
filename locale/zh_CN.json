@@ -23,6 +23,7 @@
   "mWindow": "窗口(&W)",
   "miMaxWin": "最大化(&X)",
   "miMinWin": "最小化(&N)",
+  "miToggleDevTools": "切换开发者工具(&D)",
   "mHelp": "帮助(&H)",
   "miShortcut": "快捷键(&H)...",
   "miBackup": "备份百度脑图到本地(&V)",

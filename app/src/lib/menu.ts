@@ -15,7 +15,8 @@ import {
   minwin,
   newDialog,
   closeFile,
-  cloneFile
+  cloneFile,
+  toggleDevTools
 } from "./window";
 import { exitApp, license, about, checkVersion } from "./help";
 import { undo, redo } from "./edit";
@@ -165,6 +166,10 @@ class NaotuMenu {
         {
           label: I18n.__("miMinWin"), // 最小化
           click: minwin
+        },
+        {
+          label: I18n.__("miToggleDevTools"), // 切换开发者工具
+          click: toggleDevTools
         }
       ]
     });
