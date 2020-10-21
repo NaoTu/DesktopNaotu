@@ -193,3 +193,68 @@ npm run demo
 ```
 
 **成功运行了起来！**
+
+---
+
+## 关于打包速度慢的问题
+
+使用`npm run packwin64`进行打包时，发现打包速度非常慢，起码要等几个小时。CMD下设置环境变量DEBUG（`set DEBUG=*`）时，可看到electron-packager在不断遍历`node_modules`文件夹。
+
+后来参考了[这篇问答](https://segmentfault.com/q/1010000006197710)里[苹果小萝卜](https://segmentfault.com/u/xrene)的解决办法，才得知**使用`cnpm`安装软件包是问题所在**。它属于**扁平化安装**，会把所有依赖全部展开到`node_modules`文件夹中，这样赢得了速度，却导致文件夹下有超过1,800个项目，怪不得要遍历那么久。
+
+于是删掉`node_modules`文件夹，用npm再重新安装。由于npm采用树形结构处理依赖，最终`node_modules`非常简洁，只有723个项目。打包速度快了不少。
+
+---
+
+## 可适用的编译教程
+
+### 软件版本
+
+- **Node.js**: `v9.x`、 `v12.x LTS`、 `v14.x`
+  - `v10.x`在运行`gulp-tsc`时会提示语法错误，不选。
+  - 建议`v9.x`。模块`graceful-js`不兼容高版本的Node.js，但你可以手动更新。
+- **TypeScript**: `v3.9.x`、`v4.0.x`
+
+### 1. 安装所有依赖
+
+```bash
+# 自动安装依赖
+npm install
+bower install
+
+# 安装编译工具 Gulp
+npm install -g gulp
+```
+
+### 2. 更换graceful-fs版本（对于Node `v10.x`及以上版本）
+
+```bash
+npm install graceful-fs
+
+# 如果仍出现"ReferenceError: primordials is not defined" 的错误，
+# 则删掉旧版本
+rm -rf node_modules/_graceful-fs@3.0.12@graceful-fs
+
+# 如果某个子模块依赖旧版本graceful-fs，则请根据报错信息，
+# 切换到该模块目录下更新。
+cd node_modules/<PATH_TO_MODULE_USING_DEPRECATED_GRACEFUL_FS>
+npm install graceful-fs@4.x
+```
+
+### 3. 更换`@types/node`版本
+
+```bash
+npm install @types/node@12.x
+```
+
+### 4. 开始编译
+
+```bash
+gulp
+```
+
+### 5. 测试运行
+
+```bash
+npm run demo
+```
