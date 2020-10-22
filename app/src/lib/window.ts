@@ -11,9 +11,9 @@ import { basename } from "path";
 //#region 3. 窗口对话框相关
 
 /**
- * 新建文件
+ * 新建窗口
  *
- * 快捷键：Ctrl + N
+ * 快捷键：Ctrl + Shift + N
  * 行为：新窗口打开一个空白文档
  */
 export function newDialog() {
@@ -44,6 +44,28 @@ export function newDialog() {
     .catch(err => {
       logger.error("asyncExec err: ", err);
     });
+}
+
+/**
+ * 新建文件
+ *
+ * 快捷键：Ctrl + N
+ * 行为：在当前窗口打开一个空白文档
+ */
+export function newFile() {
+  // 实际上新建文件的动作和关闭文件相同，最多只是提示信息不同
+  if (naotuBase.HasSaved()) {
+    doCloseFile();
+  } else {
+    bootbox.confirm({
+      message: I18n.__("sNewFileTip"),
+      callback: (result: boolean) => {
+        if (result) {
+          doCloseFile();
+        }
+      }
+    });
+  }
 }
 
 function doCloseFile() {

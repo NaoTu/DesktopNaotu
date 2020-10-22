@@ -14,6 +14,7 @@ import {
   maxwin,
   minwin,
   newDialog,
+  newFile,
   closeFile,
   cloneFile,
   toggleDevTools
@@ -57,7 +58,7 @@ class NaotuMenu {
         {
           label: I18n.__("miNewFile"), // 新建文件
           accelerator: "CmdOrCtrl+N",
-          click: newDialog
+          click: newFile
         },
         {
           label: I18n.__("miOpenFile"), // 打开文件
