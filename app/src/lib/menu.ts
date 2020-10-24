@@ -61,6 +61,11 @@ class NaotuMenu {
           click: newFile
         },
         {
+          label: I18n.__("miOpenWindow"), // 新建窗口
+          accelerator: "CmdOrCtrl+Shift+N",
+          click: newDialog,
+        },
+        {
           label: I18n.__("miOpenFile"), // 打开文件
           accelerator: "CmdOrCtrl+O",
           click: openDialog
@@ -72,7 +77,7 @@ class NaotuMenu {
         },
         {
           label: I18n.__("miCloneFile"), // 生成副本
-          accelerator: "CmdOrCtrl+Shift+N",
+          accelerator: "CmdOrCtrl+Alt+N",
           click: cloneFile
         },
         { type: "separator" },

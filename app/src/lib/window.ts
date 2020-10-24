@@ -18,7 +18,9 @@ import { basename } from "path";
  */
 export function newDialog() {
   // 获取当前执行程序的路径
-  let appPath = process.execPath;
+  // FIXME: 仍未解决——Windows不支持空格转义。
+  // TODO: 最好的办法还是借鉴Typora、VSCode，不开新实例      
+  let appPath = convertPathSpaces(process.execPath);
   let command = "";
 
   switch (process.platform) {
@@ -106,8 +108,12 @@ export function closeFile() {
 /**
  * 生成副本
  *
- * Ctrl+Shift+N
- * 复制一个副本，在新窗口打开
+ * Ctrl+Alt+N
+ * 复制一个副本，可选择在当前窗口或新窗口打开
+ * 
+ * TODO: 未完成，还要考虑：
+ *     1. 同上，不开新实例
+ *     2. 如文件有修改，先询问是否把更改同步到副本当中
  */
 export function cloneFile() {
   // 创建一个新文件，并在新窗口打开它
@@ -118,7 +124,7 @@ export function cloneFile() {
     copy(srcPath, dstKmPath); // 复制一份
 
     // 获取当前执行程序的路径
-    let appPath = process.execPath;
+    let appPath = convertPathSpaces(process.execPath);
     let command = "";
 
     switch (process.platform) {
@@ -137,7 +143,7 @@ export function cloneFile() {
     }
 
     // 执行打开该文件的命令
-    execAsync(command, dstKmPath)
+    execAsync(command, `"${dstKmPath}"`)
       .then(output => {
         logger.info(output);
       })
@@ -145,7 +151,8 @@ export function cloneFile() {
         logger.error("asyncExec err: ", err);
       });
   } else {
-    new Error("No files are currently open.");
+    //new Error("No files are currently open.");
+    bootbox.alert(I18n.__("sNoOpenFile"));
   }
 }
 
@@ -245,4 +252,9 @@ export function toggleDevTools() {
   }
 }
 
+// inner function.
+// 将路径中的空格转义。
+function convertPathSpaces(filePath: String) {
+  return filePath.replace(/[ ]/g, "\\ ");
+}
 //#endregion
