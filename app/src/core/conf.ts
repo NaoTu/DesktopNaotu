@@ -46,6 +46,11 @@ class NaotuConfig {
   recentMaxNum?: number;
 
   /**
+   * 是否保存日志到磁盘上
+   */
+  ifSaveLogToDisk?: boolean;
+
+  /**
    * 配置文件的版本
    */
   version?: string;
@@ -58,6 +63,7 @@ class NaotuConfig {
     isAutoSave: boolean,
     recentMaxNum: number,
     recently: IRecentlyItem[],
+    ifSaveLogToDisk: boolean,
     version: string
   ) {
     this.locale = locale;
@@ -65,6 +71,7 @@ class NaotuConfig {
     this.isAutoSave = isAutoSave;
     this.recentMaxNum = recentMaxNum;
     this.recently = recently;
+    this.ifSaveLogToDisk = ifSaveLogToDisk;
     this.version = version;
   }
 
@@ -90,6 +97,7 @@ class NaotuConfig {
     let isAutoSave = confJson.isAutoSave as boolean;
     let recentMaxNum = confJson.recentMaxNum as number;
     let recently = confJson.recently as IRecentlyItem[];
+    let ifSaveLogToDisk = confJson.ifSaveLogToDisk as boolean;
     let version = confJson.version as string;
 
     return new NaotuConfig(
@@ -98,6 +106,7 @@ class NaotuConfig {
       isAutoSave,
       recentMaxNum,
       recently,
+      ifSaveLogToDisk,
       version
     );
   }
@@ -145,20 +154,22 @@ class DesktopConfig implements IDesktopConfig {
   configPath: string;
 
   constructor() {
+    console.log(">>> Config initialize!");
+
     this.configPath = getConfigFilePath();
 
-    logger.info(`init DesktopConfig. path is "${this.configPath}"`);
+    console.log(`init DesktopConfig. path is "${this.configPath}"`);
   }
 
   create(): void {
-    logger.info(`create DesktopConfig. path is "${this.configPath}"`);
+    console.log(`create DesktopConfig. path is "${this.configPath}"`);
 
     let config = this.getTemplate();
     this.save(config);
   }
 
   upgrade(): void {
-    logger.info(`upgrade DesktopConfig. path is "${this.configPath}"`);
+    console.log(`upgrade DesktopConfig. path is "${this.configPath}"`);
 
     this.checkFile();
 
@@ -171,6 +182,7 @@ class DesktopConfig implements IDesktopConfig {
       if (oldModel.locale) newModel.locale = oldModel.locale;
       if (oldModel.defSavePath) newModel.defSavePath = oldModel.defSavePath;
       if (oldModel.recentMaxNum) newModel.recentMaxNum = oldModel.recentMaxNum;
+      if (oldModel.ifSaveLogToDisk) newModel.ifSaveLogToDisk = oldModel.ifSaveLogToDisk;
       if (oldModel.recently) newModel.recently = oldModel.recently;
 
       this.save(newModel);
@@ -187,6 +199,7 @@ class DesktopConfig implements IDesktopConfig {
       true,
       5,
       [],
+      false,
       sConfigVersion
     );
   }
@@ -211,8 +224,8 @@ class DesktopConfig implements IDesktopConfig {
 
     writeText(this.configPath, data);
 
-    logger.info(
-      `save DesktopConfig. path is "${this.configPath}", content is "${data}".`
+    console.log(
+      `save DesktopConfig. path is "${this.configPath}`
     );
   }
 }
