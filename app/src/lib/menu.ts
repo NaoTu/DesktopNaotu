@@ -22,6 +22,7 @@ import {
 import { exitApp, license, about, checkVersion } from "./help";
 import { undo, redo } from "./edit";
 import { shortcutDialog } from "../ui/shortcut";
+import { preferencesDialog } from "../ui/pref_dialog";
 
 class NaotuMenu {
   constructor() {}
@@ -157,6 +158,17 @@ class NaotuMenu {
           label: I18n.__("miPaste"), // 粘贴
           accelerator: "CmdOrCtrl+V",
           role: "paste"
+        }
+      ]
+    });
+
+    // 定制
+    template.push({
+      label: I18n.__("mCustomize"), // 窗口
+      submenu: [
+        {
+          label: I18n.__("miPreferences"), // 打开偏好设置
+          click: preferencesDialog
         }
       ]
     });

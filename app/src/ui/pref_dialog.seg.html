@@ -1,0 +1,150 @@
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-pills nav-tabs" role="tablist">
+    <!--li role="presentation" class="active"><a href="#Font" aria-controls="Font" role="tab" data-toggle="tab">字体</a></li> -->
+    <li role="presentation" class="active"><a href="#Log" aria-controls="Log" role="tab" data-toggle="tab">日志</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="Log">
+      <h4>日志记录开关</h4>
+      <p class="bg-info" style="padding: 1em">
+        设置在重启后生效。
+      </p>
+
+      <div class="checkbox" style="padding-left: 0.5em">
+        <label>
+          <input type="checkbox" id="chkSaveLogToDisk"> 将日志写入磁盘
+        </label>
+      </div>
+
+
+      <h4>日志操作</h4>
+      <p>
+        <button type="button" class="btn btn-default" id="btnCleanupLogFiles">清理日志文件</button>
+        <button type="button" class="btn btn-default" id="btnOpenLogDir">打开日志目录</button>
+      </p>
+      <div class="well" id="lblLogOptionResult">
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<script>
+  "use strict";
+
+  // 先隐藏信息框
+  $("#lblLogOptionResult").hide();
+
+  /**
+   * “将日志写入磁盘”复选框
+   */
+  // 先设置初始状态
+  $("#chkSaveLogToDisk").prop(
+    "checked",
+    bootbox.NAOTU_CONFIG.ifSaveLogToDisk
+  );
+
+  // 点击复选框更改设置项
+  $("#chkSaveLogToDisk").on("click", () => {
+    bootbox.NAOTU_CONFIG.ifSaveLogToDisk = $("#chkSaveLogToDisk").prop("checked");
+  });
+
+  /**
+   * “打开日志目录”按钮
+   */
+  $("#btnOpenLogDir").on("click", () => {
+    shell.showItemInFolder(bootbox.NAOTU_LOG_PATH);
+  })
+
+  /**
+   * “清理日志文件”按钮
+   */
+  $("#btnCleanupLogFiles").on("click", () => {
+    let succeed = 0;
+    let errMsg = "";
+
+    const NAOTU_ERROR_LOG = `${bootbox.NAOTU_LOG_PATH}/naotu.err.log`;
+    const NAOTU_LOG = `${bootbox.NAOTU_LOG_PATH}/naotu.log`;
+
+    // 先检查两个日志文件是否都存在。若不存在则视为尚未生成。
+    // 注意Node.js的Bug：如果开启了日志存盘，则fs.unlinkSync()方法会调用成功，但原文件还存在且无法访问。
+    //                   此时若关闭主程序则会自动删除。
+    if (!fs.existsSync(NAOTU_ERROR_LOG) && !fs.existsSync(NAOTU_LOG)) {
+      operateInfoBar(
+        "#lblLogOptionResult",
+        `<p class="text-success"><span class="glyphicon glyphicon-info-sign" /> 尚未生成日志文件。
+          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br>由于Node.js限制，若已打开日志存盘功能，则此时日志文件仍存在且不可访问，关闭程序时会自动删除。" : ""}
+          </p>`,
+        2000
+      );
+      return;
+    }
+
+    // 删除naotu.rrr.log
+    try {
+      fs.unlinkSync(`${bootbox.NAOTU_LOG_PATH}/naotu.err.log`);
+      succeed++;
+    } catch (err) {
+      if (err) {
+        console.log(`Cannot remove naotu.err.log: ${err.message}`);
+        errMsg += err.message + "\n";
+      }
+    }
+
+    // 删除naotu.log
+    try {
+      fs.unlinkSync(`${bootbox.NAOTU_LOG_PATH}/naotu.log`);
+      succeed++;
+    } catch (err) {
+      if (err) {
+        console.log(`Cannot remove naotu.log: ${err.message}`);
+        errMsg += err.message + "\n";
+      }
+    }
+
+    // 检查删除结果
+    if (succeed >= 2) { // 两个文件均删除成功
+      operateInfoBar(
+        "#lblLogOptionResult",
+        `<p class="text-success">
+          <span class="glyphicon glyphicon-ok"/> 所有日志文件已删除
+          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br>由于Node.js限制，若已打开日志存盘功能，则此时日志文件仍存在且不可访问，关闭程序时会自动删除。" : ""}
+        </p>`,
+        2000
+      )
+    } else { // 发生意外，并输出错误日志
+      operateInfoBar(
+        "#lblLogOptionResult",
+        `<p class="text-warning">
+          <span class="glyphicon glyphicon-remove"/> <strong>删除了${succeed}／2个日志文件。</strong> 
+          <br><br>部分日志文件无法删除，可能是已删除或正在使用中。
+         </p>
+         <pre>${errMsg}</pre>`,
+        3000
+      )
+    }
+  });
+
+  /**
+   * 显示信息栏。
+   * 
+   * @param {string} query      JQuery查询字串，任何一个你想要用作信息栏的元素。
+   * @param {string} targetHtml 要在信息栏中显示的HTML。
+   * @param {integer} timeOut   消失时间，单位为毫秒。
+   */
+  function operateInfoBar(query, targetHtml, timeOut) {
+    $(query).hide();
+    $(query).html(targetHtml);
+
+    $(query).show(700, () => {
+      setTimeout(() => {
+        $(query).hide(700);
+      }, timeOut);
+    })
+  }
+</script>

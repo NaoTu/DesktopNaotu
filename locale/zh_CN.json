@@ -20,6 +20,8 @@
   "miCut": "剪切(&T)",
   "miCopy": "复制(&C)",
   "miPaste": "粘贴(&P)",
+  "mCustomize": "定制(&M)",
+  "miPreferences": "偏好设置",
   "mWindow": "窗口(&W)",
   "miMaxWin": "最大化(&X)",
   "miMinWin": "最小化(&N)",

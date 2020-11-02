@@ -166,6 +166,7 @@ gulp.task("copy-images-vendor", function() {
 
 gulp.task("copy-html-vendor", function() {
   gulp.src("./app/static/index.html").pipe(gulp.dest("dist"));
+  gulp.src("./app/src/ui/pref_dialog.seg.html").pipe(gulp.dest("dist/ui"));
   // gulp.src("./app/static/favicon.ico").pipe(gulp.dest("dist"));
 });
 
