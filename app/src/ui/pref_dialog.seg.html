@@ -137,12 +137,16 @@
    * @param {string} targetHtml 要在信息栏中显示的HTML。
    * @param {integer} timeOut   消失时间，单位为毫秒。
    */
+
   function operateInfoBar(query, targetHtml, timeOut) {
+    clearInterval(bootbox.NAOTU_CONFIG.currentInfoBarId);  // 清除之前创建的Timeout计时器，防止连续调用本方法时信息栏提前消失
     $(query).hide();
     $(query).html(targetHtml);
 
     $(query).show(700, () => {
-      setTimeout(() => {
+      // setTimeout() 返回的ID要在全局变量中存储。
+      // bootbox.NAOTU_CONFIG可视为全局变量的容器，在整个Electron会话中都有效
+      bootbox.NAOTU_CONFIG.currentInfoBarId = setTimeout(() => {
         $(query).hide(700);
       }, timeOut);
     })
