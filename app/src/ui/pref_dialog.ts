@@ -6,8 +6,13 @@ import { logger } from "../core/logger"
 
 
 export function preferencesDialog() {
-  // 先关闭所有对话框
-  bootbox.hideAll();
+  // 如果对话框已弹出，则直接返回
+  // Bootbox不会清理嵌入到对话框的JavaScript定义，
+  // 这会导致再次弹出对话框时，对话框的交互功能失效，除非用户手动关闭对话框再打开
+  if (jQuery(".bootbox").length > 0) {
+    logger.info("Preference dialog had been already poped up. Ignoring.");
+    return;
+  }
 
   // 借助全局的bootbox对象传递配置数据
   // 直接给前端的对象添加成员，即可实现前后端交换数据，而无需IPC通信
