@@ -2,7 +2,8 @@ import { I18n } from "../core/i18n";
 import { naotuConf } from "../core/conf";
 import { readText } from "../core/io";
 import { getLogDirectoryPath } from "../core/path";
-import { logger } from "../core/logger"
+import { logger } from "../core/logger";
+let ejs = require("ejs") || null;   // 由于@types/ejs不兼容，目前暂时无法使用import语句
 
 
 export function preferencesDialog() {
@@ -20,22 +21,40 @@ export function preferencesDialog() {
   bootbox.NAOTU_CONFIG = conf;
   bootbox.NAOTU_LOG_PATH = getLogDirectoryPath();
 
+  // 用EJS渲染多语言界面
+  let dialogContent = ejs.render(
+    readText(`${__dirname}/pref_dialog.seg.html`),
+    {
+      dPreferences_Log: I18n.__("dPreferences_Log"),
+      dPreferences_Log_Switch: I18n.__("dPreferences_Log_Switch"),
+      dPreferences_Log_TakeEffect: I18n.__("dPreferences_Log_TakeEffect"),
+      dPreferences_Log_SaveLogToDisk: I18n.__("dPreferences_Log_SaveLogToDisk"),
+      dPreferences_Log_Operations: I18n.__("dPreferences_Log_Operations"),
+      dPreferences_Log_Cleanup: I18n.__("dPreferences_Log_Cleanup"),
+      dPreferences_Log_OpenLogDir: I18n.__("dPreferences_Log_OpenLogDir"),
+      dPreferences_Log_Info_NotGenerated: I18n.__("dPreferences_Log_Info_NotGenerated"),
+      dPreferences_Log_Info_LogCleanError: I18n.__("dPreferences_Log_Info_LogCleanError"),
+      dPreferences_Log_Info_LogCleaned: I18n.__("dPreferences_Log_Info_LogCleaned"),
+      dPreferences_Log_Info_NodeJsLimits: I18n.__("dPreferences_Log_Info_NodeJsLimits")
+    }
+  )
+
   bootbox.dialog({
-    title: "偏好设置",
-    message: readText(`${__dirname}/pref_dialog.seg.html`),
+    title: I18n.__("dPreferences"),
+    message: dialogContent,
     size: "large",
     onEscape: true,
     // scrollable: true,
     buttons: {
       OK: {
-        label: "确定",
+        label: I18n.__("cOK"),
         className: "btn-primary",
         callback: () => {
           savePreferences();
         }
       },
       cancel: {
-        label: "取消",
+        label: I18n.__("cCancel"),
         className: "btn-info",
         callback: () => {
           void (0);

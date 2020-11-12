@@ -3,28 +3,28 @@
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-tabs" role="tablist">
     <!--li role="presentation" class="active"><a href="#Font" aria-controls="Font" role="tab" data-toggle="tab">字体</a></li> -->
-    <li role="presentation" class="active"><a href="#Log" aria-controls="Log" role="tab" data-toggle="tab">日志</a></li>
+    <li role="presentation" class="active"><a href="#Log" aria-controls="Log" role="tab" data-toggle="tab"><%= dPreferences_Log %></a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="Log">
-      <h4>日志记录开关</h4>
+      <h4><%= dPreferences_Log_Switch %></h4>
       <p class="bg-info" style="padding: 1em">
-        设置在重启后生效。
+        <%= dPreferences_Log_TakeEffect %>
       </p>
 
       <div class="checkbox" style="padding-left: 0.5em">
         <label>
-          <input type="checkbox" id="chkSaveLogToDisk"> 将日志写入磁盘
+          <input type="checkbox" id="chkSaveLogToDisk"> <%= dPreferences_Log_SaveLogToDisk %>
         </label>
       </div>
 
 
-      <h4>日志操作</h4>
+      <h4><%= dPreferences_Log_Operations %></h4>
       <p>
-        <button type="button" class="btn btn-default" id="btnCleanupLogFiles">清理日志文件</button>
-        <button type="button" class="btn btn-default" id="btnOpenLogDir">打开日志目录</button>
+        <button type="button" class="btn btn-default" id="btnCleanupLogFiles"><%= dPreferences_Log_Cleanup %></button>
+        <button type="button" class="btn btn-default" id="btnOpenLogDir"><%= dPreferences_Log_OpenLogDir %></button>
       </p>
       <div class="well" id="lblLogOptionResult">
 
@@ -75,8 +75,8 @@
       || (fs.readdirSync(LOG_PATH) instanceof Array && fs.readdirSync(LOG_PATH).length <= 0)) {
       operateInfoBar(
         "#lblLogOptionResult",
-        `<p class="text-success"><span class="glyphicon glyphicon-info-sign" /> 尚未生成日志文件。
-          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br>由于Node.js限制，若已打开日志存盘功能，则此时日志文件仍存在且不可访问，关闭程序时会自动删除。" : ""}
+        `<p class="text-success"><span class="glyphicon glyphicon-info-sign" /> <%= dPreferences_Log_Info_NotGenerated %>
+          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br><%- dPreferences_Log_Info_NodeJsLimits %>" : ""}
           </p>`,
         2000
       );
@@ -91,7 +91,7 @@
         "#lblLogOptionResult",
         `<p class="text-warning">
           <span class="glyphicon glyphicon-remove"/>
-          <br><br>部分日志文件无法删除，可能是已删除或正在使用中。
+          <br><br><%= dPreferences_Log_Info_LogCleanError %>
          </p>
          <pre>${err.message}</pre>`,
         3000
@@ -102,8 +102,8 @@
     operateInfoBar(
       "#lblLogOptionResult",
       `<p class="text-success">
-          <span class="glyphicon glyphicon-ok"/> 所有日志文件已删除
-          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br>由于Node.js限制，若已打开日志存盘功能，则此时日志文件仍存在且不可访问，关闭程序时会自动删除。" : ""}
+          <span class="glyphicon glyphicon-ok"/> <%= dPreferences_Log_Info_LogCleaned %>
+          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br><%- dPreferences_Log_Info_NodeJsLimits %>" : ""}
         </p>`,
       2000
     );

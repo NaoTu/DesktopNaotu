@@ -1,4 +1,6 @@
 {
+  "cOK": "确定",
+  "cCancel": "取消",
   "mFile": "文件(&F)",
   "miNewFile": "新建文件(&N)",
   "miOpenFile": "打开文件(&O)...",
@@ -76,5 +78,16 @@
   "dShortcut_PutLayoutInOrder": "整理布局",
   "dShortcut_Regrets": "后悔药",
   "dShortcut_Undo": "撤销",
-  "dShortcut_Redo": "重做"
+  "dShortcut_Redo": "重做",
+  "dPreferences_Log": "日志",
+  "dPreferences_Log_Switch": "日志记录开关",
+  "dPreferences_Log_TakeEffect": "设置在重启后生效。",
+  "dPreferences_Log_SaveLogToDisk": "将日志写入磁盘",
+  "dPreferences_Log_Operations": "日志操作",
+  "dPreferences_Log_Cleanup": "清理日志文件",
+  "dPreferences_Log_OpenLogDir": "打开日志目录",
+  "dPreferences_Log_Info_NotGenerated": "尚未生成日志文件。",
+  "dPreferences_Log_Info_LogCleanError": "部分日志文件无法删除，可能是已删除或正在使用中。",
+  "dPreferences_Log_Info_LogCleaned": "所有日志文件已删除",
+  "dPreferences_Log_Info_NodeJsLimits": "由于Node.js限制，若已打开日志存盘功能，则此时日志文件仍存在且不可访问，关闭程序时会自动删除。"
 }
