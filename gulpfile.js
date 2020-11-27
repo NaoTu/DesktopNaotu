@@ -97,9 +97,14 @@ gulp.task("compile", function() {
 //     return del(['dist/libs'], { force: true });
 // });
 
-gulp.task("copy-js-vendor", function() {
+gulp.task("copy-i18n-vendor", function() {
   // i18n
-  gulp.src(["locale/*.json"]).pipe(gulp.dest("dist/locale"));
+  return gulp
+    .src(["locale/*.json"])
+    .pipe(gulp.dest("dist/locale"));
+});
+
+gulp.task("copy-js-vendor", function() {
 
   // 解决需要引入的问题，单独处理
   gulp
@@ -217,6 +222,7 @@ gulp.task("default", function(done) {
     // 'bower',
     // 'main-bower-files',
     "copy-css-vendor",
+    "copy-i18n-vendor",
     "copy-js-vendor",
     "copy-font-vendor",
     "copy-images-vendor",
