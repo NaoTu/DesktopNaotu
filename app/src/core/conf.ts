@@ -51,6 +51,13 @@ class NaotuConfig {
   ifSaveLogToDisk?: boolean;
 
   /**
+   * 编辑器窗口的大小
+   * 每次退出自动记录，下次启动后按此大小打开窗口
+   */
+  editorWindowWidth?: number;   // 窗口宽度
+  editorWindowHeight?: number;  // 窗口高度
+
+  /**
    * 配置文件的版本
    */
   version?: string;
@@ -64,6 +71,8 @@ class NaotuConfig {
     recentMaxNum: number,
     recently: IRecentlyItem[],
     ifSaveLogToDisk: boolean,
+    editorWindowWidth: number,
+    editorWindowHeight: number,
     version: string
   ) {
     this.locale = locale;
@@ -72,6 +81,8 @@ class NaotuConfig {
     this.recentMaxNum = recentMaxNum;
     this.recently = recently;
     this.ifSaveLogToDisk = ifSaveLogToDisk;
+    this.editorWindowWidth = editorWindowWidth;
+    this.editorWindowHeight = editorWindowHeight;
     this.version = version;
   }
 
@@ -98,6 +109,8 @@ class NaotuConfig {
     let recentMaxNum = confJson.recentMaxNum as number;
     let recently = confJson.recently as IRecentlyItem[];
     let ifSaveLogToDisk = confJson.ifSaveLogToDisk as boolean;
+    let editorWindowWidth = confJson.editorWindowWidth as number;
+    let editorWindowHeight = confJson.editorWindowHeight as number;
     let version = confJson.version as string;
 
     return new NaotuConfig(
@@ -107,6 +120,8 @@ class NaotuConfig {
       recentMaxNum,
       recently,
       ifSaveLogToDisk,
+      editorWindowWidth,
+      editorWindowHeight,
       version
     );
   }
@@ -183,6 +198,8 @@ class DesktopConfig implements IDesktopConfig {
       if (oldModel.defSavePath) newModel.defSavePath = oldModel.defSavePath;
       if (oldModel.recentMaxNum) newModel.recentMaxNum = oldModel.recentMaxNum;
       if (oldModel.ifSaveLogToDisk) newModel.ifSaveLogToDisk = oldModel.ifSaveLogToDisk;
+      if (oldModel.editorWindowWidth) newModel.editorWindowWidth = oldModel.editorWindowWidth;
+      if (oldModel.editorWindowHeight) newModel.editorWindowHeight = oldModel.editorWindowHeight;
       if (oldModel.recently) newModel.recently = oldModel.recently;
 
       this.save(newModel);
@@ -200,6 +217,8 @@ class DesktopConfig implements IDesktopConfig {
       5,
       [],
       false,
+      1000,     // 默认窗口宽度
+      800,      // 默认窗口高度
       sConfigVersion
     );
   }

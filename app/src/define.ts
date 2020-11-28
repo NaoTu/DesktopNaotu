@@ -74,7 +74,7 @@ Thanks:
 /**
  * 当前配置文件的版本
  */
-export let sConfigVersion = "v0.1.1";
+export let sConfigVersion = "v0.1.2";
 
 /**
  * 支持的语言
