@@ -1,6 +1,7 @@
 import { Logger, createLogger, format, transports } from "winston";
 import { getLogDirectoryPath } from "./path";
 import { join } from "path";
+import { naotuConf } from "./conf";
 
 interface LeveledLogMethod {
   (message: string): void;
@@ -47,6 +48,9 @@ class NaotuLogger implements INaotuLogger {
    * 私有的构造方法
    */
   private constructor() {
+
+    console.log(">>> Logger initialize!")
+
     let dir = getLogDirectoryPath();
 
     this.logger = createLogger({
@@ -59,20 +63,33 @@ class NaotuLogger implements INaotuLogger {
               info.level
             }: ${info.message}`
         )
-      ),
-      transports: [
+      )
+    });
+
+    // 读取配置文件，确定是否把日志保存到磁盘
+    // 若确定保存，则添加transport
+    let conf = naotuConf.getModel();
+    if (conf.ifSaveLogToDisk) {
+      this.logger.add(
         new transports.File({
           filename: join(dir, "naotu.err.log"),
           level: "error"
-        }),
+        })
+      );
+      this.logger.add(
         new transports.File({
           filename: join(dir, "naotu.log"),
           maxsize: 104857600, // 100M
           maxFiles: 50,
           tailable: true
         })
-      ]
-    });
+      )
+
+      console.log(">>> Log will be saved to disk.")
+    } else {
+      console.log(">>> Log will NOT be saved to disk.")
+    }
+
 
     if (process.env.NODE_ENV !== "production") {
       this.logger.add(

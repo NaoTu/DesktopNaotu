@@ -14,12 +14,15 @@ import {
   maxwin,
   minwin,
   newDialog,
+  newFile,
   closeFile,
-  cloneFile
+  cloneFile,
+  toggleDevTools
 } from "./window";
 import { exitApp, license, about, checkVersion } from "./help";
 import { undo, redo } from "./edit";
 import { shortcutDialog } from "../ui/shortcut";
+import { preferencesDialog } from "../ui/pref_dialog";
 
 class NaotuMenu {
   constructor() {}
@@ -56,7 +59,12 @@ class NaotuMenu {
         {
           label: I18n.__("miNewFile"), // 新建文件
           accelerator: "CmdOrCtrl+N",
-          click: newDialog
+          click: newFile
+        },
+        {
+          label: I18n.__("miOpenWindow"), // 新建窗口
+          accelerator: "CmdOrCtrl+Shift+N",
+          click: newDialog,
         },
         {
           label: I18n.__("miOpenFile"), // 打开文件
@@ -70,7 +78,7 @@ class NaotuMenu {
         },
         {
           label: I18n.__("miCloneFile"), // 生成副本
-          accelerator: "CmdOrCtrl+Shift+N",
+          accelerator: "CmdOrCtrl+Alt+N",
           click: cloneFile
         },
         { type: "separator" },
@@ -154,6 +162,17 @@ class NaotuMenu {
       ]
     });
 
+    // 定制
+    template.push({
+      label: I18n.__("mCustomize"), // 窗口
+      submenu: [
+        {
+          label: I18n.__("miPreferences"), // 打开偏好设置
+          click: preferencesDialog
+        }
+      ]
+    });
+
     // 窗口
     template.push({
       label: I18n.__("mWindow"), // 窗口
@@ -165,6 +184,10 @@ class NaotuMenu {
         {
           label: I18n.__("miMinWin"), // 最小化
           click: minwin
+        },
+        {
+          label: I18n.__("miToggleDevTools"), // 切换开发者工具
+          click: toggleDevTools
         }
       ]
     });

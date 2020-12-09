@@ -29,12 +29,22 @@ import { sIndexUrl } from "./define";
     // 初始化和更新配置文件
     naotuConf.upgrade();
 
+    // 读取窗口大小
+    // 如果宽或高小于700，则使用默认值
+    let conf = naotuConf.getModel();
+    let userWidth = (conf.editorWindowWidth && conf.editorWindowWidth >= 700)
+      ? conf.editorWindowWidth : 1000;
+    let userHeight = (conf.editorWindowHeight && conf.editorWindowHeight >= 700)
+      ? conf.editorWindowHeight : 800;
+
+    logger.info(`Last saved window size: [${[userWidth, userHeight]}]`);
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
       minWidth: 700,
       minHeight: 700,
-      width: 1000,
-      height: 800,
+      width: userWidth,
+      height: userHeight,
 
       fullscreenable: true,
       show: false,
@@ -70,6 +80,24 @@ import { sIndexUrl } from "./define";
     mainWindow.on("close", e => {
       if (!safeExit) {
         if (mainWindow) {
+          
+          // 保存窗口大小设置
+          try {
+            // 获取配置文件
+            let confObj = naotuConf.getModel();
+
+            // 修改配置项
+            confObj.editorWindowWidth = mainWindow.getSize()[0];
+            confObj.editorWindowHeight = mainWindow.getSize()[1];
+
+            // 保存配置文件
+            naotuConf.save(confObj);
+
+            logger.info(`Saved current window size: [${confObj.editorWindowWidth}, ${confObj.editorWindowHeight}]`);
+          } catch (ex) {
+            logger.error(ex);
+          }
+
           // 从主进程发送消息给渲染进程
           mainWindow.webContents.send("action", "exit");
         }

@@ -1,0 +1,154 @@
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-pills nav-tabs" role="tablist">
+    <!--li role="presentation" class="active"><a href="#Font" aria-controls="Font" role="tab" data-toggle="tab">字体</a></li> -->
+    <li role="presentation" class="active"><a href="#Log" aria-controls="Log" role="tab" data-toggle="tab"><%= dPreferences_Log %></a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="Log">
+      <h4><%= dPreferences_Log_Switch %></h4>
+      <p class="bg-info" style="padding: 1em">
+        <%= dPreferences_Log_TakeEffect %>
+      </p>
+
+      <div class="checkbox" style="padding-left: 0.5em">
+        <label>
+          <input type="checkbox" id="chkSaveLogToDisk"> <%= dPreferences_Log_SaveLogToDisk %>
+        </label>
+      </div>
+
+
+      <h4><%= dPreferences_Log_Operations %></h4>
+      <p>
+        <button type="button" class="btn btn-default" id="btnCleanupLogFiles"><%= dPreferences_Log_Cleanup %></button>
+        <button type="button" class="btn btn-default" id="btnOpenLogDir"><%= dPreferences_Log_OpenLogDir %></button>
+      </p>
+      <div class="well" id="lblLogOptionResult">
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<script>
+  "use strict";
+
+  // 先隐藏信息框
+  $("#lblLogOptionResult").hide();
+
+  /**
+   * “将日志写入磁盘”复选框
+   */
+  // 先设置初始状态
+  $("#chkSaveLogToDisk").prop(
+    "checked",
+    bootbox.NAOTU_CONFIG.ifSaveLogToDisk
+  );
+
+  // 点击复选框更改设置项
+  $("#chkSaveLogToDisk").on("click", () => {
+    bootbox.NAOTU_CONFIG.ifSaveLogToDisk = $("#chkSaveLogToDisk").prop("checked");
+  });
+
+  /**
+   * “打开日志目录”按钮
+   */
+  $("#btnOpenLogDir").on("click", () => {
+    shell.showItemInFolder(bootbox.NAOTU_LOG_PATH);
+  })
+
+  /**
+   * “清理日志文件”按钮
+   */
+  $("#btnCleanupLogFiles").on("click", () => {
+    let succeed = 0;
+    let errMsg = "";
+
+    const LOG_PATH = bootbox.NAOTU_LOG_PATH;
+
+    // 检查日志文件是否存在
+    if (!fs.existsSync(LOG_PATH)  // 考虑到日志文件夹未创建的情况
+      || (fs.readdirSync(LOG_PATH) instanceof Array && fs.readdirSync(LOG_PATH).length <= 0)) {
+      operateInfoBar(
+        "#lblLogOptionResult",
+        `<p class="text-success"><span class="glyphicon glyphicon-info-sign" /> <%= dPreferences_Log_Info_NotGenerated %>
+          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br><%- dPreferences_Log_Info_NodeJsLimits %>" : ""}
+          </p>`,
+        2000
+      );
+      return;
+    }
+
+    // 清空日志文件夹
+    try {
+      emptyDir(bootbox.NAOTU_LOG_PATH);
+    } catch (err) {
+      operateInfoBar(
+        "#lblLogOptionResult",
+        `<p class="text-warning">
+          <span class="glyphicon glyphicon-remove"/>
+          <br><br><%= dPreferences_Log_Info_LogCleanError %>
+         </p>
+         <pre>${err.message}</pre>`,
+        3000
+      )
+      return;
+    }
+
+    operateInfoBar(
+      "#lblLogOptionResult",
+      `<p class="text-success">
+          <span class="glyphicon glyphicon-ok"/> <%= dPreferences_Log_Info_LogCleaned %>
+          ${bootbox.NAOTU_CONFIG.ifSaveLogToDisk ? "<br><%- dPreferences_Log_Info_NodeJsLimits %>" : ""}
+        </p>`,
+      2000
+    );
+  });
+
+  /**
+   * 清空文件夹中的所有文件，但不删除文件夹。
+   * 参考：https://leotian.cn/posts/ee16/
+   * 
+   * @param {string} filePath 要清空的文件夹路径。
+   */
+  function emptyDir(filePath) {
+    const files = fs.readdirSync(filePath);//读取该文件夹
+
+    files.forEach((file) => {
+      const nextFilePath = `${filePath}/${file}`
+      const states = fs.statSync(nextFilePath)
+
+      if (states.isDirectory()) {
+        emptyDir(nextFilePath)
+      } else {
+        fs.unlinkSync(nextFilePath)
+      }
+    });
+  }
+
+  /**
+   * 显示信息栏。
+   * 
+   * @param {string} query      JQuery查询字串，任何一个你想要用作信息栏的元素。
+   * @param {string} targetHtml 要在信息栏中显示的HTML。
+   * @param {integer} timeOut   消失时间，单位为毫秒。
+   */
+
+  function operateInfoBar(query, targetHtml, timeOut) {
+    clearInterval(bootbox.NAOTU_CONFIG.currentInfoBarId);  // 清除之前创建的Timeout计时器，防止连续调用本方法时信息栏提前消失
+    $(query).hide();
+    $(query).html(targetHtml);
+
+    $(query).show(700, () => {
+      // setTimeout() 返回的ID要在全局变量中存储。
+      // bootbox.NAOTU_CONFIG可视为全局变量的容器，在整个Electron会话中都有效
+      bootbox.NAOTU_CONFIG.currentInfoBarId = setTimeout(() => {
+        $(query).hide(700);
+      }, timeOut);
+    })
+  }
+</script>

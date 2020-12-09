@@ -46,6 +46,53 @@
 
 ![Linux](screenshot/Linux.png)
 
+### 如何编译
+
+#### 1. 安装所有依赖
+
+```bash
+# 安装必备工具
+npm install -g gulp
+npm install -g bower
+
+# 自动安装依赖
+npm install
+bower install
+```
+
+#### 2. 更换graceful-fs版本（对于Node `v10.x`及以上版本）
+
+```bash
+npm install graceful-fs
+
+# 如果仍出现"ReferenceError: primordials is not defined" 的错误，
+# 则删掉cnpm安装的旧版本
+rm -rf node_modules/_graceful-fs@3.0.12@graceful-fs
+
+# 如果某个子模块依赖旧版本graceful-fs，则请根据报错信息，
+# 切换到该模块目录下更新。
+cd node_modules/<PATH_TO_MODULE_USING_DEPRECATED_GRACEFUL_FS>
+npm install graceful-fs@4.x
+```
+
+#### 3. 更换`@types/node`版本
+
+```bash
+npm install @types/node@12.x
+```
+
+#### 4. 开始编译
+
+```bash
+gulp
+```
+
+#### 5. 测试运行
+
+```bash
+npm run demo
+```
+
 ### 联系我们
 
 问题和建议反馈：
@@ -112,6 +159,52 @@ Open Document Node, Inspiration Unfold</p>
 - Linux screenshot
 
 ![Linux](screenshot/Linux.png)
+
+### How to compile
+
+#### 1. Install dependencies
+
+```bash
+# Install prerequisites
+npm install -g gulp
+npm install -g bower
+
+# Install dependencies
+npm install
+bower install
+```
+
+#### 2. Change graceful-fs version (For Node `v10.x` or newer)
+
+```bash
+npm install graceful-fs
+
+# If error "ReferenceError: primordials is not defined" still occurs, remove the old edition installed by cnpm
+rm -rf node_modules/_graceful-fs@3.0.12@graceful-fs
+
+# If a submodule relies on old graceful-fs, please follow the log, locate to its directory, 
+# then manually update
+cd node_modules/<PATH_TO_MODULE_USING_DEPRECATED_GRACEFUL_FS>
+npm install graceful-fs@4.x
+```
+
+#### 3. Change `@types/node` to v12.x
+
+```bash
+npm install @types/node@12.x
+```
+
+#### 4. Build
+
+```bash
+gulp
+```
+
+#### 5. Try running
+
+```bash
+npm run demo
+```
 
 ### Contact us
 

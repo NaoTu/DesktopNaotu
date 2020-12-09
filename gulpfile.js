@@ -1,11 +1,11 @@
 const gulp = require("gulp"),
-  sass = require("gulp-ruby-sass"),
-  autoprefixer = require("gulp-autoprefixer"),
+  // sass = require("gulp-ruby-sass"),
+  // autoprefixer = require("gulp-autoprefixer"),
   minifycss = require("gulp-clean-css"),
   jshint = require("gulp-jshint"),
   uglify = require("gulp-uglify"),
-  imagemin = require("gulp-imagemin"),
-  rename = require("gulp-rename"),
+  // imagemin = require("gulp-imagemin"),
+  // rename = require("gulp-rename"),
   concat = require("gulp-concat"),
   notify = require("gulp-notify"),
   cache = require("gulp-cache"),
@@ -15,16 +15,16 @@ const gulp = require("gulp"),
   path = require("path"),
   beautify = require("js-beautify").js_beautify,
   run = require("run-sequence"),
-  wiredep = require("wiredep").stream,
+  // wiredep = require("wiredep").stream,
   connect = require("gulp-connect"),
-  mainBowerFiles = require("gulp-main-bower-files"),
-  babel = require("gulp-babel"),
-  gutil = require("gulp-util"),
+  // mainBowerFiles = require("gulp-main-bower-files"),
+  // babel = require("gulp-babel"),
+  // gutil = require("gulp-util"),
   typescript = require("gulp-tsc"),
   source = require('vinyl-source-stream'),
   browserify = require("browserify"),
-  tsify = require("tsify"),
-  obfuscate = require("gulp-obfuscate");
+  tsify = require("tsify");
+  // obfuscate = require("gulp-obfuscate");
 
 gulp.task("clean-dist", () => {
   return del(["dist/**/*"], { force: true });
@@ -97,9 +97,14 @@ gulp.task("compile", function() {
 //     return del(['dist/libs'], { force: true });
 // });
 
-gulp.task("copy-js-vendor", function() {
+gulp.task("copy-i18n-vendor", function() {
   // i18n
-  gulp.src(["locale/*.json"]).pipe(gulp.dest("dist/locale"));
+  return gulp
+    .src(["locale/*.json"])
+    .pipe(gulp.dest("dist/locale"));
+});
+
+gulp.task("copy-js-vendor", function() {
 
   // 解决需要引入的问题，单独处理
   gulp
@@ -166,6 +171,7 @@ gulp.task("copy-images-vendor", function() {
 
 gulp.task("copy-html-vendor", function() {
   gulp.src("./app/static/index.html").pipe(gulp.dest("dist"));
+  gulp.src("./app/src/ui/pref_dialog.seg.html").pipe(gulp.dest("dist/ui"));
   // gulp.src("./app/static/favicon.ico").pipe(gulp.dest("dist"));
 });
 
@@ -216,6 +222,7 @@ gulp.task("default", function(done) {
     // 'bower',
     // 'main-bower-files',
     "copy-css-vendor",
+    "copy-i18n-vendor",
     "copy-js-vendor",
     "copy-font-vendor",
     "copy-images-vendor",
