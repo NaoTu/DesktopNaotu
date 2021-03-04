@@ -48,7 +48,11 @@ import { sIndexUrl } from "./define";
 
       fullscreenable: true,
       show: false,
-      backgroundColor: "#fbfbfb"
+      backgroundColor: "#fbfbfb",
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false
+      },
     });
 
     // and load the index.html of the app.

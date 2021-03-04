@@ -1,0 +1,12 @@
+
+{
+    "executableName": "桌面版脑图",
+    "dest": "../installers/",
+    "icon": "./app/static/favicon.png",
+    "categories": [
+      "Utility"
+    ],
+    "lintianOverrides": [
+      "changelog-file-missing-in-native-package"
+    ]
+}  

@@ -11,7 +11,9 @@
     "packwin64": "cross-var electron-packager ./ DesktopNaotu --asar --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.1.13 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
     "packwin64dev": "cross-var electron-packager ./ DesktopNaotu --platform=win32 --arch=x64 --out=../OutApp --icon=app/static/favicon.ico --electron-version=3.1.13 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|bower_components|electron-packager)\" --overwrite --prune",
     "packmacos": "cross-var electron-packager ./ DesktopNaotu --asar --platform=darwin --arch=x64 --out=../OutApp --icon=app/static/favicon.icns --electron-version=3.1.13 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
-    "packlinux": "cross-var electron-packager ./ DesktopNaotu --asar --platform=linux --arch=x64 --out=../OutApp --icon=app/static/favicon.png --electron-version=3.1.13 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune"
+    "packlinux": "cross-var electron-packager ./ DesktopNaotu --asar --platform=linux --arch=x64 --out=../OutApp --icon=app/static/favicon.png --electron-version=3.1.13 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager)\" --overwrite --prune",
+    "packlinuxarm": "cross-var electron-packager ./ desktopnaotu --asar --platform=linux --arch=arm64 --out=../OutApp --icon=app/static/favicon.png --electron-version=3.1.13 --app-version=$npm_package_version --ignore=\"(.git|screenshot|doc|src|app|bower_components|electron-packager|.electron)\" --overwrite --prune",
+    "deb64": "cross-var electron-installer-debian --src ../OutApp/desktopnaotu-linux-arm64 --dest ../installers/ --arch arm64 --config config.json"
   },
   "repository": {
     "type": "git",
@@ -28,11 +30,11 @@
     "@babel/core": "^7.4.3",
     "@types/byline": "^4.2.31",
     "@types/ejs": "^3.0.5",
-    "@types/node": "^12.19.0",    
+    "@types/node": "^12.20.4",
     "browserify": "^16.2.3",
     "cross-var": "^1.1.0",
     "del": "^3.0.0",
-    "electron": "^3.1.13",
+    "electron-installer-debian": "^3.1.0",
     "electron-packager": "^12.2.0",
     "grunt": "^1.0.4",
     "grunt-electron-installer": "^2.1.0",
@@ -57,6 +59,7 @@
   },
   "dependencies": {
     "ejs": "^3.1.5",
+    "electron": "^11.2.1",
     "hotkeys-js": "^3.6.2",
     "moment": "^2.23.0",
     "winston": "^3.1.0"

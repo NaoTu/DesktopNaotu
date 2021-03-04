@@ -239,6 +239,19 @@ rm -rf node_modules/_graceful-fs@3.0.12@graceful-fs
 # 切换到该模块目录下更新。
 cd node_modules/<PATH_TO_MODULE_USING_DEPRECATED_GRACEFUL_FS>
 npm install graceful-fs@4.x
+
+
+cd node_modules/vinyl-fs
+yarn add graceful-fs@4.x
+cd ../../
+
+cd node_modules/gulp-tsc
+yarn add graceful-fs@4.x
+cd ../../
+
+cd node_modules/gulp-tsc/node_modules/vinyl-fs
+yarn add graceful-fs@4.x
+cd ../../../../
 ```
 
 ### 3. 更换`@types/node`版本

@@ -3,5 +3,6 @@ node_modules/
 bower_components/
 dist/
 OutApp/
+.electron/
 package-lock.json
 *.log

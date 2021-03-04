@@ -19,14 +19,13 @@ import { getDefaultPath } from "./minder";
 export function openDialog() {
   if (naotuBase.HasSaved()) {
     // 已经保存了，本窗口打开
-    remote.dialog.showOpenDialog(
-      { filters: [{ name: sExportTitle, extensions: arrExtensions }] },
-      fileNames => {
+    remote.dialog.showOpenDialog({ filters: [{ name: sExportTitle, extensions: arrExtensions }] })
+      .then(result => {
+        let fileNames = result.filePaths
         if (!fileNames) return;
 
         openKm(fileNames[0]);
-      }
-    );
+      })
   } else {
     bootbox.alert(I18n.__("sSaveTip"));
   }
@@ -70,20 +69,22 @@ export function saveAsDialog() {
     newPath = getDefaultPath(rootPath); // 生成一个文件的地址
   }
 
+
   remote.dialog.showSaveDialog(
     {
       title: I18n.__("sSaveKm"),
       defaultPath: newPath,
       filters: [{ name: sExportTitle, extensions: arrExtensions }]
-    },
-    filePath => {
+    })
+    .then(result => {
+      let filePath = result.filePath
       if (!filePath) return; // cancel save
 
       saveKm(filePath);
 
       naotuBase.setCurrentKm(filePath);
-    }
-  );
+    })
+
 }
 
 /**
@@ -93,16 +94,15 @@ export function setSavePath() {
   try {
     let conf = naotuConf.getModel();
 
-    remote.dialog.showOpenDialog(
-      { properties: ["openDirectory"], defaultPath: conf.defSavePath },
-      fileNames => {
+    remote.dialog.showOpenDialog({ properties: ["openDirectory"], defaultPath: conf.defSavePath })
+      .then(result => {
+        let fileNames = result.filePaths
         if (fileNames) {
           // 更新配置文件
           conf.defSavePath = fileNames[0];
           naotuConf.save(conf);
         }
-      }
-    );
+      })
   } catch (ex) {
     logger.error(ex);
   }
@@ -141,8 +141,9 @@ export function exportDialog() {
       title: I18n.__("sExportKm"),
       defaultPath: newPath,
       filters: filters
-    },
-    function(fileName) {
+    })
+    .then(result => {
+      let fileName = result.filePath
       if (!fileName) return; // cancel export
 
       let ext = fileName.toLowerCase().substring(fileName.lastIndexOf("."));
@@ -158,6 +159,5 @@ export function exportDialog() {
       }
 
       exportFile(protocol, fileName);
-    }
-  );
+    })
 }
