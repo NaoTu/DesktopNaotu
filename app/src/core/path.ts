@@ -1,7 +1,7 @@
 /**
  * 路径辅助类
  */
-import { app, remote } from "electron";
+import { app, ipcRenderer } from "electron";
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import { sConfigFile, sLogsDir, sBackupDir } from "../define";
@@ -15,7 +15,7 @@ export function getUserDataDir() {
 
   try {
     // 获取用户目录
-    userData = (app || remote.app).getPath("userData");
+    userData = app ? app.getPath('userData') : ipcRenderer.sendSync('getUserData');
 
     // 若没有用户目录，则创建
     if (!existsSync(userData)) mkdirSync(userData);

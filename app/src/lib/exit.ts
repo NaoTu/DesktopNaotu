@@ -1,4 +1,4 @@
-import { ipcRenderer, remote } from "electron";
+import { ipcRenderer } from "electron";
 import { I18n } from "../core/i18n";
 import { naotuBase } from "./base";
 import { logger } from "../core/logger";

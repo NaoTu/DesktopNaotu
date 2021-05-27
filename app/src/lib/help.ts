@@ -1,5 +1,5 @@
 import { sLicenseUrl, sAboutText, sVersionUrl, sReleasesUrl } from "../define";
-import { remote } from "electron";
+import { ipcRenderer, shell } from "electron";
 import { I18n } from "../core/i18n";
 import { logger } from "../core/logger";
 import { version } from "../version";
@@ -11,11 +11,11 @@ import { version } from "../version";
  * 行为：有未保存的数据，则提示，否则直接退出。
  */
 export function exitApp() {
-  remote.app.quit();
+  ipcRenderer.sendSync('reqaction', 'exit');
 }
 
 export function license() {
-  remote.shell.openExternal(sLicenseUrl);
+  shell.openExternal(sLicenseUrl);
 }
 
 export function about() {
@@ -32,7 +32,7 @@ export function checkVersion() {
 
       if (newVer != oldVer) {
         bootbox.alert(I18n.__("sUpdateMessage"));
-        remote.shell.openExternal(sReleasesUrl);
+        shell.openExternal(sReleasesUrl);
       } else {
         bootbox.alert(I18n.__("sNoUpdatesAvailable"));
       }

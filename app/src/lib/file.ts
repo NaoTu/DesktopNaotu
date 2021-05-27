@@ -3,7 +3,7 @@ import { I18n } from "../core/i18n";
 import { existsSync } from "fs";
 import { readJson, writeJson } from "../core/io";
 import { naotuBase } from "./base";
-import { showFileName } from "./electron";
+import { ipcRenderer } from "electron";
 import { setMinder, getMinder } from "./minder";
 
 /**
@@ -22,7 +22,7 @@ export function openKm(filePath: string) {
 
     setMinder(readJson(filePath));
 
-    showFileName(filePath);
+    ipcRenderer.sendSync('setFileNameToTitle', filePath);
     
     naotuBase.setState("none");
   } catch (error) {
@@ -47,7 +47,7 @@ export function saveKm(filePath: string) {
 
     writeJson(filePath, minder);
 
-    showFileName(filePath);
+    ipcRenderer.sendSync('setFileNameToTitle', filePath);
 
     naotuBase.OnSaved();
 

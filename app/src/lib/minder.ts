@@ -1,7 +1,6 @@
 import { naotuBase } from "./base";
 import { I18n } from "../core/i18n";
-import { remote, MenuItemConstructorOptions } from "electron";
-import { getAppInstance } from "./electron";
+import { ipcRenderer } from "electron";
 import { join } from "path";
 import { naotuConf } from "../core/conf";
 import { getBackupDirectoryPath } from "../core/path";
@@ -32,10 +31,7 @@ export function hasData() {
 export function initRoot() {
   naotuBase.setCurrentKm(null);
 
-  let appInstance = getAppInstance();
-  if (appInstance) {
-    appInstance.setTitle(I18n.__("sAppName"));
-  }
+  ipcRenderer.sendSync('setTitle', I18n.__("sAppName"));
 
   setMinder({
     root: { data: { text: I18n.__("sMainTopic") } },
@@ -75,12 +71,7 @@ export function getDefaultPath(path?: string | undefined): string {
  */
 export function onSelectedNodeItem(isSelected: boolean) {
   try {
-    let menu = remote.Menu.getApplicationMenu();
-    // 对编辑菜单进行管理
-    if (menu) {
-      let editItems = (menu.items[1] as any).submenu.items;
-      editItems[3].enabled = editItems[4].enabled = editItems[5].enabled = isSelected;
-    }
+    ipcRenderer.sendSync('setEditMemuEnable', isSelected);
   } catch (ex) {
     logger.error(ex);
   }

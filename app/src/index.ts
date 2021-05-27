@@ -8,7 +8,7 @@ import { saveDialog } from "./lib/dialog";
 import { monitorExitRequest } from "./lib/exit";
 import { naotuBase } from "./lib/base";
 import { onSelectedNodeItem, hasData } from "./lib/minder";
-import { remote } from "electron";
+import { ipcRenderer } from "electron";
 import { shortcutDialog } from "./ui/shortcut";
 
 // 进入即记录日志
@@ -63,8 +63,8 @@ $(function() {
 
     // 通过参数打开文件
     // 此方法需要放在注册 contentchange 事件之后。
-    let argv = remote.process.argv;
-    logger.info(`remote.process.argv: ${argv}`);
+    let argv = ipcRenderer.sendSync('getArgv');
+    logger.info(`process.argv: ${argv}`);
 
     if (argv.length >= 2) {
       let filePath = argv[1] as string;

@@ -1,7 +1,7 @@
 const gulp = require("gulp"),
   // sass = require("gulp-ruby-sass"),
   // autoprefixer = require("gulp-autoprefixer"),
-  minifycss = require("gulp-clean-css"),
+  cssmin = require("gulp-clean-css"),
   jshint = require("gulp-jshint"),
   uglify = require("gulp-uglify"),
   // imagemin = require("gulp-imagemin"),
@@ -152,7 +152,7 @@ gulp.task("copy-css-vendor", function() {
       "bower_components/kityminder-editor/dist/kityminder.editor.css"
     ])
     .pipe(concat("vendor.css"))
-    .pipe(minifycss())
+    .pipe(cssmin())
     .pipe(gulp.dest("dist/style"))
     .pipe(notify({ message: "css task complete" }));
 });
@@ -178,7 +178,7 @@ gulp.task("copy-html-vendor", function() {
 gulp.task("copy-css", function() {
   return gulp
     .src("app/**/*.css")
-    .pipe(minifycss())
+    .pipe(cssmin())
     .pipe(gulp.dest("dist/"))
     .pipe(notify({ message: "css task complete" }));
 });

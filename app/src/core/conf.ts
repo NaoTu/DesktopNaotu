@@ -1,7 +1,7 @@
 // 配置文件辅助类
 import { getConfigFilePath, getBackupDirectoryPath } from "./path";
 import { existsSync } from "fs";
-import { app } from "electron";
+import { app, ipcRenderer } from "electron";
 import { writeText, readText } from "./io";
 import { Languages, sConfigVersion } from "../define";
 import { logger } from "./logger";
@@ -169,23 +169,15 @@ class DesktopConfig implements IDesktopConfig {
   configPath: string;
 
   constructor() {
-    console.log(">>> Config initialize!");
-
     this.configPath = getConfigFilePath();
-
-    console.log(`init DesktopConfig. path is "${this.configPath}"`);
   }
 
   create(): void {
-    console.log(`create DesktopConfig. path is "${this.configPath}"`);
-
     let config = this.getTemplate();
     this.save(config);
   }
 
   upgrade(): void {
-    console.log(`upgrade DesktopConfig. path is "${this.configPath}"`);
-
     this.checkFile();
 
     let oldModel = this.getModel();
@@ -207,7 +199,13 @@ class DesktopConfig implements IDesktopConfig {
   }
 
   getTemplate(): NaotuConfig {
-    let locale = app.getLocale();
+    let locale = '';
+    if (app !== undefined) {
+      locale = app.getLocale();
+    } else {
+      locale = ipcRenderer.sendSync('getLocale');
+    }
+
     const lang = (locale as Languages) || "en";
 
     return new NaotuConfig(

@@ -1,11 +1,10 @@
-import { remote } from "electron";
+import { ipcRenderer, shell } from "electron";
 import { I18n } from "../core/i18n";
 import { naotuBase } from "./base";
 import { copy, writeText, writeBuffer } from "../core/io";
 import execAsync from "../core/exec";
 import { logger } from "../core/logger";
 import { initRoot, getDefaultPath } from "./minder";
-import { getAppInstance, showFileName } from "./electron";
 import { basename } from "path";
 
 //#region 3. 窗口对话框相关
@@ -55,6 +54,7 @@ export function newDialog() {
  * 行为：在当前窗口打开一个空白文档
  */
 export function newFile() {
+  console.log('newFile');
   // 实际上新建文件的动作和关闭文件相同，最多只是提示信息不同
   if (naotuBase.HasSaved()) {
     doCloseFile();
@@ -76,7 +76,7 @@ function doCloseFile() {
   // 若已保存，则直接初始化
   initRoot();
 
-  showFileName("");
+  ipcRenderer.sendSync('setFileNameToTitle', '');
 
   logger.info(`关闭文件: "${naotuBase.getCurrentKm()}"`);
 
@@ -190,7 +190,7 @@ export function cloneFile() {
 export function openFileInFolder() {
   let path = naotuBase.getCurrentKm();
   if (path) {
-    remote.shell.showItemInFolder(path);
+    shell.showItemInFolder(path);
   } else {
     bootbox.alert(I18n.__("sNoOpenFile"));
   }
@@ -226,30 +226,21 @@ export function exportFile(protocol: any, filename: string) {
  * 行为：将当前窗口最大化
  */
 export function maxwin() {
-  let appInstance = getAppInstance();
-  if (appInstance) {
-    appInstance.maximize();
-  }
+  ipcRenderer.sendSync('maxWindow');
 }
 
 /**
  * 行为：将当前窗口最小化
  */
 export function minwin() {
-  let appInstance = getAppInstance();
-  if (appInstance) {
-    appInstance.minimize();
-  }
+  ipcRenderer.sendSync('minWindow');
 }
 
 /**
  * 行为：切换开发者工具
  */
 export function toggleDevTools() {
-  let webContents = remote.BrowserWindow.getFocusedWindow()?.webContents;
-  if (webContents) {
-    webContents.toggleDevTools();
-  }
+  ipcRenderer.sendSync('toggleDevTools');
 }
 
 // inner function.

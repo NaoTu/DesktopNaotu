@@ -1,5 +1,5 @@
 import { I18n } from "../core/i18n";
-import { remote } from "electron";
+import { ipcRenderer } from "electron";
 import { naotuConf } from "../core/conf";
 import { openRecently, clearRecently, autoSave } from "./recently";
 import {
@@ -28,8 +28,10 @@ class NaotuMenu {
   constructor() {}
 
   render() {
-    const template = new Array<Electron.MenuItemConstructorOptions>();
-    let recentListMenu = new Array<Electron.MenuItemConstructorOptions>();
+    //const template = new Array<Electron.MenuItemConstructorOptions>();
+    let template = [];
+    //let recentListMenu = new Array<Electron.MenuItemConstructorOptions>();
+    let recentListMenu = [];
 
     let conf = naotuConf.getModel();
     if (conf.recently) {
@@ -210,9 +212,7 @@ class NaotuMenu {
     });
 
     // 加载配置文件 -> 加载菜单模板 -> 基于设置对菜单进行更新 -> 显示菜单
-    let menu = remote.Menu.buildFromTemplate(template);
-
-    remote.Menu.setApplicationMenu(menu);
+    ipcRenderer.sendSync('setMemu', JSON.stringify(template));
   }
 }
 

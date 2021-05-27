@@ -1,8 +1,9 @@
 // --> ipcMain 主线程使用的代码
-import { app, BrowserWindow, globalShortcut, Menu, ipcMain } from "electron";
+import { app, BrowserWindow, globalShortcut, Menu, ipcMain, dialog } from "electron";
 import { logger } from "./core/logger";
 import { naotuConf } from "./core/conf";
 import { sIndexUrl } from "./define";
+import { I18n } from "./core/i18n";
 
 // Main Method
 (() => {
@@ -156,5 +157,85 @@ import { sIndexUrl } from "./define";
         app.quit(); //退出程序
         break;
     }
+  });
+
+  ipcMain.on('getLocale', (event) => {
+    event.returnValue = app.getLocale();
+  });
+
+  ipcMain.on('setMemu', (event, templateString) => {
+    let template = JSON.parse(templateString);
+    let menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+    event.returnValue = true;
+  });
+
+  ipcMain.on('getArgv', (event) => {
+    event.returnValue = process.argv;
+  });
+
+  ipcMain.on('getUserData', (event) => {
+    event.returnValue = app.getPath('userData');
+  });
+
+  /* 设置编辑菜单的可选择性 */
+  ipcMain.on('setEditMemuEnable', (event, isSelected) => {
+    let menu = Menu.getApplicationMenu();
+    if (menu) {
+      let editItems = (menu.items[1] as any).submenu.items;
+      editItems[3].enabled = editItems[4].enabled = editItems[5].enabled = isSelected;
+    }
+    event.returnValue = true;
+  });
+
+  ipcMain.on('setTitle', (event, title) => {
+    BrowserWindow.getFocusedWindow()?.setTitle(title);
+    event.returnValue = true;
+  });
+
+  ipcMain.on('maxWindow', (event) => {
+    BrowserWindow.getFocusedWindow()?.maximize();
+    event.returnValue = true;
+  });
+
+  ipcMain.on('minWindow', (event) => {
+    BrowserWindow.getFocusedWindow()?.minimize();
+    event.returnValue = true;
+  });
+
+  ipcMain.on('toggleDevTools', (event) => {
+    BrowserWindow.getFocusedWindow()?.webContents.toggleDevTools();
+    event.returnValue = true;
+  });
+
+  ipcMain.on('setFileNameToTitle', (event, fileName) => {
+    let title = "";
+    if (fileName) {
+      let index = fileName.lastIndexOf("/");
+  
+      if (fileName.lastIndexOf("\\") > -1) index = fileName.lastIndexOf("\\");
+      title = fileName.substring(index + 1) + " - ";
+    }
+  
+    let appInstance = BrowserWindow.getFocusedWindow();
+    if (appInstance) {
+      appInstance.setTitle(title + I18n.__("sAppName"));
+    }
+  });
+
+  ipcMain.on('openDialog', (event, argvString) => {
+    let argv = JSON.parse(argvString);
+    dialog.showOpenDialog(argv)
+      .then(result => {
+        event.sender.send('openDialog-reply', JSON.stringify(result));
+      })
+  });
+
+  ipcMain.on('saveDialog', (event, argvString) => {
+    let argv = JSON.parse(argvString);
+    dialog.showOpenDialog(argv)
+      .then(result => {
+        event.sender.send('saveDialog-reply', JSON.stringify(result));
+      })
   });
 })();

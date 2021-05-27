@@ -1,4 +1,4 @@
-import { remote } from "electron";
+import { ipcRenderer } from "electron";
 import { sExportTitle, arrExtensions } from "../define";
 import { naotuBase } from "./base";
 import { saveKm, openKm } from "./file";
@@ -19,13 +19,18 @@ import { getDefaultPath } from "./minder";
 export function openDialog() {
   if (naotuBase.HasSaved()) {
     // 已经保存了，本窗口打开
-    remote.dialog.showOpenDialog({ filters: [{ name: sExportTitle, extensions: arrExtensions }] })
-      .then(result => {
-        let fileNames = result.filePaths
-        if (!fileNames) return;
 
-        openKm(fileNames[0]);
-      })
+    ipcRenderer.once('openDialog-reply', (event, resultString) => {
+      let result = JSON.parse(resultString);
+      console.log(result);
+      let fileNames = result.filePaths;
+      if (!fileNames) return;
+
+      openKm(fileNames[0]);
+    });
+
+    ipcRenderer.send('openDialog', JSON.stringify({ filters: [{ name: sExportTitle, extensions: arrExtensions }] }));
+
   } else {
     bootbox.alert(I18n.__("sSaveTip"));
   }
@@ -69,22 +74,18 @@ export function saveAsDialog() {
     newPath = getDefaultPath(rootPath); // 生成一个文件的地址
   }
 
+  ipcRenderer.once('saveDialog-reply', (event, resultString) => {
+    let result = JSON.parse(resultString);
+    console.log(result);
+    let fileName = result.filePath;
+    if (!fileName) return;
 
-  remote.dialog.showSaveDialog(
-    {
-      title: I18n.__("sSaveKm"),
-      defaultPath: newPath,
-      filters: [{ name: sExportTitle, extensions: arrExtensions }]
-    })
-    .then(result => {
-      let filePath = result.filePath
-      if (!filePath) return; // cancel save
+    saveKm(fileName);
 
-      saveKm(filePath);
+    naotuBase.setCurrentKm(fileName);
+  });
 
-      naotuBase.setCurrentKm(filePath);
-    })
-
+  ipcRenderer.send('saveDialog', JSON.stringify({title: I18n.__("sSaveKm"), defaultPath: newPath, filters: [{ name: sExportTitle, extensions: arrExtensions }]}));
 }
 
 /**
@@ -94,15 +95,17 @@ export function setSavePath() {
   try {
     let conf = naotuConf.getModel();
 
-    remote.dialog.showOpenDialog({ properties: ["openDirectory"], defaultPath: conf.defSavePath })
-      .then(result => {
-        let fileNames = result.filePaths
-        if (fileNames) {
-          // 更新配置文件
-          conf.defSavePath = fileNames[0];
-          naotuConf.save(conf);
-        }
-      })
+    ipcRenderer.once('openDialog-reply', (event, resultString) => {
+      let result = JSON.parse(resultString);
+      console.log(result);
+      let fileNames = result.filePaths;
+      if (!fileNames) return;
+
+      conf.defSavePath = fileNames[0];
+      naotuConf.save(conf);
+    });
+
+    ipcRenderer.send('openDialog', JSON.stringify({ properties: ["openDirectory"], defaultPath: conf.defSavePath }));
   } catch (ex) {
     logger.error(ex);
   }
@@ -136,28 +139,26 @@ export function exportDialog() {
     }
   }
 
-  remote.dialog.showSaveDialog(
-    {
-      title: I18n.__("sExportKm"),
-      defaultPath: newPath,
-      filters: filters
-    })
-    .then(result => {
-      let fileName = result.filePath
-      if (!fileName) return; // cancel export
+  ipcRenderer.once('saveDialog-reply', (event, resultString) => {
+    let result = JSON.parse(resultString);
+    console.log(result);
+    let fileName = result.filePath;
+    if (!fileName) return;
 
-      let ext = fileName.toLowerCase().substring(fileName.lastIndexOf("."));
-      let protocol = null;
-      let pool = kityminder.data.getRegisterProtocol();
-      for (let name in pool) {
-        if (pool.hasOwnProperty(name) && pool[name].encode) {
-          if (pool[name].fileExtension === ext) {
-            protocol = pool[name];
-            break;
-          }
+    let ext = fileName.toLowerCase().substring(fileName.lastIndexOf("."));
+    let protocol = null;
+    let pool = kityminder.data.getRegisterProtocol();
+    for (let name in pool) {
+      if (pool.hasOwnProperty(name) && pool[name].encode) {
+        if (pool[name].fileExtension === ext) {
+          protocol = pool[name];
+          break;
         }
       }
+    }
 
-      exportFile(protocol, fileName);
-    })
+    exportFile(protocol, fileName);
+  });
+
+  ipcRenderer.send('saveDialog', JSON.stringify({title: I18n.__("sExportKm"), defaultPath: newPath, filters: filters}));
 }
