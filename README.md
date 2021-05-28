@@ -52,42 +52,21 @@
 
 ```bash
 # 安装必备工具
-npm install -g gulp
-npm install -g bower
+yarn install -g gulp
+yarn install -g bower
 
 # 自动安装依赖
-npm install
+yarn install
 bower install
 ```
 
-#### 2. 更换graceful-fs版本（对于Node `v10.x`及以上版本）
-
-```bash
-npm install graceful-fs
-
-# 如果仍出现"ReferenceError: primordials is not defined" 的错误，
-# 则删掉cnpm安装的旧版本
-rm -rf node_modules/_graceful-fs@3.0.12@graceful-fs
-
-# 如果某个子模块依赖旧版本graceful-fs，则请根据报错信息，
-# 切换到该模块目录下更新。
-cd node_modules/<PATH_TO_MODULE_USING_DEPRECATED_GRACEFUL_FS>
-npm install graceful-fs@4.x
-```
-
-#### 3. 更换`@types/node`版本
-
-```bash
-npm install @types/node@12.x
-```
-
-#### 4. 开始编译
+#### 2. 开始编译
 
 ```bash
 gulp
 ```
 
-#### 5. 测试运行
+#### 3. 测试运行
 
 ```bash
 npm run demo
