@@ -1,5 +1,4 @@
 import { naotuConf, IRecentlyItem } from "../core/conf";
-import { naotuMenu } from "./menu";
 import { logger } from "../core/logger";
 import { openKm } from "./file";
 import moment = require("moment");
@@ -55,7 +54,8 @@ export function addRecentlyRecord(filePath: string) {
     naotuConf.save(confObj);
 
     // 重新显示菜单
-    naotuMenu.render();
+    // @TODO
+
   } catch (ex) {
     logger.error(ex);
   }
@@ -76,7 +76,8 @@ export function clearRecently() {
     naotuConf.save(confObj);
 
     // 重新显示菜单
-    naotuMenu.render();
+    // @TODO
+    
   } catch (ex) {
     logger.error(ex);
   }

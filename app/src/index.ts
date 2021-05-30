@@ -1,7 +1,6 @@
 // --> ipcRender 渲染线程的入口
 import { logger } from "./core/logger";
 import { I18n } from "./core/i18n";
-import { naotuMenu } from "./lib/menu";
 import { naotuConf } from "./core/conf";
 import { openFileByDrop, openKm } from "./lib/file";
 import { saveDialog } from "./lib/dialog";
@@ -9,13 +8,15 @@ import { monitorExitRequest } from "./lib/exit";
 import { naotuBase } from "./lib/base";
 import { onSelectedNodeItem, hasData } from "./lib/minder";
 import { ipcRenderer } from "electron";
-import { shortcutDialog } from "./ui/shortcut";
+import { shortcutDialog } from "./front/shortcut";
 
 // 进入即记录日志
 logger.info("ipcRender init");
 
-// 初始化渲染菜单
-naotuMenu.render();
+// Menu event bind
+ipcRenderer.on('menu-click', (event, msg) => {
+  console.log(JSON.parse(msg));
+});
 
 // 开启拖动打开文件的功能
 openFileByDrop();
@@ -75,6 +76,7 @@ $(function() {
     }
   }
 });
+
 
 function openUrl(url: string) {
   require("electron").shell.openExternal(url);

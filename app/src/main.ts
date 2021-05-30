@@ -4,6 +4,7 @@ import { logger } from "./core/logger";
 import { naotuConf } from "./core/conf";
 import { sIndexUrl } from "./define";
 import { I18n } from "./core/i18n";
+import { naotuMenu } from "./ui/menu";
 
 // Main Method
 (() => {
@@ -110,6 +111,8 @@ import { I18n } from "./core/i18n";
         e.preventDefault();
       }
     });
+
+    Menu.setApplicationMenu(naotuMenu.getMenu());
   };
 
   // This method will be called when Electron has finished
